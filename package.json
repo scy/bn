@@ -1,0 +1,28 @@
+{
+  "name": "bn",
+  "version": "0.3.0",
+  "description": "Lecture “Betriebssysteme und Netze” by Tim Weber",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/scy/bn"
+  },
+  "keywords": [
+    "bn",
+    "lecture"
+  ],
+  "author": "Tim Weber",
+  "license": "Copyright",
+  "bugs": {
+    "url": "https://github.com/scy/bn/issues"
+  },
+  "homepage": "https://github.com/scy/bn",
+  "dependencies": {
+    "gulp": "^3.6.0",
+    "scylec": "scy/scylec",
+    "jquery": "^1.11.0"
+  }
+}
