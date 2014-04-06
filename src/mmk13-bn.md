@@ -760,3 +760,136 @@ Nun ist das mit dem Wiedereinlagern von Seiten natürlich nicht ganz so einfach,
 Wenn nun die gerade ausgelagerten Seiten wieder gebraucht werden, müssen diese natürlich wieder eingelagert und daher andere ausgelagert werden. Wenn Sie viele oder speicherhungrige Programme benutzen, kann es passieren, dass das Betriebssystem nur noch mit dem Aus- und Einlagern beschäftigt ist. Die Platte rattert ununterbrochen, Programme kommen kaum noch dazu, etwas Sinnvolles zu tun, die Geschwindigkeit des Rechners ist massiv reduziert.
 
 Diesen Zustand nennt man Seitenflattern oder _Thrashing_, und er weist darauf hin, dass die Möglichkeiten Ihres Computers ziemlich ausgereizt sind. Wollen Sie flüssig weiterarbeiten, bleibt Ihnen nicht viel übrig, außer mehr RAM einzubauen, Programme zu schließen oder weniger ressourcenintensive Software zu benutzen. Beispielsweise müssen Sie zum Betrachten eines Fotos nicht gleich Photoshop starten, der mitgelieferte Bildbetrachter Ihres Betriebssystems reicht auch.
+
+## Dateien
+
+###### Was sind Dateien?
+* Kofferwort aus Daten und Kartei
+* in einem Dateisystem gespeicherte Folge aus Bytes mit einem bestimmten Namen
+* hunderttausende auf jedem Rechner
+* Größe von wenigen Bytes bis mehrere Giga- oder gar Terabytes
+* abgesehen von technischen Limitierungen ist die Größe nicht beschränkt
+***
+
+###### Arten von Dateien
+* Programme (_ausführbare_ Dateien)
+* Dokumente (Dateien für Endanwenderinnen, i.d.R. mit bestimmtem Programm zu öffnen)
+* temporäre Dateien (Zwischenergebnisse von Berechnungen etc.)
+* Konfigurationsdateien (für Software)
+* Cachedateien (z.B. lokale Kopien von Resourcen aus dem Internet)
+* u.v.m., rein technisch kein Unterschied zwischen den Arten
+***
+
+###### Hierarchie
+* Dateien liegen in _Ordnern_ (Folder)
+  * Linux und div. Unixe sagen _Verzeichnis_ (Directory)
+* Ordner können Unterordner enthalten
+* unter Windows versch. Laufwerke (C:, D:) als oberste Ebene
+* unter Unixen werden alle Laufwerke in einen gemeinsamen Verzeichnisbaum eingehängt (gemounted), ob. Ebene ist _/_ (Slash, Root)
+***
+
+###### Pfade
+* wie man die Hierarchie durchlaufen muss, um eine Datei bzw. einen Ordner zu finden
+* Trennzeichen Windows: ›\‹, Unix: ›/‹
+* absoluter Pfad: eindeutig
+  * C:\Documents\scy\Music\American Pie.mp3
+  * /Users/scy/Music/American Pie.mp3
+* relativer Pfad: abhängig von Bezugspunkt
+  * ../../Music/American Pie.mp3
+  * Bezugspunkt z.B. /Users/scy/Dropbox/MMK13
+  * ›..‹ bedeutet ›eine Ebene höher‹
+* OS hat pro Prozess ein _Arbeitsverzeichnis_
+***
+
+###### Metadaten/Dateiattribute
+* Größe, Erstellungs-/Änderungsdatum
+* Windows: versteckt/System/Archiv
+* besitzende Benutzerin/Gruppe
+* Zugriffsberechtigungen: Unix-Rechtesystem oder Access Control Lists (ACL)
+* je nach OS verschiedene, teils frei definierbare Zusatzinformationen
+  * Kommentare, Tags, farbliche Hervorhebungen
+  * dateispezifische Metadaten, z.B. Interpret und Titel bei Musikstücken
+***
+
+###### Speicherung von Dateien auf einem Datenträger
+* Datenträger speichert einfach Bitfolgen in Blöcke fester Größe (oft 512 Byte)
+* Organisation ist Aufgabe eines _Dateisystems_
+* es weiß, welche Blöcke frei/belegt sind
+* hat Startpunkt (Wurzel)
+* speichert Ordner und Dateien
+* speichert (stark vereinfacht) »Datei x.txt liegt in Blöcken 123, 124, 125, 246 und 23«
+* Details später
+***
+
+###### Fragmentierung
+* Verteilung von Dateien auf unzusammenhängende Bereiche der Platte
+* verringert Performance wg. Spurwechsel
+* passiert z.B. wenn Datei angelegt wird, zweite Datei dahinter geschrieben, dann erste Datei vergrößert: neuer Teil muss auf anderen Bereich der Platte
+* Gegenmaßnahme: Defragmentierungs-Programme, die Blöcke umsortieren und Dateien wieder zusammenhängen
+***
+
+###### Partitionen
+* (virtuelles) Aufteilen der Festplatte in einzelne, unabhängige Teilbereiche
+* jede Partition hat ihr eigenes Dateisystem
+* z.B. nötig um mehrere OSe gleichzeitig auf nur einer Festplatte zu installieren
+* auch gut zur Trennung von OS und Daten oder zum Verwenden von speziellen oder getunten Dateisystemen für Teile der Daten
+* die meisten Platten werden heutzutage partitioniert geliefert, oft mit genau einer Partition
+***
+
+###### Partitionstabelle
+* am Anfang der Festplatte
+* listet Partitionsgrenzen und -typen auf
+* durch spezielle Software veränderbar
+* altes Format: MBR (seit 80ern)
+  * unterstützt nur 4 „primäre“ Partitionen, bzw. 3 primäre und 1 „erweiterte“ mit beliebig vielen Unterpartitionen
+  * Maximalgröße 2 TiB
+* neues Format: GUID Parition Table (GPT)
+  * unterstützt mind. 128 Partitionen
+  * Maximalgröße 8 ZiB
+***
+
+## lokale Dateisysteme
+
+###### FAT12/16/32, VFAT
+* MS-DOS, später Windows
+* 2ⁿ Sektoren werden zu _Clustern_ zusammengefasst
+* Zahl im Namen bezeichnet Anzahl Bits für Nummerierung d. Cluster
+* Datei-/Ordnernamen 8 Zeichen plus 3 Zeichen Erweiterung (LIESMICH.TXT)
+* VFAT (W. 95): Dateinamen bis 255 Zeichen
+* max. Dateigröße 4 GiB, Volume max. 2 TiB
+* Struktur der FAT-Familie recht einfach, daher unterstützt von fast allen OSen
+***
+
+###### NTFS
+* ›New Technology File System‹, Windows-NT-Linie
+* 256 TiB Max.größe des FS, 16 TiB pro Datei
+* erweiterte Features
+  * lange Dateinamen, ACLs
+  * mehrere Namen für eine Datei (Hardlinks)
+  * mehrere Datenströme für eine Datei
+  * transparente Verschlüsselung und Kompression
+* proprietär, musste für Unterstützung in anderen OSen reverse-engineered werden
+* daher unter Nicht-Windows oft nur Lesezugriff (weil Schreibzugriff instabil wäre)
+***
+
+###### HFS+
+* Standard-Dateisystem unter Mac OS ≥ 8.1
+* max. Datei-/Volumegröße 8 Exabyte
+* 255 Zeichen Unicode-Dateinamen
+* seit 10.4 ACLs, davor nur Unix-Permissions
+* transparente Kompression seit 10.6
+* transparente Verschlüsselung seit 10.7
+* Forks (mehrere Datenströme pro Datei)
+* unter Windows mit Zusatzsoftware nur lesbar
+* unter Linux mit Zusatzsoftware beschreibbar
+***
+
+###### ext(2/3/)4
+* second/third/fourth extended file system
+* „Standard“ unter Linux
+* 255 Bytes Dateinamenlänge
+* max. Dateigröße 16 TiB, Volume max. 1 EiB
+* keine Kompression oder Crypto (wird unter Linux eine Ebene tiefer durch Crypto-Blockdevices umgesetzt)
+* unter Windows ext4 nur rudimentär unterstützt, Vorgänger besser
+* unter OS X gar nicht
+***
