@@ -763,6 +763,8 @@ Diesen Zustand nennt man Seitenflattern oder _Thrashing_, und er weist darauf hi
 
 ## Dateien
 
+Von Dateien haben Sie alle schon mal gehört. Sie arbeiten womöglich täglich mit Dateien. Die sind halt irgendwie auf Ihrem Computer gespeichert, man kann sie durch die Gegend kopieren und bearbeiten und löschen und so weiter. Aber worum genau handelt es sich bei Dateien?
+
 ###### Was sind Dateien?
 * Kofferwort aus Daten und Kartei
 * in einem Dateisystem gespeicherte Folge aus Bytes mit einem bestimmten Namen
@@ -770,6 +772,16 @@ Diesen Zustand nennt man Seitenflattern oder _Thrashing_, und er weist darauf hi
 * Größe von wenigen Bytes bis mehrere Giga- oder gar Terabytes
 * abgesehen von technischen Limitierungen ist die Größe nicht beschränkt
 ***
+
+Das Wort ›Datei‹ ist eine Kombination aus ›Daten‹ und ›Kartei‹ und spiegelt wider, wie man vor dem Computerzeitalter Informationen gepflegt hat: auf Papier, in Karteikästen oder Akten. Im Englischen heißen Dateien sogar direkt einfach _file_: ›Akte‹.
+
+Wenn ich definieren sollte, was eine Datei ausmacht, dann wären das drei Dinge:
+
+* sie beinhaltet eine endliche Folge von Bytes,
+* ist in einem _Dateisystem_ gespeichert (durchs Netzwerk fliegende Datenpakete oder Informationen im RAM sind folglich keine Dateien) und
+* hat einen Namen.
+
+Auf jedem Computer finden sich tausende, oft hunderttausende von ihnen, und sie haben ganz unterschiedliche Inhalte und Aufgaben. Auch in der Größe variieren sie stark: Von leeren Dateien (0 Byte Inhalt) bis zu Dateien, die mehrere Gigabyte oder gar Terabyte groß werden können ist alles dabei. In der Theorie gibt es keine Begrenzung, wie groß eine Datei werden kann (solange sie eine _endliche_ Anzahl Bytes enthält), aber in der Praxis finden Dateigrößen ihre Grenze entweder aufgrund technischer Limitierungen (maximale vom Dateisystem erlaubte Größe oder Größe der sie enthaltenden Festplatte) oder weil sie schlicht unhandlich werden.
 
 ###### Arten von Dateien
 * Programme (_ausführbare_ Dateien)
@@ -780,13 +792,37 @@ Diesen Zustand nennt man Seitenflattern oder _Thrashing_, und er weist darauf hi
 * u.v.m., rein technisch kein Unterschied zwischen den Arten
 ***
 
-###### Hierarchie
+Obwohl alle Dateien im Prinzip nur ein Haufen Bytes mit einem Namen sind, unterscheidet man trotzdem je nach Inhalt oder Funktion verschiedene _Arten_. Ein paar davon will ich kurz ansprechen.
+
+Bei den Dateien, mit denen Sie wohl am häufigsten arbeiten, handelt es sich um Texte, Bilder, Präsentationen, Musik, Videos und Ähnliches. Wir nennen diese Art von Dateien _Dokumente_, und sie haben gemein, dass sie für Endanwenderinnen am interessantesten sind. Sie enthalten die eigentlichen Früchte Ihrer Arbeit und werden üblicherweise mit einem bestimmten Programm geöffnet: Beispielsweise Textdateien mit Word, MP3-Musik mit iTunes oder HTML-Dateien mit einem Browser wie Firefox. Hier wird bereits klar, dass es durchaus mehrere Programme geben kann, die einen bestimmten Dateityp öffnen können. Beispielsweise kann ich PDFs mit dem Adobe Reader, Chrome, Illustrator oder der Mac-Dateivorschau öffnen. Mit welchen Dateitypen ein Programm zurecht kommt und was es mit den Dateien dann tun kann ist abhängig vom Programm.
+
+Und da wir gerade von ihnen sprechen: Auch die Programme selbst, d.h. die Befehle und Daten, aus denen sie bestehen, sind in Dateien gespeichert. Wenn ein Programm gestartet werden soll, kopiert das Betriebssystem den Inhalt dieser Programmdatei von der Festplatte in den Arbeitsspeicher und weist den Prozessor an, die Befehle von dort auszuführen.
+
+Programme legen auch oft _temporäre_ (d.h. für einen begrenzten Zeitraum bestimmte) Dateien an, in denen sie Zwischenergebnisse speichern, kurzfristige Sicherungskopien vorhalten etc.
+
+Zur Gattung der temporären Dateien gehören auch die sogenannten _Cachedateien_: Da der Zugriff auf Daten auf der Festplatte schneller ist als der auf Daten im Internet, speichert ein Browser Kopien von allen Seiten, Bildern und sonstigen Ressourcen der Webseiten, auf die Sie zugreifen. Beim nächsten Zugriff werden die Daten dann nicht erneut über das Internet übertragen, sondern von der Festplatte geliefert. So ist beispielsweise das Facebook-Logo bei jedem Seitenaufruf das selbe: Es wird nur beim ersten Zugriff von Facebook heruntergeladen, bei allen weiteren benutzt der Browser die auf der Festplatte gespeicherte Kopie.
+
+Auch die Einstellungen, die Sie an einer Software vornehmen, müssen irgendwo gespeichert werden. Viele Programme benutzen hierfür _Konfigurationsdateien_: In diesen Dateien steht dann beispielsweise Ihre bevorzugte Sortierung für Ihre MP3-Dateien, welche Sprache Sie sprechen, ob Sie Dokumente in Graustufen oder Farbe drucken möchten und vieles mehr.
+
+Vergessen Sie bei all dem aber nicht: Technisch besteht zwischen diesen Dateien kein Unterschied. Alle sind sie Folgen von Bytes mit einem Namen.
+
+### Hierarchie
+
+###### ~
 * Dateien liegen in _Ordnern_ (Folder)
   * Linux und div. Unixe sagen _Verzeichnis_ (Directory)
 * Ordner können Unterordner enthalten
 * unter Windows versch. Laufwerke (C:, D:) als oberste Ebene
 * unter Unixen werden alle Laufwerke in einen gemeinsamen Verzeichnisbaum eingehängt (gemounted), ob. Ebene ist _/_ (Slash, Root)
 ***
+
+Dass Dateien in _Ordnern_ (Folder) liegen und dass Ordner nicht nur Dateien, sondern auch andere Ordner (_Unterordner_) enthalten können, brauche ich Ihnen vermutlich nicht zu sagen.
+
+Wichtiger ist da eher, dass es auch den Begriff _Verzeichnis_ (Directory) gibt, der genau das selbe bedeutet wie _Ordner_. Je nach Betriebssystem ist der eine oder der andere Begriff weiter verbreitet.
+
+Diese Hierarchie aus Ordnern und Unterordnern muss natürlich auch irgendwo einen Anfang haben, quasi den „obersten Ordner“. Unter Windows ist das das jeweilige _Laufwerk_, das mit einem Buchstaben, gefolgt von einem Doppelpunkt bezeichnet wird (z.B. ›C:‹ für die erste Festplatte). Es ist also anhand der Laufwerksbuchstaben direkt ersichtlich, auf welcher Festplatte die Datei liegt.
+
+Anders bei Unix-basierten Betriebssystemen: Dort gibt es ein einziges Wurzelverzeichnis, das mit einem einen einfachen Slash ›/‹ bezeichnet wird. Welches Laufwerk für diese privilegierte Position benutzt wird, ist konfigurierbar. Darunter gibt es eine ganz normale Verzeichnishierarchie. Andere Laufwerke können an einen beliebigen Ort in dieser Hierarchie _eingehängt_ (gemounted) werden und stellen dann ab dort ihre Inhalte bereit.
 
 ###### Pfade
 * wie man die Hierarchie durchlaufen muss, um eine Datei bzw. einen Ordner zu finden
@@ -801,7 +837,25 @@ Diesen Zustand nennt man Seitenflattern oder _Thrashing_, und er weist darauf hi
 * OS hat pro Prozess ein _Arbeitsverzeichnis_
 ***
 
-###### Metadaten/Dateiattribute
+Da Dateien durchaus den selben Namen haben dürfen, so lange sie nur in unterschiedlichen Ordnern liegen, braucht man eine Möglichkeit, eindeutig anzugeben, wo genau sich eine Datei denn befindet. Dafür schreibt man einfach die Ordnerverschachtelung hintereinander, unter Windows mit einem Backslash ›\‹ als Trennzeichen zwischen den Ordnernamen, unter Unix mit einem Slash ›/‹. Diese Schreibweise nennt man einen _Pfad_, weil sie angibt, wie die Hierarchie durchlaufen werden muss.
+
+Habe ich zum Beispiel in meinem Benutzerordner namens ›scy‹ (der auf meinem Mac im Ordner ›Users‹ im Wurzelverzeichnis liegt) einen Ordner ›Music‹ und darin eine Datei ›American Pie.mp3‹, dann wäre ein solcher Pfad ›/Users/scy/Music/American Pie.mp3‹.
+
+Der Pfad in diesem Beispiel beginnt mit einem Slash, er gibt also die vollständige Hierarchie von der Wurzel aus an. Man nennt einen solchen Pfad einen _absoluten_ Pfad. Unter Windows beginnen absolute Pfade mit dem Laufwerksbuchstaben, z.B. ›C:\Documents\scy\Music\American Pie.mp3‹.
+
+Das Gegenteil dazu ist ein _relativer_ Pfad. Er besagt beispielsweise: »gehe von dem Ordner, in dem du dich gerade befindest, in dessen übergeordneten Ordner, dann nochmal einen Ordner höher, dann von dort aus in den Unterordner Music, und dann findest du dort die Datei American Pie.mp3«. Niedergeschrieben erkennt man diese relativen Pfade daran, dass sie nicht mit einem Slash (unter Unix) bzw. einem Laufwerksbuchstaben (unter Windows) beginnen, beispielsweise ›../../Music/American Pie.mp3‹ (unter Unix) oder ›..\..\Music\American Pie.mp3‹ (unter Windows). Die Zeichenfolge ›..‹ bezeichnet hierbei den übergeordenten Ordner, bedeutet also »geh einen Ordner höher«.
+
+Ein solcher relativer Pfad kann nur in Verbindung mit einem Bezugspunkt, ab dem man anfängt, die Hierarchie zu durchlaufen, aufgelöst werden. Für das Beispiel oben könnte z.B. ›/Users/scy/Dropbox/MMK13‹ ein solcher Bezugspunkt sein: Nach den zwei ›..‹ im relativen Pfad befindet man sich in ›/Users/scy‹ und läuft dann weiter in den Ordner ›Music‹ und findet dort die Datei. Mit Hilfe eines (absoluten) Bezugspunktes kann man also einen relativen Pfad in einen absoluten umwandeln:
+
+* Bezugspunkt: /Users/scy/Dropbox/MMK13
+* relativer Pfad: ../../Music/American Pie.mp3
+* umgewandelt in absoluten Pfad: /Users/scy/Music/American Pie.mp3
+
+Jedes auf dem Computer laufende Programm hat einen impliziten solchen Bezugspunkt, der benutzt wird, wenn man keinen anderen angibt. Dieser Bezugspunkt nennt sich _Arbeitsverzeichnis_, und er kann sich während der Laufzeit des Programms ändern. Beispielsweise könnte nach dem Start von iTunes dessen Arbeitsverzeichnis ›/Users/scy‹ sein, sobald Sie aber die MP3-Datei unter ›Music‹ öffnen, setzt es ›/Users/scy/Music‹ als neues Arbeitsverzeichnis.
+
+### Metadaten/Dateiattribute
+
+###### ~
 * Größe, Erstellungs-/Änderungsdatum
 * Windows: versteckt/System/Archiv
 * besitzende Benutzerin/Gruppe
@@ -810,6 +864,39 @@ Diesen Zustand nennt man Seitenflattern oder _Thrashing_, und er weist darauf hi
   * Kommentare, Tags, farbliche Hervorhebungen
   * dateispezifische Metadaten, z.B. Interpret und Titel bei Musikstücken
 ***
+
+Dateien haben jedoch nicht nur einen Namen und einen Inhalt, sondern auch noch weitere Eigenschaften und Informationen, die sie näher beschreiben. Diese zusätzlichen Informationen nennt man _Metadaten_ (griech. _meta:_ über). Auch Ordner haben diese Metadaten. Einige davon dürften Sie bereits kennen, vor allem die Dateigröße und ihr Erstellungs- bzw. Änderungsdatum. Unter Windows gehören zu Dateien noch sogenannte Attribute, wie z.B. ob es sich um eine versteckte oder eine Systemdatei handelt, aber diese Attribute sollen uns jetzt nicht weiter interessieren.
+
+Es mag selbstverständlich klingen, dass zu einer Datei die Information gehört, wie groß sie ist. Aber für den Computer ist es nicht selbstverständlich: Wenn er sich nicht aufschriebe, wie groß die Datei ist, müsste er jedes Mal die Bytes zählen. Auch dass man das Erstellungs- und Änderungsdatum von Dateien einsehen können muss ist klar, aber auch diese Information ist nicht einfach automatisch vorhanden, sondern muss in den Metadaten der Datei hinterlegt werden. Das Betriebssystem (genauer: das Dateisystem, zu dem wir gleich kommen) kümmert sich darum, diese Informationen aktuell zu halten: Wird eine Datei verändert, so notiert sich das Dateisystem die neue Größe und aktualisiert das Änderungsdatum. Das beim Erstellen der Datei festgelegte Erstellungsdatum wird natürlich nur einmal gesetzt und nicht mehr verändert.
+
+Je nach Betriebssystem gibt es auch noch weitere Zusatzinformationen, die teils von den Benutzerinnen frei definiert werden können, beispielsweise farbliche Markierungen, Kommentare oder Tags, die helfen, Dateien zu organisieren.
+
+### Zugriffsberechtigungen
+
+Außerdem speichern moderne Betriebssysteme auch Informationen über die Zugriffsberechtigungen auf jede einzelne Datei bzw. jeden Ordner. Dazu gibt es zwei verschiedene Ansätze: Das Unix-Rechtesystem oder sogenannte Access Control Lists (ACLs).
+
+Beim Unix-Rechtesystem wird zu jeder Datei eine besitzende _Benutzerin_ und eine besitzende _Gruppe_ gespeichert, also z.B. _meier, buchhaltung_. Was diese Besitzer mit der Datei machen dürfen, wird über je drei sogenannte Zugriffs-Flags gesetzt, die entweder den Wert „ja“ oder den Wert „nein“ annehmen können. Diese drei Flags sind lesen (read, r), schreiben (write, w) und ausführen (execute, x). Man schreibt sie üblicherweise in dieser Reihenfolge hintereinander. Hat ein Flag den Wert „ja“ (man sagt, es ist _gesetzt_), schreibt man seinen Buchstaben, sonst einen Strich. Zusätzlich zu den Rechten für Benutzerin und Gruppe wird dann noch ein Satz Flags für „den Rest der Welt“ gespeichert, so dass die Rechteinformationen von einem Ordner und zwei Dateien beispielsweise so aussehen:
+
+    drwxrwx---  frank  buchhaltung  abrechnungen
+    -rw-rw-r--  meier  buchhaltung  budget2014.pdf
+    -rw-r-----  meier  buchhaltung  bilanz2013.pdf
+
+Das bedeutet, dass sowohl die Benutzerin `meier` als auch die Gruppe `buchhaltung` die Datei ›budget2014.pdf‹ lesen und beschreiben dürfen (für Besitzerin und Gruppe ist jeweils `rw-` gesetzt), andere Benutzerinnen die Datei jedoch nur lesen dürfen (`r--`). Die Datei mit der Bilanz hingegen darf nur Frau Meier beschreiben, der Rest der Buchhaltung darf sie nur lesen, und sonstige Benutzerinnen sind vom Zugriff gänzlich ausgeschlossen.  Der Ordner ›abrechnungen‹ hingegen gehört der Benutzerin `frank`; sowohl sie als auch die restliche Buchhaltung haben vollen Zugriff, sonst allerdings niemand. Während das Recht ›ausführen‹ bei Dateien bedeutet, dass es sich um ein lauffähiges Programm handelt, bedeutet es bei Ordnern, dass man auf darin befindliche Dateien prinzipiell zugreifen darf – das Flag ›lesen‹ bei Ordnern legt hingegen fest, ob man sich ihren Inhalt anzeigen lassen kann. Von Zeit zu Zeit sieht man daher die Flags `--x` auf Ordnern, mit der Bedeutung »du darfst auf im Ordner gespeicherte Dateien zugreifen, wenn du ihren Namen kennst und die Rechte der Datei es nicht anderweitig einschränken«. Und last but not least sehen Sie bei dem Ordner im obigen Beispiel die Bedeutung des Zeichens ganz links: Dort, wo „normale“ Dateien einen Strich haben, haben Ordner ein ›d‹ für _Directory_.
+
+Sie können sich womöglich vorstellen, dass dieses System seine Schwächen hat: Was, wenn ich zwei Gruppen den Zugriff auf eine Datei erlauben möchte? Oder allen, bis auf eine bestimmte Benutzerin? Hier muss man sich beim Unix-Rechtesystem mit Tricks behelfen, beispielsweise dem Anlegen zusätzlicher Gruppen oder über kluge Verschachtelung von Ordnern.
+
+Anders sieht das bei ACLs aus. Hierbei handelt es sich quasi um den „intuitiven“ Ansatz: Jede Datei und jeder Ordner besitzen eine Art Tabelle, in der man Benutzer oder Gruppen und deren Berechtigungen eintragen kann. Diese Tabellen können beliebig lang werden, beispielsweise:
+
+* Gruppe Buchhaltung darf lesen und schreiben
+* Gruppe Geschäftsleitung darf lesen und schreiben
+* Benutzer `Hotzenplotz` darf weder lesen noch schreiben
+* alle anderen Benutzerinnen dürfen lesen
+
+Diese Listen müssen natürlich nicht für jede Datei einzeln gepflegt werden, sondern standardmäßig erben Dateien und Ordner die Zugriffsberechtigungen des Ordners, in dem sie enthalten sind.
+
+Das Unix-Rechtesystem ist für den Computer einfacher zu verwalten, insbesondere da die Rechte immer eine feste Größe (eine Benutzerin, eine Gruppe, neun Rechteflags) haben. ACLs sind dafür für Anwenderinnen intuitiver zu benutzen. Windows benutzt ausschließlich ACLs. Alle modernen Unixe (auch OS X) benutzen das Unix-Rechtesystem, erlauben aber zusätzlich die Verwendung von ACLs für einzelne Dateien oder Ordner, um so maximale Flexibilität zu erreichen.
+
+### Physische Speicherung
 
 ###### Speicherung von Dateien auf einem Datenträger
 * Datenträger speichert einfach Bitfolgen in Blöcke fester Größe (oft 512 Byte)
@@ -821,6 +908,12 @@ Diesen Zustand nennt man Seitenflattern oder _Thrashing_, und er weist darauf hi
 * Details später
 ***
 
+Wie wir bereits wissen, ist eine Festplatte ein Gerät, das Blöcke von Bytes speichert, die alle eine feste Größe haben. Eine Festplatte kennt das Konzept „Datei“ nicht, sie ist einfach nur ein Behälter für Bytes. Es ist Aufgabe eines _Dateisystems_, die Verwaltung dieser Blöcke zu übernehmen, verschieden große Dateien in die immer gleich großen Blöcke zu verteilen und dabei den Überblick nicht zu verlieren. Dateisysteme sind im Prinzip Standards, die festlegen, wie die Blöcke verwaltet werden, wie das Inhaltsverzeichnis aussieht und wo es gespeichert ist, welche Metadaten es gibt und vieles mehr. Ein Betriebssystem besitzt üblicherweise mehrere _Dateisystemtreiber_, mit denen es Dateien auf Festplatten speichern und wieder einlesen kann. Jeder dieser Dateisystemtreiber versteht jeweils ein anderes Dateisystem. Denn es gibt mehrere Dateisysteme, die unterschiedliche Features und Eigenschaften haben. Je nach Einsatzzweck eignet sich das eine Dateisystem mehr als ein anderes.
+
+Das Dateisystem führt Buch darüber, welche Blöcke frei und welche belegt sind, verteilt Ordner und Dateien über die Blöcke und verwaltet ein Inhaltsverzeichnis für jeden Ordner. In diesem Inhaltsverzeichnis sind die Namen und Positionen von Unterordnern und Dateien niedergeschrieben.
+
+Dabei ist wichtig, dass die Position einer Datei auf der Festplatte nicht einfach aus „fängt an Block 123 an und ist 50.000 Blöcke lang“ besteht. Denn die Blöcke, die eine Datei belegt, müssen nicht unbedingt hintereinander liegen.
+
 ###### Fragmentierung
 * Verteilung von Dateien auf unzusammenhängende Bereiche der Platte
 * verringert Performance wg. Spurwechsel
@@ -828,13 +921,31 @@ Diesen Zustand nennt man Seitenflattern oder _Thrashing_, und er weist darauf hi
 * Gegenmaßnahme: Defragmentierungs-Programme, die Blöcke umsortieren und Dateien wieder zusammenhängen
 ***
 
-###### Partitionen
+Nehmen wir einmal an, Sie legen eine Datei an, die 1500 Byte groß ist. Vielleicht speichert sie das Dateisystem in die drei Blöcke 123, 124 und 125. Dann legen Sie eine weitere Datei an, die diesmal 120 Blöcke belegt. Das Dateissystem speichert sie in den Blöcken 126 bis 245. Und jetzt entscheiden Sie sich, an die _erste_ Datei noch 200 Byte anzuhängen. Das Dateisystem kann diese Bytes nicht in Block 126 schreiben, da dieser schon von der zweiten Datei belegt wird.
+
+Es gibt jetzt im Prinzip zwei Möglichkeiten: Platz schaffen oder an einer anderen Stelle weiter schreiben. Platz schaffen würde aber bedeuten, dass die ganzen 120 Blöcke der Datei dahinter auf eine andere Stelle verschoben werden müssten. Je nachdem, wie groß die Datei ist, die weichen muss, kann das eine ganze Zeit lang dauern. Deshalb wird das nicht gemacht, stattdessen schreibt das Dateisystem in einem anderen freien Block, z.B. 246, weiter. Ihre erste Datei ist jetzt nicht mehr in einem zusammenhängenden Bereich gespeichert. Sie wurde _fragmentiert_.
+
+Je weiter diese Teile Ihrer Datei auseinander liegen, desto öfter muss der Schreib-/Lesekopf der Festplatte Sprünge zum nächsten Teil machen; er kann die Datei nicht einfach in einem Stück hintereinander weg lesen. Diese Sprünge kosten Zeit, und je stärker die Datei fragmentiert ist, desto mehr. Deshalb versucht man, diese Fragmentierung möglichst zu vermeiden. Je nach Datei- und Betriebssystem können Sie dafür ein _Defragmentierungsprogramm_ benutzen, das die Blöcke mit viel Zeitaufwand umsortiert. Danach ist die Performance allerdings verbessert. Modernere Dateisysteme führen diese Defragmentierungen teilweise im Hintergrund aus, wenn nichts anderes zu tun ist, oder sie benutzen kluge Taktiken, um sie gar nicht erst überhand nehmen zu lassen.
+
+Auf SSD-Festplatten gibt es diesen Geschwindigkeitsnachteil übrigens nicht, da sie keinen Schreib-/Lesekopf haben und von allen Stellen gleich schnell lesen können. Daher ist Fragmentierung bei SSDs ein vernachlässigbares Problem.
+
+### Partitionen
+
+###### ~
 * (virtuelles) Aufteilen der Festplatte in einzelne, unabhängige Teilbereiche
 * jede Partition hat ihr eigenes Dateisystem
 * z.B. nötig um mehrere OSe gleichzeitig auf nur einer Festplatte zu installieren
 * auch gut zur Trennung von OS und Daten oder zum Verwenden von speziellen oder getunten Dateisystemen für Teile der Daten
 * die meisten Platten werden heutzutage partitioniert geliefert, oft mit genau einer Partition
 ***
+
+Wie bereits erwähnt haben verschiedene Dateisysteme verschiedene Vor- und Nachteile und eignen sich für bestimmte Einsatzgebiete unterschiedlich gut. Es kann daher manchmal wünschenswert sein, auf ein und der selben Festplatte verschiedene Dateisysteme zu benutzen. Dafür ist es jedoch nötig, die Festplatte aufzuteilen; diesen Vorgang nennt man _Partitionieren_. Man legt beispielsweise fest, dass die Blöcke 1 bis 10.000.000 die erste und 10.000.001 bis 50.000.000 die zweite Partition sind. Eine Partition muss aus einem zusammenhängenden Bereich an Blöcken bestehen. Es kann nur ein Dateisystem pro Partition geben.
+
+Ein Grund für die Verwendung verschiedener Dateisysteme ist, wie angesprochen, dass man Teile seiner Daten auf einem Dateisystem halten möchte, das X besonders gut kann, andere Teile jedoch auf einem, das für Y optimiert ist. Oder man möchte Betriebssystem/Programme und seine Foto-/Videosammlung auf getrennten Partitionen halten, damit bei einer Neuinstallation nur eine der beiden Partitionen gelöscht wird und man die andere einfach behalten kann.
+
+Ein anderer möglicher Einsatzzweck ist, dass man verschiedene Betriebssysteme auf dem selben Rechner nutzen möchte. Eine solche Konfiguration nennt sich _Dual-Boot_; man kann beim Starten des Computers auswählen, welches Betriebssystem geladen werden soll. Auch hierfür braucht man mehrere Partitionen, denn jedes Betriebssystem erwartet die alleinige Herrschaft über die Partition, in die es installiert wurde. Außerdem hat jedes Betriebssystem quasi sein „Lieblingsdateisystem“, das für die Installation verwendet werden muss. Windows startet nur von einer NTFS-Partition, OS X nur von einer HFS+-Partition.
+
+Es ist übrigens durchaus erlaubt und sogar der Normalfall, die Festplatte in nur eine einzige Partiton aufzuteilen, die dann sämtliche Blöcke von Anfang bis Ende belegt. Wenn Sie eine Festplatte im Laden kaufen, ist diese genau auf diese Weise partitioniert.
 
 ###### Partitionstabelle
 * am Anfang der Festplatte
@@ -848,7 +959,17 @@ Diesen Zustand nennt man Seitenflattern oder _Thrashing_, und er weist darauf hi
   * Maximalgröße 8 ZiB
 ***
 
+In welche Partitionen eine Festplatte aufgeteilt ist und wo deren Grenzen liegen, steht in der _Partitionstabelle_, die sich im ersten Block der Festplatte befindet (damit sie auch verlässlich gefunden werden kann). Um die Festplatte zu partitionieren, muss man diese Tabelle modifizieren. Dafür liefert jedes Betriebssystem Software mit.
+
+Die meisten Festplatten sind heutzutage noch mit einer Partitionstabelle im sogenannten _MBR-Format_ ausgestattet, das maximal 2 TiB große Festplatten verwalten kann. Außerdem ist die Anzahl der möglichen Partitionen limitiert: Eigentlich unterstützt MBR nur maximal vier Partitionen. Man kann diese Beschränkung jedoch umgehen, indem man eine dieser vier Partitionen zu einer sogenannten _erweiterten_ Partition macht. Diese kann dann beliebig viele Unterpartitionen enthalten.
+
+Das neuere Format, GPT, kann Festplatten bis zu 8 ZiB (8.589.934.592 TiB) und bis zu 128 Partitionen verwalten und wird von allen aktuellen Betriebssystemen unterstützt. Allerdings wird es oft nur auf Festplatten eingesetzt, bei denen es nötig ist – sprich, die die 2-TiB-Grenze von MBR sprengen.
+
 ## lokale Dateisysteme
+
+In diesem Kapitel werden wir uns einige Dateisysteme genauer ansehen. _Lokale_ Dateisysteme bedeutet hierbei, dass es sich um  Dateisysteme handelt, die auf einer Festplatte eingesetzt werden; später lernen wir auch noch Netzwerk-Dateisysteme kennen, die sich mit dem Transfer von Dateien, die sich auf entfernten Rechnern befinden, beschäftigen.
+
+### FAT
 
 ###### FAT12/16/32, VFAT
 * MS-DOS, später Windows
@@ -856,9 +977,37 @@ Diesen Zustand nennt man Seitenflattern oder _Thrashing_, und er weist darauf hi
 * Zahl im Namen bezeichnet Anzahl Bits für Nummerierung d. Cluster
 * Datei-/Ordnernamen 8 Zeichen plus 3 Zeichen Erweiterung (LIESMICH.TXT)
 * VFAT (W. 95): Dateinamen bis 255 Zeichen
-* max. Dateigröße 4 GiB, Volume max. 2 TiB
+* max. Dateigröße 4 GiB, Volume max. 2 oder 8 TiB
 * Struktur der FAT-Familie recht einfach, daher unterstützt von fast allen OSen
 ***
+
+Das am weitesten verbreitete Dateisystem ist zweifelsohne FAT (File Allocation Table) in seinen verschiedenen Versionen, heutzutage hauptsächlich FAT32 und VFAT. Es wurde ursprünglich mit DOS eingeführt und auch von den auf DOS basierenden Windows-Versionen benutzt.
+
+DOS führt das Konzept der _Cluster_ ein, was nichts anderes ist als das Zusammenfassen von mehreren Blöcken bzw. Sektoren (im Kontext von Dateisystemen können diese beiden Begriffe synonym verwendet werden) zu einer größeren Einheit. Die Clustergröße wird beim Erstellen des Dateisystems für die komplette Partition festgelegt und ist eine Zweierpotenz: 1, 2, 4, 8, 16, 32 oder 64 Blöcke. Bei einer Clustergröße von 4 Blöcken und der üblichen Blockgröße von 512 Byte ist also die komplette Partition in 2048 Byte große Cluster aufgeteilt. FAT arbeitet nur mit ganzen Clustern und verwendet diese statt der Blöcke als kleinstmögliche Einheit.
+
+Im ursprünglichen FAT waren Dateinamen auf 8 Zeichen plus 3 Zeichen „Erweiterung“, die den Dateityp angab, beschränkt. Der Dateiname `Mettwurst.doc` war also bereits zu lang und konnte nicht vergeben werden. Diese ursprüngliche Einschränkung sehen Sie noch heute bei den Erweiterungen an Dateinamen: JPEG-Dateien enden auf `.jpg`, Textdateien auf `.txt`, Word-Dateien früher auf `.doc` – und nicht etwa `.word`.
+
+Das mit Windows 95 eingeführte VFAT hat diese Einschränkung nicht mehr, der Dateiname (inklusive Erweiterung) kann jetzt bis zu 255 Zeichen umfassen.
+
+Der große Vorteil von FAT als Dateisystem liegt darin, dass seine interne Struktur vergleichsweise einfach und gut dokumentiert ist – daher unterstützt so ziemlich jedes Betriebssystem den Zugriff auf FAT-Dateisysteme. Sie können also eine mit FAT formatierte Festplatte sowohl auf einem Mac, einem Windows-Rechner als unter Linux benutzen. Allerdings hat FAT Einschränkungen, die inzwischen immer störender werden: Die maximale Größe von Dateien und Partitionen.
+
+### Größenbeschränkungen
+
+Eine Datei darf auf FAT32 maximal ca. 4 GiB groß sein – aber warum gibt es diese Beschränkung?
+
+Dafür ist es wichtig zu verstehen, dass es für jede Datei einen Eintrag im Inhaltsverzeichnis des Ordners geben muss, der sie enthält. Bei FAT sind alle diese Einträge immer exakt gleich lang: 32 Byte. In diese 32 Byte müssen viele Informationen passen, unter anderem:
+
+* Dateiname und Erweiterung (8+3 Byte, bei der Verwendung von VFAT werden die „langen“ Dateinamen außerhalb dieses Inhaltsverzeichnisses gespeichert)
+* Dateiattribute (1 Byte)
+* Erstellungs-, Zugriffs- und Änderungsdatum (11 Byte)
+* Clusternummer, in der die Datei beginnt (2 Byte, 4 bei FAT32)
+* Dateigröße (4 Byte)
+
+Wenn aber die Dateigröße in 4 Byte passen muss, ist die größte Zahl, die man hier eintragen kann, 2³² – also 4.294.967.296. Das entspricht einer Größe von 4 GiB minus einem Byte. Größer darf die Datei nicht werden, weil FAT dann ihre Größe nicht mehr in das Inhaltsverzeichnis schreiben kann.
+
+Außerdem gibt es eine Einschränkung, was die maximale Größe der Partition angeht, auf der FAT verwendet werden kann: Bei FAT32 darf die verwendete Partition nicht größer sein als 2 oder 8 TiB, bei FAT16 sogar nur 2 GiB.
+
+Dieses Limit stammt daher, dass es auch für Clusternummern eine Längenbeschränkung gibt. Wenn also beispielsweise FAT32 in das Inhaltsverzeichnis speichern möchte, dass die Datei im Cluster Nummer X beginnt, dann darf X maximal 4 Byte (32 Bit, daher auch der Name FAT32) belegen. Aus verschiedenen Gründen sind jedoch einige Werte reserviert, so dass faktisch nur 28 Bit für die Clusternummer übrig bleiben. Die höchste Clusternummer ist also 268.435.456. Multipliziert mit der maximalen Clustergröße von 64 512-Byte-Blöcken ergibt sich eine maximale Dateisystemgröße von 268.435.456 × 32.768 Byte = 8.796.093.022.208 Byte. Das sind 8 TiB und die theoretische Maximalgröße einer FAT32-Partition. Doch da FAT-Dateisysteme eigentlich ausschließlich mit MBR-Partitionen benutzt werden, liegt das Limit in der Praxis bei nur 2 TiB – der Maximalgröße einer MBR-Partition.
 
 ###### NTFS
 * ›New Technology File System‹, Windows-NT-Linie
