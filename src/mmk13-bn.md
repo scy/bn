@@ -1042,3 +1042,103 @@ Dieses Limit stammt daher, dass es auch für Clusternummern eine Längenbeschrä
 * unter Windows ext4 nur rudimentär unterstützt, Vorgänger besser
 * unter OS X gar nicht
 ***
+
+## Netzwerk-Dateisysteme
+
+###### Netzwerk-Dateisysteme?
+* nicht wirklich _Dateisysteme_ im Sinne von „verantwortlich für physische Speicherung“
+* sondern Netzwerkprotokolle, die den Zugriff auf entfernte Dateien und deren Transfer regeln
+* unterstützen aber unterschiedliche Features
+* haben unterschiedliche Stärken/Schwächen
+* sind auf unterschiedlichen OSen daheim
+***
+
+###### Server Message Block (SMB) und CIFS
+* „Windows-Dateifreigabe“
+* proprietäres Protokoll von Microsoft
+* Zugriff auf Dateien, Drucker, serielle Ports
+* Auto-Discovery von teilnehmenden Rechnern über NetBIOS
+* Common Internet File System: halbherziger Versuch einer öffentlichen Standardisierung
+* SMB wurde reverse-engineered durch Open-Source-Softwareprojekt _Samba_
+* daher auch unterstützt auf OS X und Linux
+***
+
+###### Apple Filing Protocol (AFP)
+* Dateiaustausch für Macs
+* unterstützt die Übertragung von HFS+-Eigenschaften (ACLs, Forks etc.)
+* Auto-Discovery via Bonjour
+* keine Unterstützung unter Windows
+* Unterstützung unter Linux und anderen Unixen via Open-Source-Software Netatalk
+***
+
+###### Network File System (NFS)
+* in den 1980ern von Sun für SunOS (heute Solaris) entwickelt
+* sehr leichtgewichtig, aber auch anfällig gegenüber Netzwerkproblemen
+* nicht für Internetbetrieb gedacht
+* bis NFSv4 (2003) Authentifizierung nur anhand der IP-Adresse des Clients
+* von OS X unterstützt, sonst hauptsächlich in der Unix-Welt bzw. als Provisorium „wenn’s schnell gehen muss“
+***
+
+# Teil 2: Netze
+
+###### Was ist ein Netzwerk?
+* Zusammenschluss mehrerer Computer über Kabel-, Funk- oder sonstige Verbindungen
+* nicht nur „Computer“, auch Mobiltelefone, Radios, Sensoren, Personenwaagen, …
+* kleinste Netzwerke: Bluetooth zw. Mobiltelefon und Headset, WLAN-Tethering
+* größtes Netzwerk: das Internet, Zusammenschluss von unzähligen örtlichen Netzen (Local Area Networks, LANs)
+***
+
+### Das OSI-Referenzmodell
+
+###### ~
+![OSI-Modell](asset/osi-model.png "~float-right-smaller")
+* sieben Schichten der Netzwerk­kommunikation
+* Konzept bzw. Gedanken­konstrukt zur Unterteilung von Netzwerk­techniken auf verschiedene Ebenen
+* jede Schicht hat nur Verbindungen zu benachbarten ⇒ Reduzierung der Komplexität
+***
+
+###### Layer 1: Physical (Bitübertragung)
+* Netzwerkkarten, Kupferleitungen, Funk
+* alle möglichen Arten, auf die Daten übertragen werden können
+  * Ethernet, Wi-Fi, Bluetooth, RS-232, Brieftauben, …
+* Übertragungsmedium weiß nicht, was es genau überträgt (Katzenvideo? Banking?), kennt nur Bits und Bytes
+* Kommunikation nur mit direkten Nachbarn, nicht global
+* Adressierung per MAC
+***
+
+###### Layer 2: Data Link (Sicherung)
+* gedacht als Fehlererkennungs- und Korrekturschicht
+* Ethernet und WLAN arbeiten allerdings Layer-1-und-2-übegreifend, daher gibt es wenige reine Layer-2-Protokolle
+* die Ethernet-Teile MAC und LLC sind eher Layer 2 zuzuordnen
+* Einwahl- und DSL-Protokolle wie ATM und PPP existieren auf dieser Schicht
+***
+
+###### Layer 3: Network (Vermittlung)
+* Weiterleiten von Paketen durch das gesamte Netzwerk hindurch (im Internet: global)
+* von den verschiedenen Protokollen (IP, IPX, AppleTalk, …) heute fast ausschließlich IP in seinen beiden Versionen IPv4 und IPv6
+* Adressierung per IP-Adresse, also prinzipiell global
+***
+
+###### Layer 4: Transport
+* abstrahiert die ganzen, möglicherweise unterschiedliche Routen nehmenden, durcheinander ankommenden, teils verloren gegangenen Pakete weg und täuscht eine Ende-zu-Ende-Verbindung zwischen zwei Rechnern vor
+* heute fast ausschließlich TCP und UDP
+***
+
+###### Layer 5: Session (Sitzung)
+![Internet-Protokollsuite](asset/internet-model.png "~float-right-smaller")
+* im heutigen Internet keine klare Trennung zw. Layer 1 u. 2 sowie Layer 5–7 (siehe rechts)
+* gedacht für Definition einer „Sitzung“ mit Anfang und Ende
+* heute meist auf Layer 7 umgesetzt
+***
+
+###### Layer 6: Presentation (Darstellung)
+* gedacht als Übersetzer zwischen verschiedenen Systemen, Zeichensätzen, Kodierungen etc.
+* heute meist auf Layer 7 umgesetzt
+* SSL und TLS (Verschlüsselungsstandards) lassen sich auf Layer 6 einsortieren, da Layer-7-Protokolle sowohl mit als auch ohne sie nutzbar sind
+***
+
+###### Layer 7: Application (Anwendung)
+* hier laufen all die High-Level-Protokolle
+  * HTTP (Web), SMTP/POP/IMAP (Mail), XMPP (Jabber/Chat), IRC (Chat), SSH (Remote-Login), DNS (Namensauflösung), BitTorrent (Filesharing) uvm.
+* diese Protokolle können sich wg. den Schichten darunter verlassen, eine virtuelle Direktverbindung zu einem anderen Rechner irgendwo auf der Welt aufbauen zu können, ohne sich um die Details kümmern zu müssen
+***
