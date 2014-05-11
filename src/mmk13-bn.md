@@ -1088,7 +1088,7 @@ Dieses Limit stammt daher, dass es auch für Clusternummern eine Längenbeschrä
 * größtes Netzwerk: das Internet, Zusammenschluss von unzähligen örtlichen Netzen (Local Area Networks, LANs)
 ***
 
-### Das OSI-Referenzmodell
+## Das OSI-Referenzmodell
 
 ###### ~
 ![OSI-Modell](asset/osi-model.png "~float-right-smaller")
@@ -1096,6 +1096,8 @@ Dieses Limit stammt daher, dass es auch für Clusternummern eine Längenbeschrä
 * Konzept bzw. Gedanken­konstrukt zur Unterteilung von Netzwerk­techniken auf verschiedene Ebenen
 * jede Schicht hat nur Verbindungen zu benachbarten ⇒ Reduzierung der Komplexität
 ***
+
+### Die Schichten des OSI-Modells
 
 ###### Layer 1: Physical (Bitübertragung)
 * Netzwerkkarten, Kupferleitungen, Funk
@@ -1141,4 +1143,63 @@ Dieses Limit stammt daher, dass es auch für Clusternummern eine Längenbeschrä
 * hier laufen all die High-Level-Protokolle
   * HTTP (Web), SMTP/POP/IMAP (Mail), XMPP (Jabber/Chat), IRC (Chat), SSH (Remote-Login), DNS (Namensauflösung), BitTorrent (Filesharing) uvm.
 * diese Protokolle können sich wg. den Schichten darunter verlassen, eine virtuelle Direktverbindung zu einem anderen Rechner irgendwo auf der Welt aufbauen zu können, ohne sich um die Details kümmern zu müssen
+***
+
+## Die IP-Protokollfamilie
+
+### Internet Protocol (IP)
+
+###### ~
+* auf Layer 3, sorgt für weltweites Weiterleiten und Routing von Paketen
+* kümmert sich nur um einzelne Pakete, kennt das Konzept „Verbindung“ oder „Reihenfolge“ nicht
+  * ist also _zustandslos_
+* Adressierung Sender/Empfänger über _IP-Adressen_ (z.B. 173.194.69.94)
+* Pakete dürfen verloren gehen, in unterschiedlicher Reihenfolge ankommen, verschiedene Routen nehmen
+***
+
+### Transmission Control Protocol (TCP)
+
+###### ~
+* auf Layer 4, setzt auf IP auf, emuliert eine definierte Verbindung zwischen A und B
+* erkennt verlorene Pakete, sendet sie erneut
+* sorgt für korrekte Reihenfolge
+* erlaubt nicht nur eine einzige Verbindung zwischen A und B, sondern mehrere: jeder Host hat 65.536 virtuelle Anschlüsse (Ports), mit denen kommuniziert werden kann
+***
+
+###### Drei-Wege-Handshake bei TCP
+![Drei-Wege-Handshake bei TCP](asset/tcp-handshake.png "Drei-Wege-Handshake bei TCP")
+***
+
+###### Wiederholung und Bestätigung bei TCP
+![Wiederholung und Bestätigung bei TCP](asset/tcp-transfer.png "Wiederholung und Bestätigung bei TCP")
+***
+
+### User Datagram Protocol (UDP)
+
+###### ~
+* ebenfalls Layer 4; setzt auf IP auf
+* erweitert IP eigentlich nur um Portnummern und eine optionale Prüfsumme
+* garantiert Ankunft und Reihenfolge _nicht_
+* daher geringere Latenz (kein Warten auf Pakete oder Retransmissions)
+* gut für zeitkritische Anwendungen, bei denen schon mal was verloren gehen darf
+  * Internettelefonie, Videostreams, …
+***
+
+### Internet Control Message Protocol (ICMP)
+
+###### ~
+* formal Teil von IP, daher Layer 3
+* wird benutzt, um Steuernachrichten auszutauschen
+  * Ziel-Host eines Paketes nicht erreichbar
+  * Time To Live (TTL) überschritten (Paket zu lang unterwegs)
+  * etc.
+* auch Diagnosepakete (Ping)
+***
+
+### Verschachtelung von Headern
+
+###### ~
+![Kapselung](asset/udp-encapsulation.png "~float-right")
+* die egtl. Daten werden potenziell von jedem Layer mit einem eigenen Header versehen
+* niedrigere Layer sehen die Daten & Header der höheren Layer einfach nur als Daten an
 ***
