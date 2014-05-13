@@ -954,7 +954,7 @@ Es ist übrigens durchaus erlaubt und sogar der Normalfall, die Festplatte in nu
 * altes Format: MBR (seit 80ern)
   * unterstützt nur 4 „primäre“ Partitionen, bzw. 3 primäre und 1 „erweiterte“ mit beliebig vielen Unterpartitionen
   * Maximalgröße 2 TiB
-* neues Format: GUID Parition Table (GPT)
+* neues Format: GUID Partition Table (GPT)
   * unterstützt mind. 128 Partitionen
   * Maximalgröße 8 ZiB
 ***
