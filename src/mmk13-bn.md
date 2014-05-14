@@ -1009,7 +1009,9 @@ Außerdem gibt es eine Einschränkung, was die maximale Größe der Partition an
 
 Dieses Limit stammt daher, dass es auch für Clusternummern eine Längenbeschränkung gibt. Wenn also beispielsweise FAT32 in das Inhaltsverzeichnis speichern möchte, dass die Datei im Cluster Nummer X beginnt, dann darf X maximal 4 Byte (32 Bit, daher auch der Name FAT32) belegen. Aus verschiedenen Gründen sind jedoch einige Werte reserviert, so dass faktisch nur 28 Bit für die Clusternummer übrig bleiben. Die höchste Clusternummer ist also 268.435.456. Multipliziert mit der maximalen Clustergröße von 64 512-Byte-Blöcken ergibt sich eine maximale Dateisystemgröße von 268.435.456 × 32.768 Byte = 8.796.093.022.208 Byte. Das sind 8 TiB und die theoretische Maximalgröße einer FAT32-Partition. Doch da FAT-Dateisysteme eigentlich ausschließlich mit MBR-Partitionen benutzt werden, liegt das Limit in der Praxis bei nur 2 TiB – der Maximalgröße einer MBR-Partition.
 
-###### NTFS
+### NTFS
+
+###### ~
 * ›New Technology File System‹, Windows-NT-Linie
 * 256 TiB Max.größe des FS, 16 TiB pro Datei
 * erweiterte Features
@@ -1020,6 +1022,46 @@ Dieses Limit stammt daher, dass es auch für Clusternummern eine Längenbeschrä
 * proprietär, musste für Unterstützung in anderen OSen reverse-engineered werden
 * daher unter Nicht-Windows oft nur Lesezugriff (weil Schreibzugriff instabil wäre)
 ***
+
+Als Microsoft begann, Windows NT zu entwickeln, kamen sie schnell zu der Erkenntnis, dass sie ein neues Dateisystem brauchen würden. FAT konnte keine Zugriffsberechtigungen speichern, würde in absehbarer Zeit seine Größenbeschränkungen erreichen, und lange Dateinamen unterstützte es (damals) auch nicht. Also bekam Windows NT sein eigenes, neues Dateisystem: NTFS.
+
+Microsoft nutzte die Gelegenheit, das Dateisystem sehr flexibel zu halten und baute einiges an Features ein. Beispielsweise besitzt NTFS das aus Unix bekannte Feature der _Hardlinks:_ Die Möglichkeit, einer Datei mehrere Namen zu geben und sie sogar in mehreren unterschiedlichen Ordnern zu speichern. Über alle Namen erreicht man den selben Dateiinhalt, und wenn man eine Änderung des Inhalts abspeichert, ist dieser geänderte Inhalt unter allen diesen Namen abrufbar. So kann man z.B. ein Dokument, das thematisch in mehrere Ordner gehören würde, in allen diesen Ordnern verfügbar machen, ohne es zu kopieren und Gefahr zu laufen, dass eine oder mehrere Kopien im Laufe der Zeit womöglich veraltet sind.
+
+Auch die andere Richtung ist mit NTFS möglich: Eine Datei kann mehrere verschiedene Inhalte enthalten, einen „Hauptinhalt“ und beliebig viele weitere. Diese Funktion könnte man beispielsweise nutzen, um eine Art „Anhänge“ zu beliebigen Dateien hinzuzufügen, beispielsweise Thumbnails an ein Bild, eine Textdatei mit Lyrics an eine Musikdatei oder Ähnliches. Da diese Funktionalität unter Windows jedoch nur auf NTFS-Dateisystemen verfügbar ist und es kein brauchbares Benutzerinterface dafür gibt, wird sie so gut wie nicht genutzt.
+
+Wesentlich häufiger genutzt werden die in NTFS verfügbare transparente Kompression und Verschlüsselung. _Transparent_ bedeutet hierbei, dass Dateien und Ordner ohne Zutun der Benutzerin ver- und entschlüsselt bzw. komprimiert und dekomprimiert wird. Und nicht nur ohne ihr Zutun, sondern auch ohne, dass sie davon etwas mitbekommt. Weiter unten finden Sie gesonderte Abschnitte zu diesen beiden Themen.
+
+NTFS ist ein _proprietäres_ Dateisystem, das heißt, seine Spezifikationen sind nicht öffentlich zugänglich, sondern unterliegen der Kontrolle von Microsoft. Abgesehen von möglichen rechtlichen Fragen ist es anderen Herstellern also auch rein technisch nicht ohne weiteres möglich, Software zu verfassen, mit der NTFS-Partitionen gelesen und beschrieben werden können.
+
+Drittanbietern bleibt daher nur das sogenannte _Reverse Engineering_ (dt.: ›Rückentwickeln‹): Man nimmt sich eine mit NTFS beschriebene Festplatte vor und versucht, sich durch das Betrachten und Verändern der Datenstrukturen darauf sowie durch Beobachtungen der Lese- und Schreibaktivitäten von Windows einen Reim darauf zu machen, wie NTFS funktioniert. Tut man das ausreichend lange, intensiv und sorgfältig, ist es möglich, den NTFS-Standard quasi selbst neu zu verfassen, ohne die ursprüngliche Spezifikation zu kennen.
+
+Ein solches durch Reverse Engineering erlangtes Wissen kann jedoch niemals _ganz_ vollständig sein. Und so kommt es, dass man unter vielen Betriebssystemen zwar mit einem rückentwickelten NTFS-Treiber auf NTFS-Partitionen lesend zugreifen kann, jedoch nicht schreibend: Die Autorinnen des NTFS-Treibers sind sich ihrer Sache einfach nicht sicher genug, um Schreibzugriffe zuzulassen. Es könnte ja sein, dass sie dabei geringfügig anders vorgehen als Windows und die Festplatte danach unter Windows nicht mehr lesbar wäre oder andere Datenverluste auftreten.
+
+Auch FAT wurde reverse-engineert, aber die Datenstrukturen von FAT sind so einfach und werden inzwischen so gut verstanden, dass jedes Betriebssystem Lese- und Schreibzugriff auf FAT erlaubt.
+
+### Transparente Kompression
+
+Zunächst müssen wir klären, was Kompression eigentlich ist. Dabei handelt es sich um mathematische Verfahren, die beispielsweise _redundante,_ also öfter vorkommende, identische Teilbereiche von Dateien möglichst nur einmal in Gänze und dann immer abgekürzt abspeichern. Zum Beispiel enthält dieses Skriptum bis zu diesem Satz etwa 170 Mal das Wort ›ist‹, das jedes Mal drei Byte beansprucht. Das Zeichen ▲ kam bis eben jedoch überhaupt nicht vor. Würde ich jetzt jedes Vorkommen von ›ist‹ durch das Dreieck ersetzen, hätte ich (vorausgesetzt, das Dreieck benötigt ein Byte) pro ›ist‹ zwei Byte gespart, also insgesamt 340 Byte. Natürlich müsste ich auch irgendwo eine „Übersetzungstabelle“ ablegen, in der alle Abkürzungen erklärt werden.
+
+Die Mathematik hinter der Kompression ist ein ganzes Stück schwieriger, beispielsweise wird auf Bit- statt Byteebene komprimiert, aber das Prinzip sollte Ihnen jetzt einigermaßen klar sein. Wichtig ist, dass Kompression nicht bedeutet, dass die Daten irgendwie physisch „enger“ auf die Festplatte geschrieben werden, sondern dass rein durch inhaltliche Abkürzungen, die jederzeit wieder verlustfrei umgekehrt werden können, Speicherplatz gewonnen wird. Als konkreteres Beispiel: Dieses Skriptum enthält unkomprimiert momentan 121 KiB an Text. Nach Verwendung der Kompressionsmethode _bzip2_ sind es nur noch 36 KiB. Die Einsparung beträgt also fast ein Drittel des Speicherplatzes.
+
+Man kann Dateien einerseits manuell komprimieren, indem man Sie durch Programme wie _bzip2,_ _WinZIP,_ _WinRAR_ oder ähnliche schickt. ZIP-Dateien, mit denen Sie sicher schon einmal zu tun hatten, funktionieren nach diesem Prinzip. (Als zusätzliches Feature komprimiert eine ZIP-Datei nicht nur Daten, sondern erlaubt es auch, mehrere Dateien in eine einzige zu packen.) Eine auf diese Weise komprimierte Datei können Sie auch komprimiert an jemand anderen weitergeben; um die ursprüngliche, unkomprimierte Datei zu erhalten, muss diese Persion die ZIP-Datei jedoch mit einer passenden Software (die inzwischen bei fast allen Betriebssystemen mitgeliefert wird) wieder _dekomprimieren_.
+
+Bei _transparenter Kompression_ hingegen teilen Sie Ihrem _Betriebssystem_ mit, dass eine Datei oder ein Ordner (inklusive aller jetzt und zukünftig enthaltenen Dateien und Unterordnern) transparent komprimiert werden soll. Das Betriebssystem komprimiert dann jedes Mal, wenn eine solche Datei (von egal welcher Software) geschrieben wird, die Daten und legt sie auf der Festplatte direkt in komprimierter Form ab. Sie belegen damit weniger Speicherplatz. Liest hingegen ein Programm den Inhalt der Datei, so stellt das Betriebssystem ihm nicht etwa die komprimierte Datei voller „Abkürzungen“ zur Verfügung, sondern dekomprimiert die Daten beim Lesen auch gleich wieder. Das Programm bekommt somit gar nicht mit, dass die Datei komprimiert abgelegt wird (und muss nicht selbst irgendwelche Kompressionstechniken beherrschen). Deshalb nennt man diese Methode _transparent_.
+
+Der Vorteil der Kompression liegt im reduzierten Speicherplatzbedarf, der Nachteil in einer Verlangsamung der Dateizugriffe: Das Komprimieren, also das Suchen von wiederholt vorkommenden Inhalten in der Datei und das „Ausdenken“ der „Abkürzungen“, benötigt Zeit. Auch die Dekompression benötigt zusätzliche Zeit – wenn auch nicht so viel wie die Kompression.
+
+### Transparente Verschlüsselung
+
+Bei transparenter Verschlüsselung – auch _transparente Krypto(graphie)_ – handelt es sich um ein ähnliches Feature, nur dass Dateien eben nicht komprimiert, sondern verschlüsselt werden. Das bedeutet, sie werden auf der Festplatte als „Zeichensalat“ abgelegt, der nur von Personen entschlüsselt werden kann, die für den Zugriff auf sie vorgesehen sind.
+
+Beispielsweise habe ich mein MacBook mittels _FileVault_ so eingerichtet, dass alle Dateien nur verschlüsselt abgelegt werden, gesichert mit meinem persönlichen Passwort. Selbst wenn mir also jemand den Laptop stiehlt und die Festplatte ausbaut: Ohne mein Passwort erhält diese Person nur Zeichensalat statt meiner Dateien.
+
+_TrueCrypt_ unter Windows bzw. _dm-crypt_ unter Linux sind ähnliche Technologien. Auch bei der Verschlüsselung ist der Nachteil ein gewisser Geschwindigkeitsverlust. Außerdem sollten Sie Ihr Passwort nicht vergessen – sonst kann es sein, dass auch Sie selbst Ihre Dateien nicht wiederherstellen können. (Aber Sie haben ja sicher Backups, oder?)
+
+Transparente Verschlüsselung schützt übrigens nicht gegen Viren, Trojaner oder andere Schadsoftware, die auf Ihrem Computer läuft: Sobald Sie eingeloggt sind, sorgt dass Betriebssystem ja _transparent_ für eine Ver- und Entschlüsselung, und zwar für jedes Programm, das auf dem Rechner läuft. Ein Virus kann verschlüsselte Dateien also einfach problemlos lesen. Auch wenn sich jemand mit Ihrem Benutzernamen und Passwort einloggt, hilft transparente Verschlüsselung nicht, sondern nur dann, wenn jemand unter Umgehung der softwareseitigen Sicherheitsmaßnahmen direkt auf die Festplatte zugreift – beispielsweise durch Ausbauen.
+
+### weitere Dateisysteme
 
 ###### HFS+
 * Standard-Dateisystem unter Mac OS ≥ 8.1
@@ -1033,6 +1075,8 @@ Dieses Limit stammt daher, dass es auch für Clusternummern eine Längenbeschrä
 * unter Linux mit Zusatzsoftware beschreibbar
 ***
 
+Seit Mac OS 8.1 benutzen Apple-Rechner standardmäßig das proprietäre HFS+ als Dateisystem, das von den Features her mit NTFS vergleichbar ist. Es unterstützt zusätzlich zu ACLs auch Unix-Permissions, ist aber unter Windows nur lesbar – und auch nur mit Zusatzsoftware. Unter Linux kann mit Zusatzsoftware auf HFS+-Partitionen les- und schreibbar zugegriffen werden.
+
 ###### ext(2/3/)4
 * second/third/fourth extended file system
 * „Standard“ unter Linux
@@ -1042,6 +1086,18 @@ Dieses Limit stammt daher, dass es auch für Clusternummern eine Längenbeschrä
 * unter Windows ext4 nur rudimentär unterstützt, Vorgänger besser
 * unter OS X gar nicht
 ***
+
+Linux selbst hat natürlich sein eigenes präferiertes Dateisystem, beziehungsweise gleich mehrere davon: Neben der ›ext‹-Familie aus ext2, ext3 und ext4 gibt es noch btrfs, XFS, ReiserFS, ZFS und einige andere. Alle unterscheiden sich bezüglich Geschwindigkeit, Einsatzmöglichkeiten, Features und auch Stabilität. Wenn man überhaupt eines dieser Dateisysteme als das „übliche“ unter Linux bezeichnen kann, dann am ehesten noch ext4.
+
+Der Name ›ext4‹ ist denkbar unkreativ: Von einem „Ur-Dateisystem“ unter Linux entstand einst eine „erweiterte“ Version, die dann auch einfach ›extended file system‹ (ext) genannt wurde. Die Weiterentwicklung von ext nannte man ›second extended file system‹ (ext2), und inzwischen sind wir beim _fourth extended file system_ angekommen.
+
+Auch ext unterstützt lange Dateinamen, aber im Gegensatz zu HFS+ und NTFS keine transparente Kompression oder Verschlüsselung. Das liegt daran, dass unter Linux mit seiner Vielzahl an Dateisystemen nicht jedes das Rad neu erfinden sollte: Stattdessen wird transparente Verschlüsselung über _virtuelle Festplatten_ realisiert.
+
+Dafür nehmen Sie eine echte, physische Festplatte (oder Partition) und teilen dem System mit, dass alle Schreib- und Lesezugriffe verschlüsselt stattfinden sollen. Das System stellt Ihnen daraufhin eine virtuelle Festplatte (auch _encrypted block device_ genannt) zur Verfügung. Blöcke, die sie auf diese virtuelle Festplatte schreiben, werden verschlüsselt auf der zugehörigen physischen Festplatte abgelegt. Gleichermaßen greift das Betriebssystem bei Lesezugriffen, die an die virtuelle Festplatte gerichtet sind, auf die physische Festplatte zu und entschlüsselt den dort abgelegten Block transparent. Somit untersützt unter Linux _jedes_ Dateisystem transparente Verschlüsselung, ohne sich überhaupt darum kümmern zu müssen, einfach indem man das Dateisystem nicht direkt auf einer physischen, sondern auf einer verschlüsselten virtuellen Festplatte erstellt.
+
+Während bei der Verschlüsselung die verschlüsselten Daten den selben (oder zumindest um einen konstanten Faktor erhöhten) Speicherplatz benötigen wie die Originaldaten, ist das bei Kompression nicht der Fall: Unterschiedliche Daten können unterschiedlich gut komprimiert werden. Da eine Festplatte – auch eine virtuelle – aber immer eine konstante Größe haben muss, eignet sich der Ansatz mit den virtuellen Festplatten nicht für transparente Kompression. Es gibt einige Dateisysteme unter Linux, die transparente Kompression unterstützen, ext4 gehört jedoch nicht dazu.
+
+Unter Windows wird der Zugriff auf das relativ junge ext4 nur mit Zusatzsoftware und auch nur rudimentär unterstützt, unter OS X überhaupt nicht. Wenn Sie also ein Dateisystem suchen, das von allen gängigen Betriebssystemen gelesen und beschrieben werden kann, eignen sich HFS+ und ext4 dafür also genausowenig wie NTFS. Es bleibt für einen solchen Einsatzzweck also auch weiterhin nur FAT, mit all seinen Problemen und Einschränkungen.
 
 ## Netzwerk-Dateisysteme
 
