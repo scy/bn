@@ -1099,6 +1099,8 @@ Während bei der Verschlüsselung die verschlüsselten Daten den selben (oder zu
 
 Unter Windows wird der Zugriff auf das relativ junge ext4 nur mit Zusatzsoftware und auch nur rudimentär unterstützt, unter OS X überhaupt nicht. Wenn Sie also ein Dateisystem suchen, das von allen gängigen Betriebssystemen gelesen und beschrieben werden kann, eignen sich HFS+ und ext4 dafür also genausowenig wie NTFS. Es bleibt für einen solchen Einsatzzweck also auch weiterhin nur FAT, mit all seinen Problemen und Einschränkungen.
 
+Wenn Sie Dateien zwischen Rechnern mit verschiedenen Betriebssystemen teilen wollen, haben Sie jedoch auch eine zweite Möglichkeit: Sie geben sie über das Netzwerk frei.
+
 ## Netzwerk-Dateisysteme
 
 ###### Netzwerk-Dateisysteme?
@@ -1109,7 +1111,13 @@ Unter Windows wird der Zugriff auf das relativ junge ext4 nur mit Zusatzsoftware
 * sind auf unterschiedlichen OSen daheim
 ***
 
-###### Server Message Block (SMB) und CIFS
+Bevor wir uns ansehen, welche Arten von Netzwerk-Dateisystemen es gibt, muss ich darauf hinweisen, dass es sich bei Netzwerk-Dateisystemen um etwas fundamental anderes handelt als bei lokalen Dateisystemen. Während ein lokales Filesystem definiert, wie Dateien und Ordner physisch auf einem Blockspeicher wie z.B. einer Festplatte gespeichert werden, sprich wie die Blöcke organisiert werden, wo das Inhaltsverzeichnis steht und wie es aufgebaut ist etc., kümmern sich Netzwerk-Filesysteme nicht um die physische Speicherung, sondern nur darum, wie über das Netzwerk auf Dateien zugegriffen werden kann. Netzwerk-Dateisysteme sind Protokolle, also Standards, die definieren, welche Kommandos ein Computer an einen anderen schickt, welche Antworten er bekommen kann, wie die Authentifizierung abläuft und so weiter. Die eigentliche Speicherung der Daten findet auf einer Festplatte in demjenigen Computer statt, der als der _Server_ agiert, und dafür verwendet dieser Server ein ganz normales lokales Dateisystem.
+
+Allerdings gibt es (leider?) nicht nur _ein_ universelles Netzwerk-Dateisystem. Stattdessen hat es sich, wie so oft, geschichtlich ergeben, dass jedes große Betriebssystem sein eigenes Netzwerk-FS erfunden hat. Und natürlich haben all diese Systeme unterschiedliche Features und Eigenheiten, und sie sind selbstverständlich optimiert für dasjenige Betriebssystem, auf dem sie entstanden sind.
+
+### Server Message Block (SMB) und CIFS
+
+###### ~
 * „Windows-Dateifreigabe“
 * proprietäres Protokoll von Microsoft
 * Zugriff auf Dateien, Drucker, serielle Ports
@@ -1119,7 +1127,19 @@ Unter Windows wird der Zugriff auf das relativ junge ext4 nur mit Zusatzsoftware
 * daher auch unterstützt auf OS X und Linux
 ***
 
-###### Apple Filing Protocol (AFP)
+Das wohl bekannteste Netzwerk-Dateisystem ist das auch als »Windows-Dateifreigabe« bekannte _SMB._ Es wurde von Microsoft entwickelt und in Windows eingebaut. Die Spezifikation von SMB wurde nie veröffentlicht, man nennt es daher ein _proprietäres_ Protokoll: unter der Kontrolle eines bestimmten Herstellers, kein offener Standard.
+
+SMB erlaubt, wie jedes Netzwerk-FS, den Zugriff auf entfernte (im Sinne von „auf einem anderen Rechner“, nicht „gelöschte“) Dateien und Ordner, aber zusätzlich auch auf Drucker oder serielle Schnittstellen, die ein freigebender Computer besitzt. Die Druckerfreigabe spielt beispielsweise im Unternehmensumfeld auch durchaus eine Rolle.
+
+Gerade in größeren Netzen kann es aufwendig sein, herauszufinden, welche Server, Ordner- und Druckerfreigaben es gibt. Deshalb bietet SMB sogenannte _Auto-Discovery_ an: Anstatt den Namen oder die Adresse des Servers einzugeben, kann man als Benutzerin einfach eine Liste der im Netz verfügbaren Freigaben einsehen. Diese Liste ist nicht zentral gepflegt: Die im Netz beteiligten Computer tauschen sich selbstständig untereinander aus und bewerben ihre Freigaben. Für diese Funktionalität bedient sich SMB eines Schwesterprotokolls namens NetBIOS.
+
+Da SMB proprietär ist, aber sich großer Beliebtheit erfreut, wurde das Projekt _Samba_ gegründet mit dem Ziel, SMB zu reverse-engineeren und eine freie, quelloffene Software zu entwickeln, die sowohl als SMB-Server als auch als -Client agieren kann. Samba hat dieses Ziel auch erreicht und übertrifft bei Tests der Geschwindigkeit teilweise sogar Windows-Server. Auch OS X hat bis vor kurzem noch Samba eingesetzt, inzwischen verwendet Apple jedoch offiziell von Microsoft lizensierte Software für ihre SMB-Implementierung.
+
+Unter anderem wegen Samba unternahm Microsoft einen eher halbherzigen Versuch, aus dem proprietären SMB einen offenen Standard namens _Common Internet File System_ zu schaffen. Die beiden Standards sind sich sehr ähnlich, alle größeren Betriebssysteme unterstützen sowohl SMB als auch CIFS.
+
+### Apple Filing Protocol (AFP)
+
+###### ~
 * Dateiaustausch für Macs
 * unterstützt die Übertragung von HFS+-Eigenschaften (ACLs, Forks etc.)
 * Auto-Discovery via Bonjour
@@ -1127,13 +1147,31 @@ Unter Windows wird der Zugriff auf das relativ junge ext4 nur mit Zusatzsoftware
 * Unterstützung unter Linux und anderen Unixen via Open-Source-Software Netatalk
 ***
 
-###### Network File System (NFS)
+Wenn Windows ein proprietäres Netzwerk-FS hat, braucht Apple selbstverständlich auch eins. Es nennt sich _AFP_ und beinhaltet insbesondere natürlich Unterstützung für Features, die HFS+-Dateisysteme anbieten, denn wenn zwei Macs untereinander Dateien per SMB teilen, sind solche Dinge wie z.B. die farblichen Hervorhebungen einer Datei nicht sichtbar, da SMB diese Eigenschaften nicht weiterleitet. Nur mit AFP bekommt man daher die vollen Mac-Features – natürlich nicht nur Farben, sondern auch ACLs und Ähnliches.
+
+So wie SMB sein NetBIOS für Auto-Discovery hat, hat AFP einen Dienst namens _Bonjour_. Für Bonjour hat Apple den Standard jedoch freigegeben; daraus entstand das freie Protokoll _Zeroconf_.
+
+Von Windows-Computern aus kann man leider nicht auf AFP-Server zugreifen; genausowenig können Windows-Maschinen als AFP-Server agieren. Unter Linux und anderen Unixen gibt es jedoch die freie Software _Netatalk,_ mit der beides möglich ist.
+
+### Network File System (NFS)
+
+###### ~
 * in den 1980ern von Sun für SunOS (heute Solaris) entwickelt
 * sehr leichtgewichtig, aber auch anfällig gegenüber Netzwerkproblemen
 * nicht für Internetbetrieb gedacht
 * bis NFSv4 (2003) Authentifizierung nur anhand der IP-Adresse des Clients
 * von OS X unterstützt, sonst hauptsächlich in der Unix-Welt bzw. als Provisorium „wenn’s schnell gehen muss“
 ***
+
+Wenn man von einem Linux-System aus Ordner freigeben will, benutzt man dafür heutzutage meist Samba, also SMB/CIFS, einfach weil darauf sowohl von anderen Linuxen als auch von Macs und Windows-Maschinen zugegriffen werden kann. Doch das ursprüngliche Unix-Netzwerkdateisystem wurde in den 1980ern von Sun für das heutige Solaris entwickelt: Das _Network File System,_ NFS.
+
+Allerdings war die Welt zum Zeitpunkt der Entwicklung von NFS noch eine andere: Kaum jemand hatte einen Internetanschluss, Dateifreigabe fand fast ausschließlich im selben lokalen Netzwerk statt. Und Netzwerke, in denen Unix-Rechner standen, wurden üblicherweise von fähigen Administratorinnen gepflegt, waren ausfallsicher und jeder Rechner hatte eine feste IP-Adresse.
+
+Dementsprechend gab es in NFS etwa 20 Jahre lang keine Authentifizierung über Benutzername und Passwort; welche Rechner auf welche Freigaben zugreifen durften wurde ausschließlich über ihre IP-Adresse entschieden. In heutigen WLAN-Netzen mit ständig dynamisch wechselnden Teilnehmern lassen sich Rechner nicht verlässlich anhand ihrer IP-Adresse identifizieren, und wer gerade vor diesem Rechner sitzt schon gar nicht.
+
+Aber auch mit Problemen bei der Netzwerkverbindung kommt NFS nicht gut klar. Auch heute kann es noch durchaus passieren, dass beim Ausfall der Netzwerkverbindung, während zwei Rechner Daten per NFS austauschen, die Stabilität des kompletten Systems in Mitleidenschaft gezogen wird – bis hin zum völligen Einfrieren des Computers.
+
+Andererseits ist NFS im Vergleich zu Samba sehr einfach einzurichten. Unix-User (denn NFS wird auch unter Macs unterstützt) benutzen es daher gern, um einfach mal schnell ein paar Dateien auszutauschen, wenn Stabilität nicht besonders wichtig ist.
 
 # Teil 2: Netze
 
