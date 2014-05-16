@@ -1175,12 +1175,18 @@ Andererseits ist NFS im Vergleich zu Samba sehr einfach einzurichten. Unix-User 
 
 # Teil 2: Netze
 
+Und nachdem wir gerade über Netzwerk-Dateisysteme gesprochen haben, ist jetzt die optimale Gelegenheit, zum zweiten Teil dieser Vorlesung überzugehen, nämlich wie diese Vernetzung zwischen zwei oder Millionen von Computern eigentlich funktioniert. Doch vielleicht sollten wir erst einmal definieren, was ein Netzwerk überhaupt ausmacht.
+
 ###### Was ist ein Netzwerk?
 * Zusammenschluss mehrerer Computer über Kabel-, Funk- oder sonstige Verbindungen
 * nicht nur „Computer“, auch Mobiltelefone, Radios, Sensoren, Personenwaagen, …
 * kleinste Netzwerke: Bluetooth zw. Mobiltelefon und Headset, WLAN-Tethering
 * größtes Netzwerk: das Internet, Zusammenschluss von unzähligen örtlichen Netzen (Local Area Networks, LANs)
 ***
+
+Sehr allgemein gesprochen könnte man sagen, dass immer dann, wenn mehrere Computer zum Zwecke des Datenaustausches miteinander verbunden werden, ein Netzwerk entsteht. Dabei ist es irrelevant, über welches Medium – Kabel, Funk etc. – diese Verbindung hergestellt wird. Auch die Definition von ›Computer‹ ist sehr breit gefasst und bezieht sich eben nicht nur auf Desktop- und Laptop-Computer, sondern auch auf Mobiltelefone, Internetradios, Heimkino-Receiver, Sensoren – ich persönlich habe zu Hause sogar eine WLAN-fähige Personenwaage.
+
+Diese Netze können sowohl von der räumlichen Ausdehnung als auch der Anzahl teilnehmender Geräte her betrachtet sehr klein sein; so ist beispielsweise die Bluetooth-Verbindung zwischen meinem Mobiltelefon und einer Freisprecheinrichtung genau genommen schon ein Netzwerk. Aber es gibt auch ein globales Netzwerk mit Millionen oder gar Milliarden an Teilnehmern: das Internet, das seinerseits eigentlich nur ein Zusammenschluss sehr vieler örtlich begrenzter, lokaler Netzwerke (LANs) ist.
 
 ## Das OSI-Referenzmodell
 
@@ -1190,6 +1196,16 @@ Andererseits ist NFS im Vergleich zu Samba sehr einfach einzurichten. Unix-User 
 * Konzept bzw. Gedanken­konstrukt zur Unterteilung von Netzwerk­techniken auf verschiedene Ebenen
 * jede Schicht hat nur Verbindungen zu benachbarten ⇒ Reduzierung der Komplexität
 ***
+
+Wenn Ihnen jemand das Internet erklärt, geht das in den seltensten Fällen ohne Erwähnung des sogenannten _OSI-Referenzmodelles_ vonstatten. Das OSI-Modell ist ein Vorschlag, welche Zutaten man benutzen sollte, wenn man ein Netzwerk aufbauen will. Es zeichnet sich vor allem durch die konsequente Verwendung zweier miteinander verwandter Grundprinzipien der Informatik aus: erstens _Modularität_ bzw. _Kapselung_, also dem Zerteilen des großen Problems in mehrere unabhängige kleinere Lösungen für Teilbereiche, und zweitens der Idee, dass kompliziertere bzw. ausgeklügeltere Dinge auf einfacheren Konzepten _aufbauen_.
+
+Denn die verschiedenen Schichten des OSI-Modells nähern sich von unten nach oben immer mehr dem, was man als Anwenderin eigentlich haben will: beispielsweise ein Katzenvideo auf Facebook ansehen. Damit in Schicht 7 ein solcher Download aber überhaupt gemacht werden kann, muss sich beispielsweise Schicht 4 darum kümmern, dass die Daten unterwegs nicht verloren gehen, und ohne Schicht 1, die einzelne Bits in Form von Elektronen über ein Kupferkabel schickt ginge auch das nicht.
+
+Gleichzeitig soll jede Schicht aber auch gar nicht das große Ganze kennen müssen, um zu funktionieren. Es reicht aus, wenn sie weiß, wie sie ihre Bedürfnisse der direkt darunterliegenden Schicht mitteilt und wie sie die Anforderungen der Schicht direkt über ihr erfüllt. Schicht 4 muss nicht wissen, wie Schicht 1 funktioniert, sondern sich nur mit Schicht 3 auskennen und Schicht 5 die Arbeit erleichtern.
+
+In der Vorlesung habe ich hierfür als Beispiel den Bau eines Hauses verwendet: Ganz oben steht beispielsweise eine Architektin, die ein Haus entwirft. Moderne Fassade, hübsche Formen, praktische Aufteilung. Sie kennt sich ein bisschen mit Statik aus, aber für Detailfragen muss sie dann doch eine Statikerin konsultieren. Diese wiederum kann die Fragen der Architektin beantworten, muss dafür aber von den Maurerinnen wissen, welche Dichte der verwendete Beton hat – eine Information, die der Architektin im Prinzip völlig egal sein kann. Und die Maurerinnen verwenden wiederum Beton nach Maßgabe der Statikerin, müssen ihn aber nicht selbst herstellen – sie kaufen ihn einfach in Schicht 1, im Baumarkt.
+
+Wichtig beim OSI-Modell ist, dass es nur ein _Modell_ ist. Sie werden bald sehen, dass beispielsweise das Internet nicht alle diese Schichten besitzt, sondern einige zusammengefasst hat. Bei manchen Stellen ist auch beispielsweise nicht ganz klar, auf welcher Schicht sie jetzt eigentlich zu verorten sind. Alle Komponenten des OSI-Modells sollten auf die eine oder andere Art vorkommen, damit es ein funktionierendes Netz geben kann, aber die genaue Ausgestaltung kann sehr unterschiedlich aussehen.
 
 ### Die Schichten des OSI-Modells
 
