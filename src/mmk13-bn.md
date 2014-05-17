@@ -1452,3 +1452,273 @@ Wichtig beim OSI-Modell ist, dass es nur ein _Modell_ ist. Sie werden bald sehen
 * neues, kleineres Paket mit dieser Größe wird losgeschickt
 * wird wiederholt, bis das Paket ankommt
 ***
+
+## Anwendungsprotokolle (HTTP, SMTP, DNS)
+
+###### Anwendungsprotokolle
+* Protokolle auf den ISO-Schichten 5 bis 7
+* basieren auf TCP oder UDP
+* sind teils menschenlesbar (basierend auf ASCII, Latin-1, UTF-8 etc.), teils „binär“ (möglichst kompakt)
+* werden hauptsächlich von Endanwenderinnensoftware verwendet, während die Protokolle in den darunter liegenden Schichten hauptsächlich vom Betriebssystem verwendet werden
+***
+
+### HTTP
+
+###### HTTP: Geschichte
+* HyperText Transfer Protocol
+* ab 1989 von (Sir) Tim Berners-Lee u.a. am CERN entwickelt
+* 1991: Version 0.9
+* 1996: Version 1.0
+  * in dieser Version schloss der Server noch nach jedem Request (lies: jeder Datei) die Verbindung
+* 1999: Version 1.1
+  * div. Erweiterungen, insbes. persistente (also nicht automatisch geschlossene) Verbindungen
+***
+
+###### HTTP: Grundlagen
+* Client baut TCP-Verbindung zu Server auf
+* normalerweise auf Port 80 (HTTP) oder 443 (HTTPS, verschlüsselt)
+  * andere Ports durch Angabe im URL möglich: `http://www.example.com:1234/`
+* Client stellt Anfrage
+* Server antwortet und schließt evtl. die Verbindung wieder
+  * Client kann ab HTTP 1.1 anfordern, die Verbindung offen zu lassen (der Server ist dazu aber nicht verpflichtet) und dann eine neue Anfrage stellen
+***
+
+###### HTTP: Aufbau einer Anfrage (Request)
+* erste Zeile: Methode, Pfad, Version
+  * `GET /index.html HTTP/1.1`
+  * Methode (auch ›Verb‹): eigentlicher Befehl an den Server: `GET` (Datei anfordern), `POST` (Daten an Server senden) und weitere
+  * Pfad: gewünschte Datei auf dem Server
+* weitere Zeilen: Header
+  * für Zeichensätze, Browseridentifikation, unterstützte Features, Hinweise an den Server etc.
+* leere Zeile
+  * bei `GET`: Ende der Anfrage; bei `POST` folgen die an den Server zu sendenden Daten
+***
+
+###### HTTP: Aufbau einer Antwort (Response)
+* erste Zeile: Version, Statuscode und -meldung
+  * `HTTP/1.1 200 OK`
+  * Server kann Protokoll downgraden (auf 1.1-Request mit 1.0-Response antworten)
+  * numerische (maschinenlesbare) _und_ menschenlesbare Statusmeldung
+* weitere Zeilen: Header
+  * Zeichensatz, Statusinfos, Länge der Antwort etc.
+* leere Zeile
+* eigentlicher Dateiinhalt bzw. ausführliche Fehlermeldung etc.
+***
+
+###### HTTP: verbreitete Statuscodes
+* `200 OK`: alles in Ordnung, Datei folgt
+* `301 Moved Permanently`: ist unter neuer Adresse (im `Location`-Response-Header genannt) zu finden, alte ist ungültig
+* `401 Unauthorized`: angefordertes Dokument erfordert Benutzerauthentifizierung
+* `404 Not Found`: angefordertes Dokument wurde nicht gefunden
+* `500 Internal Server Error`: interner Fehler auf dem Server
+***
+
+###### HTTP: Beispiele für Request-Header
+* `Host: www.example.com`
+  * welche Domain erreicht werden soll; es könnten ja z.B. sowohl `timweber.name` als auch `eridanus.uberspace.de` auf `82.98.87.120` zeigen
+* `Connection: keep-alive`
+  * Verbindung nach der Antwort bitte nicht schließen
+* `User-Agent: Chrome/21.0.1180.77`
+  * (freiwillige) Selbstidentifizierung des Browsers
+* `Accept-Language: de-DE;q=0.8,en;q=0.6`
+  * präferierte Sprachen, erlaubt es dem Server, in der Sprache der Anwenderin zu antworten
+***
+
+###### HTTP: Beispiele für Response-Header
+* `Content-Length: 21110`
+  * Länge des Dokumentes in Byte
+* `Last-Modified: Mon, 13 Aug 2012 10:43:08 GMT`
+  * Datum/Zeit der letzten Änderung am Dokument
+* `Connection: keep-alive`
+  * Bestätigung: Verbindung wird offen bleiben
+* `Content-Type: text/html; charset=UTF-8`
+  * MIME-Typ und Zeichensatz des Dokuments
+* `Server: nginx/0.7.65`
+  * (freiwillige) Selbstidentifizierung der Serversoftware
+***
+
+###### HTTP: Basic Authentication
+* simple Authentifizierungsmethode über Header, direkt im Browser; heute stattdessen oft HTML-Formulare und Cookies verwendet
+* Server schickt `401`, Browser fragt die Userin nach Name und Passwort
+* Browser schickt Username und Passwort Base64-kodiert (nicht: verschlüsselt!):
+  * `Authorization: Basic YmVudXR6ZXJpbjpwYXNzd29ydA==`
+  * kodierter Teil entspricht `benutzerin:passwort`
+***
+
+###### HTTP: Cookies
+* HTTP ist im Grunde zustandslos: Anfragen werden unabhängig voneinander bearbeitet
+* Cookies: werden vom Server per Headerzeile (oder JavaScript) für gewisse Zeit gesetzt, Client schickt bei jedem Request alle Cookies für diesen Server als Headerzeile wieder mit
+  * nur an selbe Domain bzw. Subdomain, außerdem einschränkbar auf best. Pfade oder nur für verschlüsselte Verbindungen
+***
+
+### SMTP
+
+###### SMTP: Geschichte
+* Simple Mail Transfer Protocol
+* erste Version 1982
+* letzte Aktualisierung in RFC 5321, Okt. 2008
+* wegen des Alters diverse Probleme, v.a.:
+  * keine vorgeschriebene Authentifizierung der Absenderin; wie bei einem Brief kann eine E-Mail beliebige Absenderinformationen tragen
+  * daher Spamprobleme
+***
+
+###### SMTP: Grundlagen
+* Client baut Verbindung zu Server auf
+  * Port 25, Port 465 (SSL), Port 587 (nur für Enduser-Mailclients)
+  * „Client“ kann auch ein anderer Mailserver sein, wenn Mails über mehrere Server hinweg weitergeleitet werden
+* Client identifiziert sich, gibt Absenderin und (evtl. mehrere) Empfängerinnen an, gibt die Nachricht durch, wiederholt diese Schritte evtl., kündigt Ende der Übertragung an
+* Server bestätigt jeweils
+***
+
+###### SMTP: Aufbau einer Einlieferung
+               220 service ready  Server meldet sich
+    HELO foobar.example.net       Client nennt Namen
+                          250 OK  Server bestätigt
+    MAIL FROM:<info@example.org>  Client nennt Absenderin
+                          250 OK  Server bestätigt
+    RCPT TO:<info@example.com>    Client nennt Empfängerin
+                          250 OK  Server bestätigt
+    DATA                          Client will Mailinhalt liefern
+            354 start mail input  Server bestätigt
+    [s. nächste Folie]            Client liefert Mailinhalt
+                          250 OK  Server bestätigt
+    QUIT                          Client beendet Übertragung
+             221 closing channel  Server bestätigt und schließt
+                                  die Verbindung
+***
+
+###### SMTP: Aufbau einer E-Mail
+* Headerzeilen mit Absenderin, Empfängerin, Datum, Betreff, Eingangsstempel aller verarbeitenden Mailserver etc.
+* leere Zeile
+* eigentlicher Inhalt
+* bei SMTP-Einlieferung: Abschluss der Mail wird mit einzelnem Punkt ›.‹ markiert
+***
+
+### DNS
+
+###### DNS: Geschichte
+* Domain Name System
+* 1983 entworfen
+* davor: jeder Rechner pflegte eine eigene, lokale `hosts`-Datei mit den IP-Adressen aller anderen ihm bekannten Rechner
+  * manuell/halbautom. gepflegt durch Administratorinnen
+  * skalierte nicht gut, da das Internet schnell wuchs und die Datei zu groß wurde
+* jetzt: hierarchisches, sehr redundantes System, global verteilt, aber US-dominiert
+***
+
+###### DNS: Grundlagen
+* übersetzt Domainnamen in IP-Adressen (und umgekehrt)
+* Domainnamen hierarchisch aufgebaut: `www.mm.dhbw-mannheim.de.` (FQDN)
+  * Top-Level-Domain: `de` (Deutschland)
+  * Second-Level-Domain: `dhbw-mannheim`
+  * „Subdomain“: `mm` (Medienmanagement)
+  * Host: `www` (Webserver)
+* Anzahl Ebenen variabel
+* `www` nur eine Konvention, Webserver könnte auch `guenter` heißen
+***
+
+###### DNS: Delegation
+* es gibt nicht einen (oder mehrere) zentrale Server, sondern die Einträge auf den Unterebenen können delegiert werden
+* man kann seinen eigenen DNS-Server für seine eigene _Zone_ betreiben
+* z.B. weiß der Server für `.name` nicht, welche IP `dhbw.timweber.name` hat, aber er weiß, dass für `timweber.name` u.a. der DNS-Server `ns1.first-ns.de` zuständig ist
+***
+
+###### DNS: rekursive Auflösung
+* gesucht wird `dhbw.timweber.name.`
+* ein Root-Server wird nach der IP für `dhbw.timweber.name` gefragt
+  * Antwort: »weiß ich nicht, aber für `.name` sind diese 10 Server zuständig: …«
+* einer dieser 10 wird das selbe gefragt
+  * Antwort: »weiß ich nicht, aber für `timweber.name` sind diese 3 Server zuständig: …«
+* einer dieser 3 wird das selbe gefragt
+  * Antwort: »die IPv4 ist `82.98.87.120`, die IPv6 ist `2a02:2e0:3fc:52::62:5778:140`«
+***
+
+###### DNS: Root-Server
+* woher weiß der Rechner, wer für `.name` zuständig ist?
+* Fragen nach den zuständigen Servern für die TLDs (mehr aber auch nicht!) beantworten die _Root-Server_
+* 13 Server, weltweit redundant verteilt, mit festen und bekannten IP-Adressen, die in Software zur rekursiven DNS-Auflösung fest einprogrammiert sind
+***
+
+###### DNS: Resource-Record-Typen
+* DNS: nicht nur Namen zu IPs zugeordnet
+* mehrere Typen von Einträgen (Records)
+  * z.B. bei `timweber.name`: `A 82.98.87.120`; `AAAA 2a02:2e0:3fc:52:62:5778:140`; `MX 10 mail.scy.name.`
+* `A`: IPv4-Adresse
+* `AAAA`: IPv6-Adresse
+* `MX`: Name des zuständigen Mailservers
+* `NS`: Name des zuständigen DNS-Servers
+* `PTR`: Name für Reverse-Auflösung
+***
+
+###### DNS: Reverse-Auflösung
+* IP-Adresse umkehren und `.in-addr.arpa.` anhängen
+  * z.B. `82.98.87.120` zu `120.87.98.82.in-addr.arpa.`
+  * Umkehrung ermöglicht hierarchische Delegation
+* Anfrage liefert einen `PTR`-Record, der den Hostnamen enthält
+* IPv6 ähnlich, nur feiner und mit `.ip6.arpa.`:
+  * `2a02:2e0:3fc:52::62:5778:140` wird zu `0.4.1.0.8.7.7.5.2.6.0.0.0.0.0.0.2.5.0.0.c.f.3.0.0.e.2.0.2.0.a.2.ip6.arpa.`
+***
+
+## Verschlüsselte Verbindungen (SSL, TLS)
+
+###### Das Problem
+* Kommunikation zwischen Rechnern kann mitgehört werden (gemeins. Leitung etc.)
+* Kommunikation kann (z.B. von Zwischenstationen) auch verändert werden
+* Kommunikationspartner können nicht mit Sicherheit sagen, mit wem sie sprechen
+***
+
+###### Die Lösung: SSL/TLS
+* Secure Sockets Layer, »Schicht für sichere Sockets« (Sockets: die virtuellen Anschlüsse bzw. Endpunkte einer (TCP-)Verbindung)
+* 1994 SSL 1.0 im Browser _Mosaic_
+* weitere Versionen in Netscape und IE
+* 1999 Standardisierung durch IETF und Umbenennung in TLS (Transport Layer Security, »Sicherheit auf Transportschicht«)
+* wird laufend erweitert, letzte Aktualisierung fand 2008 statt (TLS 1.2)
+***
+
+###### Was macht es?
+* als transparente Zwischenschicht zwischen Transportschicht (Layer 4) und Anwendungsschicht (Layer 7) gedacht
+* wird Layer 6 (Präsentation) zugeordnet
+* nimmt Klartext-Daten aus Layer 7 an und gibt sie verschlüsselt/signiert weiter
+* nimmt verschlüsselte/signierte Daten aus Layer 4 an und gibt sie geprüft/entschlüsselt als Klartextdaten weiter an die Anwendung
+***
+
+###### Schutz vor Abhören: Verschlüsselung
+* zwei Kom.partner handeln über eine unsichere Leitung mittels _asymmetrischer Kryptographie_ (Diffie-Hellman, RSA) einen gemeinsamen Schlüssel aus
+* dieser wird zur _symmetrischen Verschlüsselung_ der Daten benutzt
+* wer die Aushandlung mithört, erfährt den geheimen Schlüssel nicht
+* aber: _Man-in-the-Middle-Angriff_ (MitM) prinzipiell möglich
+***
+
+###### Schutz vor Veränderung: Signieren
+* wer zwischen Parteien sitzt (z.B. Router), kann übertragene Daten ändern
+* Arten der Veränderung:
+  * Unterdrücken von Paketen
+  * Permutieren (Umsortieren) von Paketen
+  * Wiederholen von Paketen
+  * Ändern des Inhaltes der Pakete
+* Schutz über _Message Authentication Codes_
+  * im Grunde: Bildung einer Prüfsumme über die Kombination aus gemeinsamem Schlüssel und der eigentlichen Nachricht; zusätzlich meist Verkettung oder _Nonce_ als Schutz vor Wiederholen (Replay)
+***
+
+###### Schutz vor Impersonation: Zertifikate
+* bei MitM: Person in der Mitte kann Partnern vorgaukeln, der jeweils andere zu sein und somit alles mitlesen oder verändern
+* daher _Zertifikate:_ der Server präsentiert die Signatur einer bekannten Zertifizierungsstelle über seinen öffentlichen Schlüssel und Hostnamen, beweist damit: wer diesen Schlüssel benutzt, ist jener Rechner
+* Server zeigt bei Verbindung Zertifikat vor
+* Stichwort: _Public-Key-Infrastruktur_
+***
+
+###### Probleme
+* unsichere Zertifizierungsstellen (CAs), die evtl. Zertifikate für Unbefugte anfertigen
+* Regierungseingriffe in Kommunikation
+  * kann sich problemlos dazwischenschalten und CAs zur Zertifizierung zwingen
+* zentralistische, teure CAs
+  * freie CAs in Mainstream-Browsern nicht verbreitet
+* Verschlüsselung bedeutet Rechenaufwand, daher meist immer noch nur da, wo „nötig“
+* Fehler in Implementierungen, Stichwort _Heartbleed_
+***
+
+###### Verbindungsaufbau
+* entweder über zusätzlichen Port (z.B. HTTPS auf Port 443), auf dem nur verschlüsselt kommuniziert wird
+* oder über upgradefähige Protokolle, z.B. `STARTTLS` bei SMTP
+  * nach Aufbau einer unverschlüsselten Verbindung bittet der Client um Aufbau einer verschlüsselten
+  * Vorteil: kann auf dem selben Port laufen
+***
