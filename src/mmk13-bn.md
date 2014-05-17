@@ -1313,3 +1313,142 @@ Wichtig beim OSI-Modell ist, dass es nur ein _Modell_ ist. Sie werden bald sehen
 * die egtl. Daten werden potenziell von jedem Layer mit einem eigenen Header versehen
 * niedrigere Layer sehen die Daten & Header der höheren Layer einfach nur als Daten an
 ***
+
+## IP-Bereiche und -Vergabe
+
+###### Aufbau einer IPv4-Adresse
+* 32 Bit (4 Byte) als Dezimalzahl (0–255), mit Punkten getrennt: <span style="color: #900;">192.168</span>.<span style="color: #009;">23.42</span>
+* die IPs aller Rechner im selben LAN beginnen gleich, Adresse wird unterteilt in <span style="color: #900;">Netzwerk</span>-Teil und <span style="color: #009;">Host</span>-Teil
+***
+
+###### Adressbereiche und besondere Adressen
+* Netzwerk-Teil ist je nach Größe des Netzes unterschiedlich lang
+  * kleine Netze z.B. 24 Bit, damit 8 Bits Host-Teil
+* Angabe des Netzwerks z.B. als `10.23.0.0./16`
+  * enthält Adressen `10.23.0.0` bis `10.23.255.255`
+  * Schreibweise also niedrigstmögliche Adresse, Slash, Anz. Bits
+* komplizierter wenn nicht an 8-Bit-Grenze
+  * `172.16.0.0/12` entspr. `172.16.0.0`–`172.31.255.255`
+* kleinste Adresse reserviert für die Bezeichnung des ganzen Netzes
+* größte für _Broadcast_ (Pakete an alle Hosts)
+***
+
+###### Vergabe von IP-Bereichen
+* global eindeutige Adressbereiche werden von der IANA nach Bedarf vergeben
+* es gibt einige reservierte Bereiche:
+  * `10.0.0.0/8`, `172.16.0.0/12`, `192.168.0.0/16` für private Netze (global nicht eindeutige Adressen)
+  * `127.0.0.0/8` Loopback (selber Rechner)
+  * `169.254.0.0/16` Link-Local/Zeroconf
+  * …
+***
+
+###### Automatische IP-Konfiguration: DHCP
+* Host sendet per Broadcast DHCP-Anfrage an gesamtes Netz
+* DHCP-Server empfängt, antwortet mit einem Angebot und grundlegenden Infos
+  * IP-Adresse, Subnetzmaske (z.B. `255.255.255.0` für `/24`-Netz), Lease-Dauer
+* Host bestätigt Interesse an der IP
+* Server bestätigt Zuteilung, schickt Config
+  * Default-Router, DNS-Server, Zeitserver, Domainname etc.
+***
+
+###### Automatische IP-Konfiguration: Zeroconf
+* kommt ganz ohne Server aus
+* jeder Rechner wählt pseudo-zufällig Adresse aus `169.254.0.0/16`
+* prüft, ob unter dieser Adresse ein Rechner antwortet
+  * falls ja, neue Adresse wählen, erneut prüfen
+* Rechner gibt seine gewählte Adresse im Netz bekannt
+* Kommunikation nur im lokalen Netz möglich
+***
+
+## IPv6
+
+###### Warum IPv6?
+* es gibt zu wenige IPv4-Adressen; seit 2011 keine Bereiche mehr zuteilbar
+* IPv6 bringt 340 Sextillionen Adressen
+* Verarbeitung v. IPv6 ist für Router einfacher
+* mehr Sicherheitsfeatures
+* stark verbesserte Autokonfiguration
+* Roaming von IPs in anderen Netzen (_Mobile IP_)
+***
+
+###### Aufbau einer IPv6-Adresse
+* 128 Bit (16 Byte) als Hex-Zahl (`00`–`ff`) in Zweiergruppen mit Doppelpunkt getrennt: <span style="color: #900;">2001:470:1f0b:c4f</span>:<span style="color: #009;">129a:ddff:fea6:d46e</span>
+* <span style="color: #900;">Netzwerk</span>-Teil und <span style="color: #009;">Interface</span>-Teil je 64 Bit
+* führende Nullen i.d. Gruppen dürfen entfallen
+* `::` ist Abkürzung für »an dieser Stelle mit Nullgruppen auffüllen«
+  * `2a03:2880:10:8f01:face:b00c::25` entspricht `2a03:2880:0010:8f01:face:b00c:0000:0025`
+***
+
+###### Autokonfiguration bei IPv6
+* beim Verbinden mit dem Netz meldet sich der Rechner per Broadcast
+* Router teilt ihm Netzwerk-Teil (Präfix) und Länge des Netzwerk-Teils (meist 64 Bit) mit
+* Interface-Teil wird z.B. zufällig oder aus MAC-Adresse der Netzwerkkarte erzeugt
+  * Autokonfiguration ohne DHCP und zentralen Server
+  * trotzdem nötig: Router, der Netzwerkteil sowie Adresse von Router, DNS-Server etc. mitteilt
+***
+
+###### Das Ende der lokalen Netze?
+* bei heutigen DSL-Anschlüssen bekommt die Userin _eine_ IPv4-Adresse zugewiesen
+  * wird wie üblich ein ganzes Netz angebunden, muss der Router ein ganzes internes Netz auf diese Adresse abbilden (Network Address Translation, NAT)
+* IPv6: Userin bekommt ein ganzes `/64`
+  * genug Adressen, um 4 Mrd. mal das gesamte Internet in ihrem LAN abzubilden
+* jedes Gerät bekommt eine weltweit eindeutige Adresse
+* noch bieten nur wenige Endkunden-ISPs IPv6 an
+***
+
+###### Umstellung auf IPv6
+* wird parallel zu IPv4 betrieben (Übergangsphase)
+* viele große Anbieter sind bereits via IPv6 erreichbar (Akamai, Google, Facebook)
+* wenn Rechner einer v6-IP hat und das DNS eine v6-Adresse für den Zielrechner zurückliefert, wird v6 benutzt
+  * wenn v6-Verbindung fehlschlägt, wird über v4 erneut versucht
+* reines v6 momentan noch nicht sinnvoll
+***
+
+## Router, Gateways, MTU
+
+###### Router
+* Geräte, die Verbindungen zwischen mehreren Netzen herstellen und entscheiden, welche Pakete wo hin sollen
+* im Backbone, bei großen Providern, bei Firmen, bei Privatanwenderinnen
+* je nach Datendurchsatz Hochleistungsgeräte bis hin zu normalen Computern und kleinen Embedded-Geräten (z.B. »WLAN-Router«, die aber meist nur als _Default-Gateway_ fungieren)
+***
+
+###### Routing(tabelle)
+* Routing: Entscheidungsfindung durch Durchführung
+* Routingtabelle: enthält Zielnetz bzw. -Host, Interface über das gesendet wird und evtl. die Adresse des nächsten Routers
+  * `10.68.0.0/16 Interface eth0` (Router z.B. direkt per Switch mit allen Empfängern verbunden)
+  * `192.168.23.0/24 Interface eth0 via 10.68.0.254` (das 192er LAN kann nicht direkt erreicht werden, aber über den Router `10.68.0.254`)
+  * `172.16.0.0/24 Interface eth1` (direkt verbunden über anderes Interface)
+***
+
+###### (Default) Gateways
+* Gateway: früher Computer, der zwischen Netzen mit versch. Protokollen übersetzte
+* heute benutzt quasi alles IP
+* Default Gateway: Begriff aus dem Routing: der Rechner, an den alles geht, für das keine eigene Route existiert (quasi Weiterverteiler)
+  * z.B. `192.168.1.0/24 Interface eth0`, `0.0.0.0/0 über 192.168.1.254`
+  * hier wäre `192.168.1.254` das Default-Gateway bzw. der Default-Router
+  * für den Laptop daheim z.B. der WLAN-Router
+***
+
+###### Maximum Transmission Unit (MTU)
+* die physischen Verbindungen (z.B. Ethernet) zwischen Rechnern und Netzen haben Maximalgrößen für Pakete (z.B. 1500 Byte)
+* größer darf IP-Paket (Schicht 3) nicht sein
+* ist es doch größer, kann es nicht geschickt werden oder muss _fragmentiert_ werden
+  * Fragmentierung: Aufteilung in mehrere Pakete
+  * verschwendet Bandbreite, z.B. bei 1501 Byte großen Paketen
+  * ist daher in IPv6 verboten
+  * bevorzugt: Path MTU Discovery
+***
+
+###### Path MTU
+* die MTUs auf dem Pfad zwischen zwei Rechnern können unterschiedlich groß sein
+* die kleinste von allen ist die Path MTU
+* wenn Pakete nicht größer sind als die PMTU erlaubt, findet keine Fragmentierung statt
+***
+
+###### Path MTU Discovery
+* in IPv4 möglich, in IPv6 vorgeschrieben
+* Rechner sendet Paket mit ›don’t-fragment‹-Flag (DF) gesetzt
+* dort, wo es nicht in die MTU passt, wird eine ICMP-Nachricht ›fragment too big‹ generiert und der MTU-Wert an dieser Stelle mit zurück geschickt
+* neues, kleineres Paket mit dieser Größe wird losgeschickt
+* wird wiederholt, bis das Paket ankommt
+***
