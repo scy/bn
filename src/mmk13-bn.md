@@ -1207,9 +1207,11 @@ In der Vorlesung habe ich hierfür als Beispiel den Bau eines Hauses verwendet: 
 
 Wichtig beim OSI-Modell ist, dass es nur ein _Modell_ ist. Sie werden bald sehen, dass beispielsweise das Internet nicht alle diese Schichten besitzt, sondern einige zusammengefasst hat. Bei manchen Stellen ist auch beispielsweise nicht ganz klar, auf welcher Schicht sie jetzt eigentlich zu verorten sind. Alle Komponenten des OSI-Modells sollten auf die eine oder andere Art vorkommen, damit es ein funktionierendes Netz geben kann, aber die genaue Ausgestaltung kann sehr unterschiedlich aussehen.
 
-### Die Schichten des OSI-Modells
+Betrachten wir die einzelnen Schichten und ihre Aufgaben etwas genauer.
 
-###### Layer 1: Physical (Bitübertragung)
+### Layer 1: Physical (Bitübertragung)
+
+###### ~
 * Netzwerkkarten, Kupferleitungen, Funk
 * alle möglichen Arten, auf die Daten übertragen werden können
   * Ethernet, Wi-Fi, Bluetooth, RS-232, Brieftauben, …
@@ -1218,42 +1220,114 @@ Wichtig beim OSI-Modell ist, dass es nur ein _Modell_ ist. Sie werden bald sehen
 * Adressierung per MAC
 ***
 
-###### Layer 2: Data Link (Sicherung)
+In der untersten Schicht geht es darum, einzelne Bits und Bytes physisch von einem Rechner zu einem anderen zu schicken. Diese Schicht definiert je nach Medium (Kupferkabel, Funk, Lichtwellenleiter etc.), welche Spannungen vorherrschen, welche Frequenzen verwendet werden, wie die Taktung aussieht, wie eine 1 und wie eine 0 dargestellt werden, wie Anfang und Ende eines Paketes angekündigt werden und vieles mehr.
+
+Die Standards für elektrische Übertragung (Ethernet) und Funkübertragung (Wi-Fi) kennen Sie bereits, im professionellen Einsatz werden auch oft Glasfaserleitungen (Lichtwellenleiter) für die Übertragung von Lichtsignalen verwendet. Aber auch exotische Übertragungsmedien sind definiert, beispielsweise der Transport über Brieftauben – die wegen ihrer sehr geringen Bandbreite und hohen Latenz natürlich ganz besondere Lösungsansätze erfordern. Dieser Standard (IP over Avian Carriers, RFC 1149) wurde am 1. April 1990 als Scherz veröffentlicht, aber es handelt sich um einen validen und funktionsfähigen Standard, der auch bereits in der Praxis eingesetzt wurde.
+
+Schicht 1 beschäftigt sich ausschließlich mit der Kommunikation mit ›direkten Nachbarn‹, also Rechnern, die mit der selben physischen Leitung bzw. mit dem selben WLAN-Access-Point verbunden sind. Wie Pakete global verteilt werden, also über mehrere Zwischenstationen hinweg, damit hat die Schicht nichts zu tun. Das ist nicht ihre Aufgabe, darum kümmern sich höhere Schichten.
+
+Ihr ist es auch völlig egal, _was_ sie da überträgt. Man gibt ihr eine Menge an Bytes, die sie übertragen soll und teilt ihr die MAC-Adresse des Nachbarn mit, der die Übertragung empfangen soll. Worum es sich bei diesen Bytes handelt, ist ihr egal. Üblicherweise sind die Bytes Pakete höherer Schichten, z.B. IP-Pakete, und was IP ist, weiß Schicht 1 nicht. Daher werden Absender und Empfänger auch nicht mit einer global gültigen IP-Adresse adressiert, sondern mit nur im lokalen Netzwerk relevanten MAC-Adressen.
+
+### Layer 2: Data Link (Sicherung)
+
+###### ~
 * gedacht als Fehlererkennungs- und Korrekturschicht
 * Ethernet und WLAN arbeiten allerdings Layer-1-und-2-übegreifend, daher gibt es wenige reine Layer-2-Protokolle
 * die Ethernet-Teile MAC und LLC sind eher Layer 2 zuzuordnen
 * Einwahl- und DSL-Protokolle wie ATM und PPP existieren auf dieser Schicht
 ***
 
-###### Layer 3: Network (Vermittlung)
+Bei Layer 2 fängt die bereits angesprochene Schwammigkeit zwischen den Layern schon an: Laut OSI-Modell ist die Aufgabe dieses Layers, Fehler bei der Übertragung in Schicht 1 zu erkennen und zu korrigieren, z.B. indem fehlerhafte Pakete möglicherweise erneut angefordert, zumindest jedoch nicht einfach fehlerhaft weitergegeben werden.
+
+Allerdings arbeiten die üblichen Layer-1-Technologien, z.B. Ethernet und WLAN, sowohl auf Schicht 1 als auch auf Schicht 2, d.h. die Fehlererkennung und -korrektur ist direkt mit eingebaut und wird nicht durch eine eigenständige Komponente vorgenommen. Ethernet-Pakete tragen eine Prüfsumme, die beim Empfang mit dem Inhalt des Paketes verglichen wird. Stimmen Inhalt und Prüfsumme nicht überein, liegt ein Fehler vor und das Paket wird einfach verworfen – denn Ethernet garantiert nicht, dass gesendete Pakete auch wirklich fehlerfrei ankommen. Diese Funktionalität muss von höheren Schichten bereitgestellt werden.
+
+### Layer 3: Network (Vermittlung)
+
+###### ~
 * Weiterleiten von Paketen durch das gesamte Netzwerk hindurch (im Internet: global)
 * von den verschiedenen Protokollen (IP, IPX, AppleTalk, …) heute fast ausschließlich IP in seinen beiden Versionen IPv4 und IPv6
 * Adressierung per IP-Adresse, also prinzipiell global
 ***
 
-###### Layer 4: Transport
+Mit den Schichten 1 und 2 haben wir jetzt schon mal ein Netz, in dem direkt benachbarte Rechner miteinander kommunizieren können.  (Die Übertragung über Hubs und Switches zählen auch noch als „direkt benachbart“.) Das ist ein Anfang. Aber sobald es sich um mehr als ein Stockwerk oder Gebäude handelt, kann man nicht einfach alle Rechner mit Switches verbinden, da sonst die Menge an Broadcast-Paketen und anderen Paketen, die gar nicht für ein bestimmtes Netzwerksegment gedacht sind, zu hoch wird. Und spätestens wenn mehrere LANs miteinander verbunden werden sollen, möglicherweise über mehrere Städte oder Länder hinweg, kommt man über das _Routing_ von Paketen, also die zielorientierte Entscheidung, welchen Weg ein Paket im Netz jetzt nehmen sollte, nicht hinweg. Und für ein Netzwerk der Größe des Internet ist diese Funktionalität sowieso unerlässlich.
+
+Von diversen Protokollen, die sich früher auf Schicht 3 dieser Aufgabe angenommen haben, hat sich heute eigentlich fast ausschließlich das _Internet Procotol_ (IP) durchgesetzt, und zwar in seiner „altbekannten“ Version IPv4 und der neuen Version IPv6, auf die momentan über einen Zeitraum von einigen Jahren umgestellt wird.
+
+AUf der Vermittlungsschicht erfolgt die Adressierung nicht mehr über MAC-Adressen wie `10:9a:dd:a6:d4:6e`, sondern über IP-Adressen wie `82.98.87.120`, denn MAC-Adressen sind abhängig vom Hersteller der Netzwerkkarte und damit quasi „zufällig“, während man IP-Adressen so organisieren kann, dass sie ähnlich den Vorwahlen im Telefonnetz die hierarchische Struktur des Netzes abbilden.
+
+Der DHBW gehören beispielsweise alle IP-Adressen, die mit `141.72.` beginnen. Sie kann nun festlegen, dass Adressen, die mit `141.72.1xx` beginnen (von `100` bis `199`), Rechnern in der Coblitzallee zugewiesen werden, während die Außenstelle in Käfertal Adressen mit `141.72.2xx` (von `200` bis `255`) erhält. Damit kann ein Router anhand der IP-Adresse direkt sehen, ob das Paket über die Leitung nach Neuostheim oder die nach Käfertal gesendet werden muss.
+
+Bis auf einige Ausnahmen, die für lokale Netze und andere Besonderheiten reserviert sind, sind IP-Adressen global eindeutig.
+
+Layer 3 stellt uns also eine Möglichkeit zur Verfügung, Pakete weltweit zu verteilen. Es gibt aber immer noch keine Garantie, dass diese Pakete in der selben Reihenfolge, wie sie gesendet wurden, ankommen – oder dass sie überhaupt ankommen.
+
+### Layer 4: Transport
+
+###### ~
 * abstrahiert die ganzen, möglicherweise unterschiedliche Routen nehmenden, durcheinander ankommenden, teils verloren gegangenen Pakete weg und täuscht eine Ende-zu-Ende-Verbindung zwischen zwei Rechnern vor
 * heute fast ausschließlich TCP und UDP
 ***
 
-###### Layer 5: Session (Sitzung)
+Die Transportschicht, genauer gesagt das wichtigste Protokoll auf ihr, nämlich TCP, gibt genau diese beiden Garantien. (Wie es das kann, finden Sie weiter unten.) Und diese Garantien sind wichtig für eine verlässliche Kommunikation: Immerhin wollen Sie, dass der Text auf Webseiten in der richtigen Reihenfolge erscheint und nicht durcheinandergewürfelt, und dass auch nicht zwischendrin einige Absätze fehlen, weil sie bei der Übertragung verloren gegangen sind.
+
+TCP stellt einen sehr angenehmen Dienst bereit: Es tut so, als gäbe es dieses komplizierte Gewusel von Paketen überhaupt nicht, sondern als könnten Sie – wie beim Telefon – eine Direktverbindung von Mannheim nach New York aufbauen, und alle Daten, die Sie in diese Verbindung hinein geben, kommen auf der anderen Seite auch an, und zwar in der Reihenfolge, in der Sie sie verschickt haben. Sollte die Verbindung aus irgendwelchen Gründen abreißen, garantiert TCP zumindest, Ihnen Bescheid zu sagen anstatt die Pakete ins Nichts laufen zu lassen.
+
+UDP gibt diese Garantien nicht, sondern erweitert IP im Prinzip nur um Portnummern, aber darauf gehen wir weiter unten noch ein.
+
+Sie haben jetzt also ein Netz, das es Ihnen erlaubt, simulierte „Direktverbindungen“ zu einem Rechner am anderen Ende der Welt aufzubauen und mit ihm Daten auszutauschen. Reicht das nicht? Nicht ganz, denn Sie haben noch ein paar Eigenschaften vergessen, die Ihr Netz vielleicht haben sollte.
+
+### Layer 5: Session (Sitzung)
+
+###### ~
 ![Internet-Protokollsuite](asset/internet-model.png "~float-right-smaller")
 * im heutigen Internet keine klare Trennung zw. Layer 1 u. 2 sowie Layer 5–7 (siehe rechts)
 * gedacht für Definition einer „Sitzung“ mit Anfang und Ende
 * heute meist auf Layer 7 umgesetzt
 ***
 
-###### Layer 6: Presentation (Darstellung)
+IP-Adressen sind zwar global eindeutig, aber wie bei Telefonnummern auch kann sich die Inhaberin ändern – und bei IP-Adressen wesentlich öfter als bei Telefonnummern. Außerdem kommt es vor, dass sich hinter einer IP-Adresse nicht nur ein einziger Rechner verbirgt, sondern gleich ein ganzes Netzwerk, ähnlich wie bei Telefonnummern sich oft eine ganze Familie eine Rufnummer teilt.
+
+Da ein Server sich also nicht sicher sein kann, dass die Adresse tatsächlich jemandem gehört, den er kennt, muss er bei jedem Verbindungsaufbau sein Gegenüber _authentifizieren_, also beispielsweise mit Benutzername und Passwort sicher gehen, dass es sich um eine bestimmte Person handelt. Selbst wenn eine Sekunde später von der selben IP-Adresse ein Verbindungsaufbau ankommt, kann es sein, dass dieser von einer komplett anderen Person stammt. Die Authentifizierung muss also für jede Verbindung neu durchgeführt werden.
+
+Dass das aufwendig ist, ist auch den Autorinnen des OSI-Modells bewusst, und deshalb haben sie Schicht 5 erfunden, deren Zweck es eigentlich ist, das Konzept einer „Sitzung“ zu definieren, also quasi eine Art „Login“, ab dem bestimmte Verbindungen – bis zum Logout – der selben authentifizierten Person zugeordnet werden.
+
+Hier wird aber sehr deutlich, dass OSI-Modell und Wirklichkeit im Internet sich teilweise signifikant unterscheiden. Denn im Internet gibt es keine eigene Sitzungsschicht. Stattdessen werden die Layer 5 bis 7 zusammengefasst zu einer Schicht, die sich _Anwendungsschicht_ nennt (wie Layer 7 im OSI-Modell), deren Standards und Protokolle sich um die Aufgaben der Schichten 5 bis 7 auf einmal kümmern.
+
+Konkret bedeutet das zum Beispiel, dass ein Protokoll wie HTTP sich nicht nur um den Transfer von Webseiten kümmert, sondern auch darum, wie Benutzerinnen authentifiziert werden und diese Authentifizierung auch bei allen Verbindungen dieser Nutzerin greift – obwohl das eigentlich eine Layer-5-Aufgabe ist. Auch um verschiedene Zeichensätze und Encodings kümmert sich HTTP, obwohl das laut OSI-Modell Aufgabe der Schicht 6 wäre.
+
+Der Nachteil dieses Vorgehens ist, dass jeder Layer-7-Standard die Aufgaben von Layer 5 und 6 ebenfalls lösen muss und so relativ oft das Rad neu erfunden werden muss. Andererseits besteht der Vorteil darin, dass die Schichten 5 und 6 nicht von irgendwelchen „universellen“ Lösungen abgedeckt werden müssen, sondern auf das jeweilige Layer-7-Protokoll angepasst sein können.
+
+### Layer 6: Presentation (Darstellung)
+
+###### ~
 * gedacht als Übersetzer zwischen verschiedenen Systemen, Zeichensätzen, Kodierungen etc.
 * heute meist auf Layer 7 umgesetzt
 * SSL und TLS (Verschlüsselungsstandards) lassen sich auf Layer 6 einsortieren, da Layer-7-Protokolle sowohl mit als auch ohne sie nutzbar sind
 ***
 
-###### Layer 7: Application (Anwendung)
+Wie erwähnt ist auch Layer 6 im Internet eigentlich in die Layer-7-Protokolle eingeflossen. Seine ursprüngliche Aufgabe bestand darin, zwischen verschiedenen Zeichensätzen und Encodings, die die Kommunikationspartner womöglich verwenden, transparent zu übersetzen, d.h. ohne dass die beteiligten Rechner damit viel Aufwand haben. Auch das wird aber wie gesagt fast ausschließlich in Layer-7-Protokollen gemacht.
+
+Allerdings gibt es doch Kandidaten für Protokolle im Internet, die man sehr deutlich Layer 6 zuordnen könnte: Die Verschlüsselungsstandards SSL und TLS. Sie werden verwendet, um beliebige Layer-7-Protokolle (z.B. HTTP oder SMTP) abhörsicher und verschlüsselt zu gestalten, und agieren dabei immer gleich. Sie können also ein beliebiges auf TCP basierendes Layer-7-Protokoll nehmen, TLS dazwischen schalten und haben einen verschlüsselten Kommunikationsweg.
+
+Genau das wird auch gemacht: HTTPS, die verschlüsselte Variante von HTTP, ist kein eigenständiger Standard, sondern besagt einfach nur: »benutze normales HTTP, aber schalte einen Verschlüsselungslayer dazwischen«. Das selbe gilt für viele andere Protokolle, denen ein S angehängt wurde, z.B. IMAPS, SMTPS oder FTPS.
+
+### Layer 7: Application (Anwendung)
+
+###### ~
 * hier laufen all die High-Level-Protokolle
   * HTTP (Web), SMTP/POP/IMAP (Mail), XMPP (Jabber/Chat), IRC (Chat), SSH (Remote-Login), DNS (Namensauflösung), BitTorrent (Filesharing) uvm.
 * diese Protokolle können sich wg. den Schichten darunter verlassen, eine virtuelle Direktverbindung zu einem anderen Rechner irgendwo auf der Welt aufbauen zu können, ohne sich um die Details kümmern zu müssen
 ***
+
+Layer 7 schließlich ist derjenige, der am nächsten an Ihnen als Benutzerin liegt, daher kennt man die dort verwendeten Protokolle womöglich sogar mit Namen, wenn man noch keine Vorlesung zu Internettechnologien gehört hat: bei HTTP, DNS, IMAP und SMTP ist die Wahrscheinlichkeit recht hoch, dass Sie davon schon einmal gehört haben.
+
+Diese Protokolle sind recht spezialisiert für verschiedene Anwendungsfälle: Webseiten übertragen, Mails verschicken, chatten, Spieldaten übertragen, sich auf entfernten Rechnern einloggen und so weiter; für jede dieser Aufgaben gibt es ein eigenständiges Layer-7-Protokoll, für die meisten sogar mehrere.
+
+Protokolle in dieser Anwendungsschicht können auch sehr komplex werden, aber sie haben den Vorteil, dass sie sich auf die Arbeit der darunter liegenden Schichten verlassen können. Sie stehen quasi auf den Schultern von Riesen, die sich den komplizierteren technischen Details einer weltweiten Datenübertragung annehmen. Als Layer-7-Protokoll kann ich einfach sagen, dass ich gern eine Verbindung zum Rechner soundso in Timbuktu hätte, und dann kann ich diesem Rechner Bytes schicken und von ihm empfangen. Wenn Pakete verloren gehen, kümmert sich TCP um das Problem, und ob der Rechner in Timbuktu mit Ethernet oder WLAN angebunden ist, kann mir auf Layer 7 erst recht egal sein.
+
+Es gibt übrigens keine Regulierung für diese Standards. Wenn Sie das Fachwissen haben, einen zu entwerfen und zu implementieren, dürfen Sie das tun, und zwar auf allen Layern (wobei Sie auf den unteren Layern eben auch entsprechende Hardware bauen müssen). Deshalb würde ich sagen, dass täglich irgendwo auf der Welt mindestens eine Person ein neues Layer-7-Protokoll entwirft. Die meisten davon werden nie vollendet oder erreichen nie große Verbreitung, aber sie dienen womöglich dieser Person zur Lösung einer bestimmten Aufgabe.
+
+Doch wenn Ihr Standard ein Problem löst, dass viele Menschen auf der Welt haben, kann es durchaus passieren, dass er globale Verbreitung findet. HTTP wurde von einem einfachen Physiker entwickelt, auch hinter SMTP, BitTorrent oder dem DNS standen zum Zeitpunkt ihrer Entwicklung keine riesigen Firmen. Aber diese Protokolle setzten sich durch, weil sie ein verbreitetes Problem lösten, weil sie offen standardisiert wurden und nicht proprietär, und weil sie einfach _gut_ sind.
 
 ## Die IP-Protokollfamilie
 
