@@ -1331,6 +1331,10 @@ Doch wenn Ihr Standard ein Problem löst, dass viele Menschen auf der Welt haben
 
 ## Die IP-Protokollfamilie
 
+Die Protokolle im Internet existieren nicht einfach im luftleeren Raum, sondern sind teilweise voneinander abhängig. Während es HTTP beispielsweise egal ist, ob die physische Übertragung mit Ethernet oder WLAN stattfindet, kann es ohne TCP nicht arbeiten.
+
+Daher kann man durchaus sagen, dass die Protokolle im Internet durchaus zu einer großen „Familie“ gehören. Wo DNS ist, sind TCP und UDP nicht weit. Schauen wir uns deshalb mal einige Bausteine des Internet genauer an.
+
 ### Internet Protocol (IP)
 
 ###### ~
@@ -1341,6 +1345,14 @@ Doch wenn Ihr Standard ein Problem löst, dass viele Menschen auf der Welt haben
 * Pakete dürfen verloren gehen, in unterschiedlicher Reihenfolge ankommen, verschiedene Routen nehmen
 ***
 
+Das Layer-3-Protokoll namens _Internet Protocol_ ist der Kernbestandteil des Internet. Ohne IP läuft nichts, denn Rechner werden anhand ihrer IP-Adresse identifiziert. Keine IP-Adresse, keine Verbindungen. Um am Telefonnetz teilnehmen zu können, brauchen Sie ja auch eine Telefonnummer.
+
+Die Aufgabe von IP ist es, Pakete quer über den Globus weiterzuleiten. Ein Paket besteht dabei aus einer Empfängeradresse, einer Absenderadresse und einem Inhalt. Der Inhalt des Paketes ist IP herzlich egal, er wird einfach weitergeleitet. Der interessante Teil ist die Empfängeradresse, denn diese entscheidet, welche _Route_ das Paket durch das Netz nimmt.
+
+Vergessen Sie nicht, dass es hier noch ausschließlich um einzelne Pakete geht. So etwas wie eine „Verbindung“ zwischen zwei Rechnern, mit Reihenfolge und Zustellgarantie, das gibt es erst mit TCP. IP denkt sich also nichts dabei, wenn zwischen zwei bestimmten Rechnern zigtausende Pakete hin und her geschickt werden: Es behandelt jedes dieser Pakete unabhängig und losgelöst von den anderen. Man sagt, IP ist _zustandslos_, denn es stellt keine Verknüpfung zwischen zwei Paketen her.
+
+Im Gegensatz zu Post-Paketen gibt es bei IP-Paketen übrigens auch keine „Sendungsverfolgung“ oder eine Garantie, dass sie ankommen. Wenn irgendwo jemand an der Leitung wackelt oder eine Störung vorliegt, laufen IP-Pakete einfach ins Leere und verschwinden. IP kümmert sich darum nicht, denn das würde seine Komplexität zu stark erhöhen. Wenn Sie sich darauf verlassen wollen, dass ein Paket auch wirklich angekommen ist, müssen Sie TCP benutzen.
+
 ### Transmission Control Protocol (TCP)
 
 ###### ~
@@ -1350,13 +1362,88 @@ Doch wenn Ihr Standard ein Problem löst, dass viele Menschen auf der Welt haben
 * erlaubt nicht nur eine einzige Verbindung zwischen A und B, sondern mehrere: jeder Host hat 65.536 virtuelle Anschlüsse (Ports), mit denen kommuniziert werden kann
 ***
 
+Das _Transmission Control Protocol_ ist so essentiell im Internet, dass man es oft zusammen mit IP erwähnt und beispielsweise das Internet als ›TCP/IP-basiertes Netz‹ bezeichnet. Die meisten Protokolle auf der Anwendungsschicht bauen auf TCP auf, und das liegt daran, dass erst TCP die Kommunikation wirklich _verlässlich_ macht, denn es gibt zwei wichtige Garantien:
+
+1. Was du als Sender sendest, wird beim Empfänger ankommen; falls nicht, informiere ich dich zumindest darüber.
+2. Was du als Sender sendest, wird in der selben Reihenfolge beim Empfänger ankommen, die du beim Senden benutzt hast.
+
+Außerdem, so praktisch es ist, dass in modernen Kommunikationsnetzen die Daten in kleine Pakete aufgeteilt werden, so kompliziert ist aber auch deren Handhabung. Deshalb abstrahiert TCP die Sache mit den Paketen weg und simuliert stattdessen eine Direktverbindung zwischen zwei Rechnern A und B. Wenn Pakete verloren gehen, erkennt TCP das und sendet sie erneut.
+
+Und als wäre das noch nicht genug, hat man bei der Entwicklung von TCP auch erkannt, dass es durchaus gute Gründe gibt, warum die Rechner A und B mehr als nur eine Verbindung miteinander aufbauen können sollten: Beispielsweise weil A mehrere Downloads gleichzeitig von B startet, oder weil A sowohl Webseiten von B empfängt als auch eine E-Mail an B sendet.
+
+Deshalb führt TCP auch das Konzept der _Portnummern_ ein: A sagt nicht nur »ich hätte gern eine Verbindung zu B«, sondern zusätzlich noch »und zwar zu Port 80«. Je nachdem, welchen Port A kontaktiert, kann er mit einem unterschiedlichen Dienst auf B Kontakt aufnehmen: Web, Mail, SSH, und so weiter. Sie können sich das im Prinzip vorstellen wie Nebenstellen beim Telefonieren: Sie greifen zum Hörer und wählen nicht einfach ›Firma X‹, sondern ›das Büro 23 bei Firma X‹.
+
+Um all diese Magie zu bewerkstelligen, muss TCP einige ausgeklügelte Strategien anwenden. Denn IP, auf dem TCP ja basiert, kennt ja keine Empfangsbestätigungen für Pakete. Also muss sich TCP darum selbst kümmern. Doch bevor es überhaupt eine „Verbindung“ geben kann, muss diese erst einmal aufgebaut werden.
+
 ###### Drei-Wege-Handshake bei TCP
 ![Drei-Wege-Handshake bei TCP](asset/tcp-handshake.png "Drei-Wege-Handshake bei TCP")
 ***
 
+Natürlich kann auch TCP nicht zaubern und eine wirkliche, exklusive Direktverbindung zwischen zwei Computern herstellen. Stattdessen muss es so tun, als gäbe es diese Verbindung – und darf dabei ausschließlich Pakete hin und her senden. Schon der Aufbau einer Verbindung gestaltet sich interessant.
+
+Nehmen wir an, ein Rechner (hier _Client_ genannt) möchte eine Verbindung zu einem anderen Rechner (hier _Server_ genannt) aufbauen. Er schickt dafür ein besonderes TCP-Paket an den Server: Ein _SYN-Paket._ Natürlich bedeutet ›TCP-Paket‹ hier genau genommen ›ein IP-Paket, in dem ein TCP-SYN-Paket steckt‹. Denn TCP bedient sich ja der Möglichkeiten von IP, um ein Paket global von A nach B zu bekommen. IP wiederum interessiert sich nicht dafür, ob in den Daten eines bestimmten IP-Pakets jetzt ein TCP-Paket, ein UDP-Paket oder ganz etwas anderes transportiert wird. Für IP sind das alles irgendwelche Daten.
+
+Aber warum schickt TCP überhaupt erst mal Pakete hin und her, um die Verbindung „aufzubauen“? Warum fängt es nicht gleich mit den eigentlichen Inhaltsdaten an? Das liegt daran, dass die Protokolle aus der Anwendungsschicht üblicherweise erst einmal wissen wollen, ob der Rechner auf der anderen Seite überhaupt prinzipiell erreicht werden kann, bevor sie anfangen, Daten zu schicken. Wenn Sie jemanden anrufen, fangen Sie ja auch nicht schon beim Freizeichen an zu reden.
+
+Der Client hat also dieses SYN-Paket an den Server geschickt (übrigens an eine bestimmte Portnummer), mit der Bedeutung »ich möchte eine Verbindung zu dir aufbauen«. Wenn der Server das in Ordnung findet, sollte er den Empfang dieses Paketes bestätigen: Er schickt ein SYN-ACK-Paket zurück. (Das SYN steht übrigens für _synchronisieren_ – nämlich dem der Sequenznummern, siehe unten – und das ACK für _acknowledgement_, also ›Bestätigung‹.) Wenn der angesprochene Port nicht belegt ist, der Server überlastet oder ihm der Client aus irgendwelchen Gründen einfach nicht passt, kann der Server die Verbindung übrigens auch ablehnen – die passende Analogie wäre das „Wegdrücken“ einer Anruferin.
+
+Jetzt ist die Verbindung aufgebaut, richtig? Nein, nicht ganz. Denn jetzt müssen wir uns einmal ein bisschen anschauen, was eigentlich passieren würde, wenn Pakete verloren gingen.
+
+Wenn das SYN beim Server nicht ankommt, weiß dieser überhaupt nichts von einem Verbindungsversuch, wird also auch sicher kein SYN-ACK verschicken. Der Client wird, wenn vom Server weder ein SYN-ACK noch eine ablehnende Antwort kommt, wenige Sekunden später ein neues SYN-Paket verschicken. Das versucht er eine gewisse Zeit lang, üblicherweise eine halbe bis zwei Minuten lang. Danach gibt er es auf, und das Protokoll auf der Anwendungsschicht wird darüber informiert, dass keine Verbindung aufgebaut werden konnte.
+
+Empfängt der Server hingegen das SYN, aber das SYN-ACK geht unterwegs verloren, weiß der Server erst mal noch nicht, ob die Verbindung jetzt tatsächlich aufgebaut wurde oder nicht. Es kommt durchaus vor, dass Pakete in eine Richtung fließen können, aber nicht in die andere. Deshalb gilt auch auf der Serverseite nach dem SYN-ACK die Verbindung noch nicht als offen. Erst muss ein drittes Paket verschickt werden: Ein letztes ACK vom Client, das bestätigt, dass er das SYN-ACK erhalten hat, die Rückrichtung also auch funktioniert. Nach Erhalt des SYN-ACK weiß der Client, dass die Verbindung funktioniert, nach Erhalt des ACK weiß es auch der Server. Jetzt können beide Teilnehmer Daten austauschen – übrigens gleichberechtigt: Jeder kann dem jeweils anderen jederzeit Daten senden, und nicht etwa nur der Server an den Client oder umgekehrt.
+
+Außerdem dienen SYN und SYN-ACK noch einem anderen Zweck: Sie teilen dem Gegenüber die _Sequenznummer_ mit. Jeder der beiden Kommunikationsteilnehmer hat eine solche Sequenznummer, die er beim Verbindungsaufbau auf eine beliebige positive Ganzzahl setzt, und die während der Kommunikation immer um die Menge der zuletzt von diesem Teilnehmer gesendeten Daten erhöht wird. Warum, dazu kommen wir gleich. Wichtig ist, dass beide sozusagen eine Sequenznummer „würfeln“, mit der es losgeht, und damit keiner von beiden verwirrt wird, müssen sie sich ihre Sequenznummern erst einmal mitteilen.
+
 ###### Wiederholung und Bestätigung bei TCP
 ![Wiederholung und Bestätigung bei TCP](asset/tcp-transfer.png "Wiederholung und Bestätigung bei TCP")
 ***
+
+Wenn die Verbindung jetzt erfolgreich aufgebaut wurde, können die beiden Teilnehmer Daten austauschen. Das nebenstehende Diagramm zeigt, wie so etwas ablaufen könnte. Lassen Sie sich von den Rollen ›Empfänger‹ und ›Sender‹ nicht verwirren: Der Empfänger könnte genausogut auch etwas senden. Der Einfachheit halber tut er das in diesem Beispiel jedoch nicht.
+
+Sehen wir uns einmal an, wie TCP seine Garantien einhalten kann, dass unterwegs nichts verloren geht und dass die Daten in der richtigen Reihenfolge ankommen. Dafür gehen wir Schritt für Schritt, von oben nach unten, durch die Grafik.
+
+Der Sender hat einen Zwischenspeicher, auch _Puffer_ genannt (in der Grafik orange). In diesem werden die Daten zwischengespeichert, die die Anwendungsschicht versenden möchte, und zwar optimalerweise schon portioniert, so dass in jedes „Kästchen“ in der Grafik ein Paket passt. In unserem Beispiel kann ein Paket 1460 Byte an Daten transportieren, ein durchaus realistischer Wert. Außerdem merkt sich der Sender natürlich, welche Pakete er schon verschickt hat; das ist in der Grafik durch den ›Pointer‹ symbolisiert.
+
+Der Pointer steht am Anfang auf 0: Es wurde noch kein Paket gesendet. Das bedeutet, dass der Sender jetzt also das erste Paket verschickt. Es enthält 1460 Bytes Daten, und der Sender hat sich entschieden, seine Sequenznummer bei der Zahl 1 beginnen zu lassen. Er hätte auch mit einer beliebigen anderen Zahl anfangen können, aber hier ist es die 1. Das Paket erreicht den Empfänger unbeschadet, und anhand der Sequenznummer weiß dieser, dass es sich um den Anfang der Übertragung handelt. Er legt die empfangenen Daten in seinen Eingangspuffer und gibt sie womöglich bereits direkt als erste Empfangene „Portion“ an das Anwendungsprotokoll weiter.
+
+Außerdem entscheidet sich der Empfänger, für das Paket eine _Bestätigung_ zu verschicken. Dafür addiert er zur Sequenznummer, die der Sender verwendet hat, die Anzahl Bytes, die in dem Paket waren, also 1 + 1460 = 1461. Diese Zahl schreibt er in das Feld ›ACK‹ seines Paketes. Außerdem hätte er die Möglichkeit, nicht nur eine Bestätigung, sondern seinerseits auch Daten zu schicken. Dafür hat er ein eigenes Feld für _seine_ Sequenznummer, und Platz für Daten. Er möchte jedoch nur eine Bestätigung verschicken, die Länge der Daten ist also null und seine Sequenznummer, die er beim Verbindungsaufbau gewürfelt hat, ist zufälligerweise ebenfalls die 1. Sie wird so lange unverändert bleiben, wie der Empfänger seinerseits keine Daten schickt – und in unserem Beispiel tut er das nie.
+
+Der Sender schickt das zweite Paket ab. Zur Sequenznummer, die er beim Paket davor benutzt hat (1) addiert er die Menge Bytes, die das letzte Paket hatte, und ist damit bei 1461. Mit dieser Sequenznummer verschickt er nun das nächste Paket, wieder mit 1460 Bytes Daten.
+
+Ohne auf eine Bestätigung des Empfängers zu warten, schickt er direkt das dritte Paket hinterher, mit einer Sequenznummer von 1461 + 1460 = 2921. Und wie es der Zufall so will, wackelt in diesem Moment jemand am Kabel oder eine vorbeifahrende Straßenbahn stört den WLAN-Empfang für einen Moment, jedenfalls geht das Paket verloren.
+
+Doch zuerst einmal: Warum schickt der Sender das nächste Paket, ohne dass das vorherige bestätigt wurde? Das liegt daran, dass in TCP das Senden von Daten und deren Bestätigung asynchron zueinander laufen dürfen. Es kommt nämlich durchaus vor, dass Pakete von A nach B 20 Sekunden oder länger unterwegs sind, aber trotzdem alle ankommen. Wenn jedoch vor jedem Versand erst die Bestätigung abgewartet würde, könnte bei einer solchen Latenz der Sender nur alle 20 Sekunden jeweils mickrige 1460 Byte verschicken. Das ist suboptimal. Deshalb darf er mehrere Pakete hintereinander verschicken. Diese müssen auch alle bestätigt werden – aber eben nicht sofort.
+
+Außerdem dient dieses Verfahren auch einem zweiten Zweck: Nämlich der Reduzierung der verschickten Bestätigungspakete. Wie wir gleich sehen werden, ist es dem Empfänger nämlich erlaubt, Bestätigungen zu bündeln: Er muss nicht jedes erhaltene Paket einzeln bestätigen.
+
+Aber zurück zum Beispiel: Paket 3 geht verloren und kommt nie beim Empfänger an. Davon merkt der Sender aber erst einmal nichts. Er schickt – wie er darf und soll – direkt das vierte Paket hinterher. Es trägt als Sequenznummer 2921 + 1460 = 4381 und kommt wieder problemlos beim Empfänger an.
+
+Anhand der Sequenznummer kann der Empfänger erkennen, dass zwischen dem letzten Paket, das er bekommen hat, und diesem eine Lücke von 1460 Byte liegt. Jetzt würde man erwarten, dass der Empfänger den Sender darauf aufmerksam macht, dass ein Paket verloren gegangen ist. Das tut er aber nicht. Tatsächlich ist es sogar so, dass der Empfänger bei TCP _niemals_ darauf hinweist, dass ein Paket verloren gegangen ist.
+
+Warum beschwert er sich nicht direkt? Das liegt daran, dass die Lücke nicht zwingend bedeuten muss, dass das Paket verloren gegangen ist. Es könnte ja auch einfach sein, dass jenes dritte Paket einfach aus irgendwelchen Gründen länger unterwegs ist als das vierte. Vergessen Sie nicht: IP garantiert nicht, dass alle Pakete in der richtigen Reihenfolge ankommen. Also wartet der Empfänger erst einmal ab. Aber selbst wenn es nie ankommt: Eine der Grundregeln von TCP ist, dass der Empfänger den Verlust von Paketen nie meldet. Dafür ist nämlich der Sender verantwortlich. Wie dieser das mitbekommt, werden wir gleich sehen.
+
+Nachdem der Sender das vierte Paket verschickt hat, macht er beim fünften weiter. Die Sequenznummer liegt jetzt bei 4381 + 1460 = 5841, und wieder ist es 1460 Byte groß, und wieder kommt es problemlos beim Empfänger an.
+
+Jetzt entscheidet sich der Empfänger, mal wieder eine Bestätigung zu verschicken. Entweder weil sein Eingangspuffer voll ist, weil er eine gewisse Anzahl Pakete erhalten hat oder weil eine gewisse Zeitspanne abgelaufen ist. Doch was schreibt er in diese Bestätigung hinein?
+
+In das ACK-Feld in einem TCP-Paket passt nur genau eine Zahl hinein. Die Information »ich habe alles bis Sequenznummer 2921 erhalten, dann 1460 Bytes Lücke, und dann wieder alles bis 7301« kann er also nicht unterbringen. Stattdessen beschränkt er sich darauf, die längste vollständige Kette zu bestätigen: Pakete 1 und 2, also Sequenznummer 1461 plus 1460 Byte Daten, also ist ACK = 2921.
+
+Der Empfänger erhält diese Bestätigung und weiß jetzt, dass die ersten beiden Pakete angekommen sind. Von den anderen drei hat er keine Informationen. Und was er jetzt tut, ist wieder bemerkenswert: nämlich nichts.
+
+Natürlich könnte er die Meldung des Empfängers jetzt deuten als »da fehlt was«. Aber es könnte ja genausogut sein, dass die _Bestätigung_ selbst relativ lange unterwegs war und der Empfänger inzwischen doch alle Pakete erhalten hat. Deshalb wartet der Sender erst einmal ab, was passiert.
+
+Und jetzt kommt der Trick: Für jedes Paket, das der Sender schickt, wird ein Timer eingerichtet. Er stellt sich also für jedes Paket eine Art „Wecker“ auf einige Sekunden nach dem Absenden des Paketes. Falls der Wecker für ein versendetes Paket klingelt und dessen Empfang bis dahin noch nicht bestätigt wurde, akzeptiert der Sender, dass es wohl verloren gegangen sein muss. Deshalb tut er beim Eingang der Bestätigung für die ersten zwei Pakete erst einmal nichts. Der Wecker für die Pakete 3 bis 5 läuft jedoch weiter. Und irgendwann klingelt der für Paket 3.
+
+Okay, denkt sich der Sender, dann ist die 3 wohl tatsächlich nicht angekommen. Also verschickt er sie erneut, und diesmal kommt sie auch tatsächlich beim Empfänger an. Der Empfänger wiederum hat jetzt seine Lücke geschlossen und entscheidet sich, dem Sender diese freudige Nachricht mitzuteilen: Er schickt eine Bestätigung für die komplette Kette, also die Sequenznummer von 5 plus die Länge von 5: 7301. Damit tut er gleichzeitig dem Sender etwas Gutes: Ohne diese Bestätigung würden nämlich die Wecker für 4 und 5 womöglich auch bald klingeln und diese Pakete ebenfalls erneut versendet werden.
+
+Der Sender erhält die Bestätigung für 7301 und weiß daher, dass jetzt alle fünf Pakete erfolgreich beim Empfänger angekommen sind.
+
+Damit ist jetzt geklärt, wie TCP dafür sorgt, dass verlorene Pakete neu verschickt werden. Aber wie kümmert es sich um die richtige Reihenfolge? Hier sind doch offensichtlich die Pakete 4 und 5 vor der 3 angekommen!
+
+Ja, das ist soweit korrekt und lässt sich auch gar nicht vermeiden. Der Trick ist aber, dass TCP die über ihm liegende _Anwendung_ das nicht merken lässt: Während die Daten aus den Paketen 1 und 2 womöglich direkt an die Anwendungsschicht weitergegeben wurden, hält diese Weitergabe an, sobald Lücken auftreten. Die 4 und die 5 behält das TCP auf der Emfängerseite also erst einmal in seinem Puffer und verrät der Anwendung nichts davon. Erst in dem Moment, in dem die 3 eintrifft, werden 3, 4 und 5 weitergereicht. So hat die Anwendung den Eindruck, die Daten wären in der richtigen Reihenfolge angekommen.
+
+Und was macht TCP, wenn die Leitung zwischen den beiden Rechnern plötzlich nicht mehr funktioniert? Dann kann es doch auch nicht garantieren, dass die Pakete ankommen. Ja, auch das ist richtig. Aber das zu garantieren ist auch unmöglich. Doch anhand der fehlenden Bestätigungen merkt TCP zumindest nach einer gewissen Zeit, dass die Kommunikation nicht mehr funktioniert, und kann diesen Fehler der Anwendungsschicht mitteilen. Diese muss dann damit irgendwie umgehen – beispielsweise der Benutzerin mitteilen, dass ihr Download abgebrochen ist oder ihre Mail nicht verschickt wurde. Ohne TCP würde dieser Fehler jedoch gar nicht erst bemerkt, und die gesendeten Pakete würden fröhlich ins Nichts laufen.
 
 ### User Datagram Protocol (UDP)
 
