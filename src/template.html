@@ -26,6 +26,9 @@
 
   ga('create', 'UA-51118148-1', 'timweber.name');
   ga('send', 'pageview');
+  jQuery('img').click(function () {
+    ga('send', 'event', 'scylec', 'imgClick', jQuery(this).is('html.scylec-text *') ? 'text' : 'presentation');
+  });
 </script>
 
 </body>
