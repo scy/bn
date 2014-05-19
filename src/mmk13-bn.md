@@ -1883,3 +1883,105 @@ Und was macht TCP, wenn die Leitung zwischen den beiden Rechnern plötzlich nich
   * nach Aufbau einer unverschlüsselten Verbindung bittet der Client um Aufbau einer verschlüsselten
   * Vorteil: kann auf dem selben Port laufen
 ***
+
+## Virtual Private Networks (VPNs)
+
+###### Was ist ein VPN?
+* ›virtuelles privates Netzwerk‹
+  * also ein Netz, das so tut, als wäre es ein privates
+* erlaubt es berechtigten Benutzerinnen, auf ein „privates“ (im Sinne von nicht-öffentliches) Netzwerk über ein potenziell öffentliches (z.B. das Internet) zuzugreifen
+* außerdem erlauben VPN-Technologien es, mehrere private Netzwerke über ein öffentliches zusammenzuschließen, ohne dass sie selbst dadurch öffentlich werden
+***
+
+###### Verbinden eines Einzelrechners in ein VPN
+* Einwahl mit Benutzername/Passwort und/oder Clientzertifikat auf VPN-Server
+  * sowohl Client als auch Server sind ganz normal mit dem und über das Internet (meist UDP) verbunden
+* Software auf Clientseite stellt virtuelle Netzwerkkarte bereit
+  * alle Pakete an sie werden verschlüsselt und authentifiziert zum VPN-Server geleitet und von dort im privaten Netz verteilt
+* VPN-Server nimmt Pakete aus privatem Netz an Client an und leitet sie ihm weiter
+***
+
+###### Layer-2-VPN
+* VPNs setzen an OSI-Layer 2 oder 3 an
+* Layer 2: alle Ethernet-Frames werden weitergeleitet (auch ›Bridging-Modus‹)
+  * Ethernet-Frames werden also verschlüsselt und in UDP-/IP-Pakete gesteckt, zum Server geschickt und dort wieder in Ethernet-Frames umgewandelt
+  * Server agiert quasi wie ein Switch, Clients bekommen z.B. DHCP aus dem privaten Netz
+  * Vorteil: fast völlig transparente Einbindung der Clients, keine Beschränkung auf IP
+  * Nachteil: Einkapselung performt schlecht, Zugriffskontrolle schwieriger
+***
+
+###### Layer-3-VPN
+* Layer 3: IP-Pakete werden weitergeleitet (auch ›Routing-Modus‹)
+  * IP-Pakete werden also verschlüsselt und in UDP-/IP-Pakete gesteckt, zum Server geschickt und dort wieder in IP-Pakete umgewandelt
+  * Server agiert also quasi wie ein Router, Clients bekommen IPs vom VPN-Server zugewiesen
+  * Vorteile: Beschränkung auf korrekte IP-Pakete, eigenes Subnetz für die Clients, etwas effizienter
+  * Nachteil: eigenes Subnetz, Ethernet-Broadcasts funktionieren nicht, IP-Broadcasts auch meist nicht (da unterschiedliche Subnetze)
+***
+
+###### Verbinden zweier Netzwerke per VPN
+* es verbindet sich nicht ein Client mit einem Server, sondern zwei Server miteinander
+* jeder Server leitet die für das jeweils andere Netz bestimmten Pakete weiter
+* somit kommunizieren z.B. Rechner in LANs an unterschiedlichen Standorten völlig transparent miteinander
+* auch hier Layer 2 oder Layer 3 möglich
+* auch Stern- oder Netztopologie möglich, wenn mehr als 2 Netze verbunden werden
+***
+
+###### Vorteile von VPNs
+* verschlüsselte, authentifizierte Kommunikation über öffentliche Netze
+  * kein Anmieten privater Leitungen nötig
+* Zusammenschluss von LANs ohne die LANs in ihrer Gesamtheit mit dem Internet verbinden zu müssen
+* mobile Clients können sich auch über potenziell abgehörte Netze sicher mit dem privaten Netz verbinden
+***
+
+###### VPN-Technologien
+* OpenVPN: offene und sehr flexible Lösung (Layer 2 und 3, sogar VPN über HTTP)
+* IPsec: Erweiterung zu IP, in IPv4 optional, in IPv6 integraler Bestandteil; daher direkte Unterstützung in vielen Betriebssystemen
+* PPTP (Point-to-Point Tunneling Protocol)
+* Cisco VPN
+* …
+***
+
+## Terminaldienste
+
+###### Terminal?
+* früher: Computer waren teuer
+* daher gab es zentrale Großrechner
+* die Benutzerinnen saßen an Terminals, die Tastatur und Bildschirm (evtl. Maus) bereitstellten, aber die Software lief auf dem zentralen Rechner
+* Ein- und Ausgabe liefen über das „Netz“
+* heute meist Einloggen von vollwertigem Rechner auf anderen vollwertigen, aber Terminal-Konzept lebt noch (_Thin Clients_)
+***
+
+###### Remote Desktop Protocol (RDP)
+* von Microsoft, Zugriff auf Windows-Rechner und -Terminalserver
+* kompletter grafischer Bildschirm, Tastatur, Maus, Sound, Drucker, Massenspeicher (z.B. USB am Client) werden weitergeleitet
+* Terminal-Server läuft auf TCP-Port 3389
+* Client-Software für alle Betriebssysteme
+* wird auch für Remoteunterstützung verwendet: (zeitlich begrenzte) Freigabe des Rechners für bestimmte Dritte
+***
+
+###### Apple Remote Desktop
+* TCP-Port 5900/5988
+* basiert auf dem offenen _VNC_-Protokoll
+* ermöglicht auch automatisierte Installation von Software sowie andere administrative Aufgaben
+* muss dazugekauft werden
+* ansonsten ähnliche Features wie RDP
+***
+
+###### SSH: Secure Shell
+* ursprünglich nur auf Unixen, inzwischen auf allen großen OSen verfügbar; TCP-Port 22
+* textbasiert: man öffnet eine _Shell_
+* aber Erweiterungen zum Weiterleiten von _X11_-Daten (verbreitete GUI unter Unixen)
+  * damit auch grafisches Arbeiten möglich
+* Dateitransfer via SCP oder SFTP
+* Server authentifiziert sich per Public Key
+* Client mit User/Passwort oder ebenfalls per Public Key (bekannt als _SSH-Key_)
+***
+
+###### SSH-Tunnel
+* SSHs große Stärke ist die Verschlüsselung
+* man kann beliebige TCP-Verbindungen durch SSH leiten (sog. _SSH-Tunnel_)
+  * damit sind diese verschlüsselt
+  * eine Art simples VPN ist möglich
+* auch Ein- und Ausgabe von Programmen kann direkt über SSH verkettet werden
+  * vielseitige Einsatzmöglichkeiten
+***
