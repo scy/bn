@@ -1464,7 +1464,7 @@ Und was macht TCP, wenn die Leitung zwischen den beiden Rechnern plötzlich nich
   * Ziel-Host eines Paketes nicht erreichbar
   * Time To Live (TTL) überschritten (Paket zu lang unterwegs)
   * etc.
-* auch Diagnosepakete (Ping)
+* zu ICMP gehören auch Diagnosepakete (Ping)
 ***
 
 ### Verschachtelung von Headern
@@ -1485,7 +1485,7 @@ Und was macht TCP, wenn die Leitung zwischen den beiden Rechnern plötzlich nich
 ###### Adressbereiche und besondere Adressen
 * Netzwerk-Teil ist je nach Größe des Netzes unterschiedlich lang
   * kleine Netze z.B. 24 Bit, damit 8 Bits Host-Teil
-* Angabe des Netzwerks z.B. als `10.23.0.0./16`
+* Angabe des Netzwerks z.B. als `10.23.0.0/16`
   * enthält Adressen `10.23.0.0` bis `10.23.255.255`
   * Schreibweise also niedrigstmögliche Adresse, Slash, Anz. Bits
 * komplizierter wenn nicht an 8-Bit-Grenze
