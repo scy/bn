@@ -1,6 +1,6 @@
 # Betriebssysteme und Netze
 
-Tim Weber für den Kurs MMK13 der DHBW Mannheim, März bis Juni 2014.
+Tim Weber für den Kurs MMK14 der DHBW Mannheim, Juni bis September 2015.
 
 Ein kleiner Hinweis: Personenbezeichnungen in diesem Skriptum verwenden zur Verbesserung der Lesbarkeit ausschließlich die weibliche Form. Die männliche ist selbstverständlich mit gemeint.
 
@@ -10,55 +10,48 @@ Ein kleiner Hinweis: Personenbezeichnungen in diesem Skriptum verwenden zur Verb
 * Teil 2: Netze
 * Anwesenheitsliste
 * Fragen jederzeit
-* lernen Sie _während_ des Semesters
-* Rückfragen auch gern in der Facebook-Gruppe oder per Mail
+* lernt _während_ des Semesters
+* Rückfragen auch gern auf Facebook oder per Mail
 ***
 
 ### Zeitliche Planung
 
-Dieses Semester haben wir 9 Termine, jeweils montags von 10:30 Uhr bis 13:30 Uhr, also je 3 Stunden.
+Dieses Semester haben wir 9 Termine, jeweils montags von 13:00 Uhr bis 16:30 Uhr, also je 3,5 Stunden.
 
-Da wie jedes Mal die Klausurzeit von 55 Minuten von der Vorlesungszeit von 1.620 Minuten (36× 45 Minuten) abgezogen wird, bleiben uns ganze 55 Minuten Pause, die wir auf diese neun Termine verteilen können, also 6 Minuten und 6 Sekunden pro Termin.
-
-Ich bin über diese kurze Pausenzeit nicht besonders glücklich, weil wir damit quasi jeden Montagmorgen 3 Stunden durchmachen müssen, aber mein Einwand diesbezüglich wurde ignoriert.
+Da wie jedes Mal die Klausurzeit von 55 Minuten von der Vorlesungszeit von 1.620 Minuten (36× 45 Minuten) abgezogen wird, bleiben uns ganze 325 Minuten Pause, die wir auf diese neun Termine verteilen können, also 36 Minuten pro Termin. Ich würde vorschlagen, wir machen die Pause immer von 14:30 Uhr bis 15:00 Uhr.
 
 Die Vorlesung besteht aus 16 Abschnitten, sieben für den Teil »Betriebssysteme« und neun für den Teil »Netze«. Pro Termin werde ich versuchen, zwei Abschnitte zu bearbeiten, so dass uns der letzte Termin für Wiederholung und Klausurvorbereitung bleibt.
 
 ### Anwesenheit
 
-Auch diesmal gibt es wieder eine Anwesenheitsliste, die ich jeden Montag durchgehen werde. Verspätungen und Fehlzeiten werden eingetragen. Wenn Sie krank oder vorhersehbar abwesend sind, sagen Sie bitte sowohl dem Sekretariat als auch mir Bescheid, [E-Mail](mailto:dhbw@timweber.name) genügt.
+Auch diesmal gibt es wieder eine Anwesenheitsliste, die ich jeden Montag durchgehen werde. Verspätungen und Fehlzeiten werden eingetragen. Wenn ihr krank oder vorhersehbar abwesend seid, sagt bitte sowohl dem Sekretariat als auch mir Bescheid, [E-Mail](mailto:dhbw@timweber.name) genügt.
 
 ### Fragen
 
-Fragen können Sie während der Vorlesung jederzeit stellen. Trauen Sie sich: Es ist sehr unwahrscheinlich, dass Ihnen etwas unklar ist, aber Ihre Kommilitoninnen es restlos und perfekt verstanden haben.
+Fragen könnt ihr während der Vorlesung jederzeit stellen. Traut euch: Es ist sehr unwahrscheinlich, dass dir etwas unklar ist, aber eure Kommilitoninnen es restlos und perfekt verstanden haben.
 
-Erinnern Sie sich noch an meinen Hinweis in der Rechnerstrukturen-Vorlesung, dass Sie am Besten _während_ des Semesters lernen und die Vorlesung nachbereiten sollen? Viele von Ihnen werden diesen Hinweis ignoriert haben und in der Klausurphase gemerkt haben, dass ich ja irgendwie doch ein bisschen recht hatte. Also seien Sie dieses Semester etwas klüger! ;)
+Erinnert ihr euch noch an meinen Hinweis in der Rechnerstrukturen-Vorlesung, dass ihr am Besten _während_ des Semesters lernen und die Vorlesung nachbereiten sollt? Viele von euch werden diesen Hinweis ignoriert haben und in der Klausurphase gemerkt haben, dass ich ja irgendwie doch ein bisschen recht hatte. Also seid dieses Semester vielleicht etwas klüger! ;)
 
-Wenn Sie beim Nachbereiten Fragen haben, stellen Sie sie mir entweder am Anfang der Vorlesung der nächsten Woche, oder schreiben Sie sie in die Facebook-Gruppe. Ich schaue da von Zeit zu Zeit rein und beantworte die Fragen, außer eine Kommilitonin kommt mir zuvor.
+Wenn ihr beim Nachbereiten Fragen habt, stellt sie mir entweder am Anfang der Vorlesung der nächsten Woche, oder schreibt sie in die Facebook-Gruppe. Ich schaue da von Zeit zu Zeit rein und beantworte die Fragen, außer eine Kommilitonin kommt mir zuvor.
 
-Falls unbedingt nötig, können Sie mir auch per Mail eine Frage stellen, aber die Wahrscheinlichkeit, dass wirklich niemand außer Ihnen mit der Antwort was anfangen kann, ist äußerst gering.
+Falls unbedingt nötig, könnt ihr mir auch per Mail eine Frage stellen, aber die Wahrscheinlichkeit, dass wirklich niemand außer dir mit der Antwort was anfangen kann, ist äußerst gering.
 
 ### Folien, Materialien, Mitschriebe
 
 ###### ~
 * Folien sind inzwischen aus dem Browser druckbar, aber immer noch keine Auswendiglern-Vorlage
-* schreiben Sie mit, stellen Sie Fragen
-* **verstehen** Sie die Inhalte
-* PDF-Exporte stelle ich keine zur Verfügung, unterstütze Sie aber gern bei Designanpassungen
+* schreibt mit, stellt Fragen
+* **versteht** die Inhalte
+* PDF-Exporte stelle ich keine zur Verfügung, unterstütze euch aber gern bei Designanpassungen
 ***
 
-Ich habe das selbstgebastelte Präsentationssystem vom letzten Semester noch mal umgeworfen und neu geschrieben. Diesmal mit besonderem Augenmerk auf Ihre anscheinend wichtigsten Bedürfnisse:
+Dieses Semester gibt es gleichzeitig einen Prosatext, begleitend zu den Folien. Das Design ist noch nicht optimal, aber auf die inneren Werte kommt es an!
 
-1. Papier vernichten
-2. viel lesen
+Die Folien eignen sich wohlgemerkt immer noch nicht zum Auswendiglernen, und das Skriptum ist etwas zu umfangreich. Von daher empfehle ich euch, die Inhalte der Vorlesung zu _verstehen_. Schreibt mit, stellt Fragen, arbeitet das Material zu Hause auf, lest in den verlinkten Wikipedia-Artikeln herum. Inzwischen wisst ihr, wie meine Klausuren aussehen, und dass sie absolut machbar sind – wenn man sich nicht nur auf auswendig gelernte Folien beschränkt.
 
-Die Druckansicht habe ich deshalb als allererstes implementiert, und dieses Semester entsteht auch gleichzeitig ein Prosatext, begleitend zu den Folien. Das Design ist noch nicht optimal, aber auf die inneren Werte kommt es an!
+Die Folien lassen sich direkt aus dem Browser drucken. Benutzt den großen Button »Präsentationsmodus aktivieren« ganz am Anfang des Skriptums, wenn ihr die Folien sehen (und drucken) wollt, oder druckt einfach das Skriptum. Die Folien sind im Skriptum am rechten Rand eingebaut und exakt die selben wie in der Folienansicht.
 
-Die Folien eignen sich wohlgemerkt immer noch nicht zum Auswendiglernen, und das Skriptum ist etwas zu umfangreich. Von daher empfehle ich Ihnen, die Inhalte der Vorlesung zu _verstehen_. Schreiben Sie mit, stellen Sie Fragen, arbeiten Sie das Material zu Hause auf, lesen Sie in den verlinkten Wikipedia-Artikeln herum. Inzwischen wissen Sie, wie meine Klausuren aussehen, und dass sie absolut machbar sind – wenn man sich nicht nur auf auswendig gelernte Folien beschränkt.
-
-Letztes Semester haben Sie selbst ein PDF aus den Folien erstellt, indem Sie Screenshots angefertigt haben. Diesmal geht das etwas einfacher, Sie können die Folien direkt aus dem Browser drucken. Benutzen Sie den großen Button »Präsentationsmodus aktivieren« ganz am Anfang des Skriptums, wenn Sie die Folien sehen (und drucken) wollen, oder drucken Sie einfach das Skriptum. Die Folien sind im Skriptum am rechten Rand eingebaut und exakt die selben wie in der Folienansicht.
-
-Ich werde Ihnen kein PDF erstellen (sondern stelle eine Website zur Verfügung) und auch nicht Ihrer Dropbox beitreten (weil mir da zu viel los ist). Wenn das von mir verwendete Druck-Stylesheet noch verbesserungswürdig ist, sagen Sie mir bitte Bescheid, ich passe das dann entsprechend an.
+Ich werde kein PDF erstellen (sondern stelle eine Website zur Verfügung) und auch nicht einer Dropbox beitreten (weil mir da zu viel los ist). Wenn das von mir verwendete Druck-Stylesheet noch verbesserungswürdig ist, sagt mir bitte Bescheid, ich passe das dann entsprechend an.
 
 ### Aufbau »Betriebssysteme«
 
@@ -72,13 +65,13 @@ Ich werde Ihnen kein PDF erstellen (sondern stelle eine Website zur Verfügung) 
 * Netzwerk-Dateisysteme
 ***
 
-Im Betriebssysteme-Teil beschäftigen wir uns erst mal mit der Frage, was ein Betriebssystem (engl. _operating system_, OS) überhaupt ist, aus was es besteht und wofür es da ist. Danach sehen wir uns verschiedene Betriebssysteme an, damit Sie ein Gefühl dafür bekommen, wo ihre Gemeinsamkeiten und Unterschiede liegen.
+Im Betriebssysteme-Teil beschäftigen wir uns erst mal mit der Frage, was ein Betriebssystem (engl. _operating system_, OS) überhaupt ist, aus was es besteht und wofür es da ist. Danach sehen wir uns verschiedene Betriebssysteme an, damit ihr ein Gefühl dafür bekommt, wo ihre Gemeinsamkeiten und Unterschiede liegen.
 
-Danach sehen wir uns ein Feature an, das Sie für selbstverständlich halten dürften, weil alle Betriebssysteme, die Sie benutzen, dieses Feature haben: _Multitasking_, also die Fähigkeit, mehrere Dinge „gleichzeitig“ zu tun. Verwandt damit ist das Thema _Scheduling_, bei dem es darum geht, in welcher Reihenfolge und mit welcher Priorität diese gleichzeitig ausgeführten Aufgaben bearbeitet werden.
+Danach sehen wir uns ein Feature an, das ihr für selbstverständlich halten dürftet, weil alle Betriebssysteme, die ihr benutzt, dieses Feature haben: _Multitasking_, also die Fähigkeit, mehrere Dinge „gleichzeitig“ zu tun. Verwandt damit ist das Thema _Scheduling_, bei dem es darum geht, in welcher Reihenfolge und mit welcher Priorität diese gleichzeitig ausgeführten Aufgaben bearbeitet werden.
 
 Beim _Speichermanagement_ geht es darum, wie der Arbeitsspeicher unter den laufenden Programmen aufgeteilt wird und wie das OS dafür sorgt, dass Programme nicht auf den Speicher anderer Programme zugreifen können – und warum das überhaupt wichtig ist.
 
-Außerdem sehen wir uns im Detail an, was eigentlich eine _Datei_ ist, wie der Computer Dateien intern speichert und verwaltet und welche Probleme er dabei eigentlich lösen muss. Und da Dateien sowohl _lokal_ (direkt auf Ihrem Rechner) als auch _remote_ (auf einem Server oder in der Cloud) gespeichert werden können, werfen wir einen Blick darauf, was die Eigenheiten der verschiedenen Speicherungsarten sind. Dabei lernen wir mehrere _Dateisysteme_ kennen, denn je nach Einsatzzweck und Betriebssystem läuft die interne Speicherung unterschiedlich ab.
+Außerdem sehen wir uns im Detail an, was eigentlich eine _Datei_ ist, wie der Computer Dateien intern speichert und verwaltet und welche Probleme er dabei eigentlich lösen muss. Und da Dateien sowohl _lokal_ (direkt auf eurem Rechner) als auch _remote_ (auf einem Server oder in der Cloud) gespeichert werden können, werfen wir einen Blick darauf, was die Eigenheiten der verschiedenen Speicherungsarten sind. Dabei lernen wir mehrere _Dateisysteme_ kennen, denn je nach Einsatzzweck und Betriebssystem läuft die interne Speicherung unterschiedlich ab.
 
 ### Aufbau »Netze«
 
@@ -94,15 +87,15 @@ Außerdem sehen wir uns im Detail an, was eigentlich eine _Datei_ ist, wie der C
 * Terminaldienste (SSH, Remote Desktop)
 ***
 
-Der Teil »Netze« beschäftigt sich mit Computernetzen im Allgemeinen und dem Internet im Besonderen. Das OSI-Referenzmodell, das wir letztes Semester nur kurz angerissen haben, schauen wir uns jetzt genauer an, und ich geben Ihnen einen Überblick darüber, welche _Protokolle_ (Kommunikationsstandards) es im Internet eigentlich gibt. Von den hunderten, vielleicht tausenden Protokollen greifen wir uns dann ein paar raus, um sie genauer zu betrachten.
+Der Teil »Netze« beschäftigt sich mit Computernetzen im Allgemeinen und dem Internet im Besonderen. Das OSI-Referenzmodell, das wir letztes Semester nur kurz angerissen haben, schauen wir uns jetzt genauer an, und ich geben euch einen Überblick darüber, welche _Protokolle_ (Kommunikationsstandards) es im Internet eigentlich gibt. Von den hunderten, vielleicht tausenden Protokollen greifen wir uns dann ein paar raus, um sie genauer zu betrachten.
 
-Dafür müssen wir aber erst einmal wissen, welche Arten von Protokollen es gibt: fast alle kann man in die drei Klassen TCP, UDP und ICMP einteilen. Außerdem braucht man zur Kommunikation _IP-Adressen_. Wie die aussehen, in welche Bereiche man sie einteilt und wie man eine bekommt, ist ebenso Thema wie der langsam auch bei den Endanwendern ankommende neue Standard _IPv6_.
+Dafür müssen wir aber erst einmal wissen, welche Arten von Protokollen es gibt: fast alle kann man in die drei Klassen TCP, UDP und ICMP einteilen. Außerdem braucht man zur Kommunikation _IP-Adressen_. Wie die aussehen, in welche Bereiche man sie einteilt und wie man eine bekommt, ist ebenso Thema wie der langsam auch bei den Endanwenderinnen ankommende neue Standard _IPv6_.
 
 Bevor wir uns dann endlich mit Anwendungsprotokollen wie HTTP und SMTP beschäftigen können, brauchen wir Basiswissen dazu, wie die Datenpakete im Internet eigentlich den Weg von einem Rechner zum anderen finden: nämlich über Router und Gateways, und auch die Abkürzungen _MTU_ und _DNS_ spielen dabei eine Rolle.
 
-Und wenn Sie Wert darauf legen, dass nicht jede Zwischenstation die Möglichkeit hat, Ihre Kommunikationsinhalte mitzulesen, sollten Sie Ihre Daten verschlüsseln. Die entsprechenden Standards _SSL_ und _TLS_ schauen wir uns ebenso an wie die _virtuellen privaten Netzwerke_ (VPNs), mit denen Sie vertrauenswürdige Kommunikation über ein nicht vertrauenswürdiges Netz wie das Internet abwickeln können.
+Und wenn ihr Wert darauf legt, dass nicht jede Zwischenstation die Möglichkeit hat, eure Kommunikationsinhalte mitzulesen, solltet ihr eure Daten verschlüsseln. Die entsprechenden Standards _SSL_ und _TLS_ schauen wir uns ebenso an wie die _virtuellen privaten Netzwerke_ (VPNs), mit denen ihr vertrauenswürdige Kommunikation über ein nicht vertrauenswürdiges Netz wie das Internet abwickeln könnt.
 
-Ganz zum Schluss werfen wir dann noch einen Blick auf sogenannte Terminaldienste, also Dienste, mit denen Sie sich auf einem anderen Computer anmelden können und ihn so benutzen, als säßen Sie direkt davor.
+Ganz zum Schluss werfen wir dann noch einen Blick auf sogenannte Terminaldienste, also Dienste, mit denen ihr euch auf einem anderen Computer anmelden könnt und ihn so benutzen, als säßt ihr direkt davor.
 
 # Teil 1: Betriebssysteme
 
