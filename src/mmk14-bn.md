@@ -5,7 +5,8 @@ Tim Weber für den Kurs MMK14 der DHBW Mannheim, Juni bis September 2015.
 Ein kleiner Hinweis: Personenbezeichnungen in diesem Skriptum verwenden zur Verbesserung der Lesbarkeit ausschließlich die weibliche Form. Die männliche ist selbstverständlich mit gemeint.
 
 ###### Aufbau und Ablauf
-* 9 Termine à 180 Minuten
+* 9 Termine à 195 (eigentlich 210) Minuten
+* Viertelstunde Pause und dafür 16:15 Uhr Schluss
 * Teil 1: Betriebssysteme
 * Teil 2: Netze
 * Anwesenheitsliste
@@ -18,7 +19,7 @@ Ein kleiner Hinweis: Personenbezeichnungen in diesem Skriptum verwenden zur Verb
 
 Dieses Semester haben wir 9 Termine, jeweils montags von 13:00 Uhr bis 16:30 Uhr, also je 3,5 Stunden.
 
-Da wie jedes Mal die Klausurzeit von 55 Minuten von der Vorlesungszeit von 1.620 Minuten (36× 45 Minuten) abgezogen wird, bleiben uns ganze 325 Minuten Pause, die wir auf diese neun Termine verteilen können, also 36 Minuten pro Termin. Ich würde vorschlagen, wir machen die Pause immer von 14:30 Uhr bis 15:00 Uhr.
+Da wie jedes Mal die Klausurzeit von 55 Minuten von der Vorlesungszeit von 1.620 Minuten (36× 45 Minuten) abgezogen wird, bleiben uns ganze 325 Minuten Pause, die wir auf diese neun Termine verteilen können, also 36 Minuten pro Termin. Wir haben beschlossen, die Pause von ca. 14:30 Uhr bis 14:45 Uhr zu machen und dafür schon um 16:15 Uhr Feierabend (statt 16:30 Uhr).
 
 Die Vorlesung besteht aus 16 Abschnitten, sieben für den Teil »Betriebssysteme« und neun für den Teil »Netze«. Pro Termin werde ich versuchen, zwei Abschnitte zu bearbeiten, so dass uns der letzte Termin für Wiederholung und Klausurvorbereitung bleibt.
 
@@ -39,10 +40,11 @@ Falls unbedingt nötig, könnt ihr mir auch per Mail eine Frage stellen, aber di
 ### Folien, Materialien, Mitschriebe
 
 ###### ~
-* Folien sind inzwischen aus dem Browser druckbar, aber immer noch keine Auswendiglern-Vorlage
+* Folien sind immer noch keine Auswendiglern-Vorlage
 * schreibt mit, stellt Fragen
 * **versteht** die Inhalte
 * PDF-Exporte stelle ich keine zur Verfügung, unterstütze euch aber gern bei Designanpassungen
+* keine Aufzeichnung, weil ich kein Feedback bekam
 ***
 
 Dieses Semester gibt es gleichzeitig einen Prosatext, begleitend zu den Folien. Das Design ist noch nicht optimal, aber auf die inneren Werte kommt es an!
@@ -52,6 +54,8 @@ Die Folien eignen sich wohlgemerkt immer noch nicht zum Auswendiglernen, und das
 Die Folien lassen sich direkt aus dem Browser drucken. Benutzt den großen Button »Präsentationsmodus aktivieren« ganz am Anfang des Skriptums, wenn ihr die Folien sehen (und drucken) wollt, oder druckt einfach das Skriptum. Die Folien sind im Skriptum am rechten Rand eingebaut und exakt die selben wie in der Folienansicht.
 
 Ich werde kein PDF erstellen (sondern stelle eine Website zur Verfügung) und auch nicht einer Dropbox beitreten (weil mir da zu viel los ist). Wenn das von mir verwendete Druck-Stylesheet noch verbesserungswürdig ist, sagt mir bitte Bescheid, ich passe das dann entsprechend an.
+
+Eine Aufzeichnung der Vorlesung hab ich euch angeboten, ihr wolltet euch darum kümmern, zu klären, ob euch das zusagt und rechtlich in Ordnung ist. Das angekündigte Feedback habe ich allerdings nicht bekommen. Dementsprechend gibt’s halt keine Aufzeichnung.
 
 ### Aufbau »Betriebssysteme«
 
@@ -107,7 +111,7 @@ Ganz zum Schluss werfen wir dann noch einen Blick auf sogenannte Terminaldienste
 * Ein-/Ausgabe, Netzwerkdienste, Audio, Dateisystem, Geolokalisierung, …
 ***
 
-In diesem Abschnitt geht es hauptsächlich darum, einen Überblick über die vielfältigen Aufgaben eines Betriebssystems zu gewinnen. Machen Sie sich keine Sorgen, wenn Sie einige der angesprochenen Begriffe nicht kennen: Sie werden sie noch früh genug verstehen müssen. ;)
+In diesem Abschnitt geht es hauptsächlich darum, einen Überblick über die vielfältigen Aufgaben eines Betriebssystems zu gewinnen. Macht euch keine Sorgen, wenn ihr einige der angesprochenen Begriffe nicht kennt: Ihr werdet sie noch früh genug verstehen müssen. ;)
 
 ###### Multitasking/Scheduling
 * ein Rechner hat meist 1–16 Prozessoren/Cores, aber führt hunderte Prozesse gleichzeitig aus
@@ -118,7 +122,7 @@ In diesem Abschnitt geht es hauptsächlich darum, einen Überblick über die vie
 
 ### ~
 
-Beispiel _Multitasking_: Darunter versteht man die Fähigkeit eines Computers, mehrere Dinge scheinbar gleichzeitig auszuführen: Dateien kopieren, Musik abspielen und ein Textdokument drucken. Aber wie kann ein Rechner so etwas tun, wenn er beispielsweise nur einen einzigen Prozessor hat? Selbst wenn der Prozessor mehrere _Cores_ besitzt, kann jeder Core nur eine Aufgabe gleichzeitig ausführen. Und da ein Computer weit mehr Aufgaben zu bearbeiten hat als das, was Sie als Anwendungen sehen (z.B. Netzwerkkommunikation, Virenschutz, Wartungs-Aufgaben, Verarbeitung von Benutzereingaben etc.), laufen auf einem durchschnittlichen System eine zwei- bis dreistellige Anzahl an _Prozessen_ gleichzeitig.
+Beispiel _Multitasking_: Darunter versteht man die Fähigkeit eines Computers, mehrere Dinge scheinbar gleichzeitig auszuführen: Dateien kopieren, Musik abspielen und ein Textdokument drucken. Aber wie kann ein Rechner so etwas tun, wenn er beispielsweise nur einen einzigen Prozessor hat? Selbst wenn der Prozessor mehrere _Cores_ besitzt, kann jeder Core nur eine Aufgabe gleichzeitig ausführen. Und da ein Computer weit mehr Aufgaben zu bearbeiten hat als das, was ihr als Anwendungen seht (z.B. Netzwerkkommunikation, Virenschutz, Wartungs-Aufgaben, Verarbeitung von Benutzereingaben etc.), laufen auf einem durchschnittlichen System eine zwei- bis dreistellige Anzahl an _Prozessen_ gleichzeitig.
 
 Die Magie dahinter ist das Betriebssystem, das die Ressource ›Rechenzeit‹ verwaltet. Es legt fest, welcher Core wann und wie lange welche Aufgabe ausführt. Jede Aufgabe wird meist nur einen Bruchteil einer Sekunde ausgeführt, danach wird sie kurzzeitig aufs Eis gelegt und ein anderer Prozess wird fortgesetzt. Dieser Wechsel zwischen Prozessen kann durchaus mehrere hundert Mal pro Sekunde durchgeführt werden; so schnell, dass es für die Benutzerin so wirkt, als würden alle diese Aufgaben gleichzeitig bearbeitet.
 
@@ -133,9 +137,9 @@ Außerdem ist nicht jeder Prozess gleich wichtig: Das Betriebssystem entscheidet
 
 ### ~
 
-Die Verwaltung des virtuellen Speichers ist eine weitere Aufgabe des Betriebssystems. Ohne Betriebssystem könnte prinzipiell jeder Prozess, jedes Programm auf den Arbeitsspeicher (RAM) eines anderen Programms zugreifen und Daten daraus lesen oder darin verändern. Das dubiose Freeware-Spiel, das Sie heruntergeladen haben, könnte die Onlinebanking-PIN auslesen, die Sie gerade in Ihrem Browser eingeben. Das Betriebssystem schützt Sie davor, indem es den Zugriff auf den Speicher verwaltet. Prozesse können nicht direkt auf den RAM zugreifen, sondern nur auf die Bereiche, die ihnen das Betriebssystem zugewiesen hat.
+Die Verwaltung des virtuellen Speichers ist eine weitere Aufgabe des Betriebssystems. Ohne Betriebssystem könnte prinzipiell jeder Prozess, jedes Programm auf den Arbeitsspeicher (RAM) eines anderen Programms zugreifen und Daten daraus lesen oder darin verändern. Das dubiose Freeware-Spiel, das ihr heruntergeladen habt, könnte die Onlinebanking-PIN auslesen, die ihr gerade in euren Browser eingebt. Das Betriebssystem schützt euch davor, indem es den Zugriff auf den Speicher verwaltet. Prozesse können nicht direkt auf den RAM zugreifen, sondern nur auf die Bereiche, die ihnen das Betriebssystem zugewiesen hat.
 
-Außerdem sorgt es dafür, dass Sie den Programmen auf Ihrem Computer mehr RAM zur Verfügung stellen können, als überhaupt physisch in Ihrem Computer verbaut sind. Diesen Trick erledigt das Betriebssystem dadurch, dass Speicherbereiche, in denen ein Prozess zwar Daten abgelegt hat, aber momentan nicht damit arbeitet, vom Betriebssystem klammheimlich stattdessen auf die Festplatte geschrieben werden. Der entsprechende RAM-Bereich kann dann einem anderen Prozess zugewiesen werden, der ihn gerade nötiger braucht. Will der ursprüngliche „Besitzer“ dann seine Daten wiederhaben, lädt das Betriebssystem die Daten wieder von der Festplatte und tut so, als wäre nichts gewesen.
+Außerdem sorgt es dafür, dass ihr den Programmen auf eurem Computer mehr RAM zur Verfügung stellen könnt, als überhaupt physisch in eurem Computer verbaut ist. Diesen Trick erledigt das Betriebssystem dadurch, dass Speicherbereiche, in denen ein Prozess zwar Daten abgelegt hat, aber momentan nicht damit arbeitet, vom Betriebssystem klammheimlich stattdessen auf die Festplatte geschrieben werden. Der entsprechende RAM-Bereich kann dann einem anderen Prozess zugewiesen werden, der ihn gerade nötiger braucht. Will der ursprüngliche „Besitzer“ dann seine Daten wiederhaben, lädt das Betriebssystem die Daten wieder von der Festplatte und tut so, als wäre nichts gewesen.
 
 ###### Hardwareabstraktion
 * z.B.: Soundkarten unterschiedlicher Hersteller werden unterschiedlich angesteuert
@@ -162,7 +166,7 @@ Auch hier hilft das Betriebssystem: Mit Hilfe sogenannter _Treiber_ vermittelt e
 
 ### ~
 
-Abgesehen davon, dass das Betriebssystem natürlich auch bei Netzwerkkarten entsprechend dolmetscht, sind auch die Protokolle, die im Internet so „gesprochen“ werden, alles andere als einfach. Im Laufe der Vorlesung werden wir uns beispielsweise TCP genauer ansehen, und Sie werden feststellen: Wenn jede Anwendung TCP selbst implementieren müsste, wäre das ein enormer Aufwand.
+Abgesehen davon, dass das Betriebssystem natürlich auch bei Netzwerkkarten entsprechend dolmetscht, sind auch die Protokolle, die im Internet so „gesprochen“ werden, alles andere als einfach. Im Laufe der Vorlesung werden wir uns beispielsweise TCP genauer ansehen, und ihr werdet feststellen: Wenn jede Anwendung TCP selbst implementieren müsste, wäre das ein enormer Aufwand.
 
 Deshalb stellt auch hier das Betriebssystem wieder standardisierte und vereinfachte Schnittstellen zur Verfügung. Eine Anwendung kann einfach sagen, dass sie eine Verbindung zu diesem-und-jenem Rechner aufbauen möchte, und das Betriebssystem kümmert sich um die ganzen Details hinter den Kulissen. Außerdem hat es Treiber für eine Vielzahl von Hard- und Softwarestandards. Damit muss sich eine Anwendung auch nicht mehr darum kümmern, _wie_ sie ins Internet kommt. Ob per WLAN, Ethernet, Bluetooth oder gar Packet Radio, die Schnittstelle zur Netzwerkkommunikation ist identisch – dank des Betriebssystems.
 
@@ -175,7 +179,7 @@ Deshalb stellt auch hier das Betriebssystem wieder standardisierte und vereinfac
 
 ### Treiber
 
-Jetzt habe ich schon zweimal das Wort ›Treiber‹ erwähnt, das Sie sicher auch schon andernorts gehört haben, aber noch nicht erklärt, um was es sich handelt.
+Jetzt habe ich schon zweimal das Wort ›Treiber‹ erwähnt, das ihr sicher auch schon andernorts gehört habt, aber noch nicht erklärt, um was es sich handelt.
 
 Allgemein gesagt ist ein Treiber ein Programm, das als Vermittler dient. Zwischen wem oder was? Nun, auf der einen Seite kommuniziert er mit dem Betriebssystem und ist quasi dessen „Handlanger“: Er ist derjenige, der die eigentliche Übersetzungsarbeit leistet. Auf der anderen Seite spricht er mit einem Peripheriegerät oder implementiert ein Protokoll, eine Schnittstelle oder Ähnliches.
 
@@ -206,7 +210,7 @@ Am Ende dieser ganzen „Wertschöpfungskette“, wenn man so will, steht dann d
 
 Es ist nicht ganz einfach zu definieren, wo das Betriebssystem aufhört und Anwendungssoftware anfängt, insbesondere weil es Anwendungssoftware gibt, die sehr eng mit dem Betriebssystem zusammen arbeitet.
 
-Aus Sicht der Endanwenderinnen enthält ein „Betriebssystem“ wie z.B. Windows 7 beispielsweise den Internet Explorer, einen Bildbetrachter, einen Taschenrechner etc. – aber aus Sicht einer Informatikerin gehört keiner der genannten Teile zum eigentlichen Betriebssystemkern, dem sogenannten _Kernel_. Je nachdem, wen man fragt, gehören auch die einzelnen Treiber nicht zum Betriebssystem.
+Aus Sicht der Endanwenderinnen enthält ein „Betriebssystem“ wie z.B. Windows 8 beispielsweise den Internet Explorer, einen Bildbetrachter, einen Taschenrechner etc. – aber aus Sicht einer Informatikerin gehört keiner der genannten Teile zum eigentlichen Betriebssystemkern, dem sogenannten _Kernel_. Je nachdem, wen man fragt, gehören auch die einzelnen Treiber nicht zum Betriebssystem.
 
 Die wichtigste Unterscheidung zwischen OS und Anwendungen ist die Frage, mit welchen Rechten sie laufen. Das Betriebssystem hat die vollständige Kontrolle über den Computer und alle angeschlossene Hardware, kann z.B. auf beliebigen Speicher zugreifen und jede Anwendung beenden. Anwendungsprogramme dagegen können, selbst wenn sie mit Administratorrechten ausgeführt werden, alle diese Tätigkeiten nur über Anfragen an das Betriebssystem durchführen.
 
@@ -240,9 +244,9 @@ Auch Virtualisierungsdienste werden inzwischen teilweise vom Betriebssystem ange
 * Chrome OS
 ***
 
-In diesem Kapitel werfen wir einen Blick auf einige der momentan am weitesten verbreiteten Betriebssysteme und beleuchten Ihre Geschichte und Eigenheiten.
+In diesem Kapitel werfen wir einen Blick auf einige der momentan am weitesten verbreiteten Betriebssysteme und beleuchten ihre Geschichte und Eigenheiten.
 
-Übrigens gilt, wie auch schon letztes Semester: Jahreszahlen sind auf keinen Fall klausurrelevant. Und ignorieren Sie die auf den Folien aufgeführten ›Dateisysteme‹ für den Moment, wir werden später im entsprechenden Kapitel noch darauf zurückkommen.
+Übrigens gilt, wie auch schon letztes Semester: Jahreszahlen sind auf keinen Fall klausurrelevant. Und ignoriert die auf den Folien aufgeführten ›Dateisysteme‹ bitte für den Moment, wir werden später im entsprechenden Kapitel noch darauf zurückkommen.
 
 ###### Microsoft Windows: Geschichte
 * ursprünglich Aufsatz auf MS-DOS
@@ -252,9 +256,9 @@ In diesem Kapitel werfen wir einen Blick auf einige der momentan am weitesten ve
 
 ### Microsoft Windows
 
-Windows ist wahrscheinlich das bekannteste Betriebssystem überhaupt, wahrscheinlich jede von Ihnen hat schon einmal damit gearbeitet. Bei den meisten Computern ist es vorinstalliert dabei, und viele Menschen glauben, dass es einfach zu Computern dazu gehört und wissen gar nicht, dass es auch andere Betriebssysteme gibt.
+Windows ist wahrscheinlich das bekannteste Betriebssystem überhaupt, wahrscheinlich jede von euch hat schon einmal damit gearbeitet. Bei den meisten Computern ist es vorinstalliert dabei, und viele Menschen glauben, dass es einfach zu Computern dazu gehört und wissen gar nicht, dass es auch andere Betriebssysteme gibt.
 
-Bevor es Windows gab, verkaufte Microsoft ein Betriebssystem mit textbasierter Oberfläche: _MS-DOS_ (Microsoft Disk Operating System). Und die ersten Windows-Versionen waren auch einfach nur grafische Benutzeroberflächen für DOS. Das heißt, der Computer startete DOS, und Windows war einfach nur ein Anwendungsprogramm, im Prinzip wie jede andere auch. Allerdings hatte Windows einige Features, die durchaus Betriebssystem-Charakter hatten: So führte es beispielsweise Multitasking ein, das in purem DOS noch nicht verfügbar war. Außerdem gab es für Windows Gerätetreiber, beispielsweise für eine Vielzahl von Druckern.
+Bevor es Windows gab, verkaufte Microsoft ein Betriebssystem mit textbasierter Oberfläche: _MS-DOS_ (Microsoft Disk Operating System). Und die ersten Windows-Versionen waren auch einfach nur grafische Benutzeroberflächen für DOS. Das heißt, der Computer startete DOS, und Windows war einfach nur ein Anwendungsprogramm, im Prinzip wie jedes andere auch. Allerdings hatte Windows einige Features, die durchaus Betriebssystem-Charakter hatten: So führte es beispielsweise Multitasking ein, das in purem DOS noch nicht verfügbar war. Außerdem gab es für Windows Gerätetreiber, beispielsweise für eine Vielzahl von Druckern.
 
 ###### Microsoft Windows: Geschichte
 * der DOS-Aufsatz wurde weiterentwickelt bis einschl. Windows 95/98
@@ -265,7 +269,7 @@ Dieses Prinzip mit DOS als darunterliegendem Betriebssystem und Windows als graf
 
 Gleichzeitig begann man Anfang der 1990er Jahre aber auch, Windows-Versionen zu entwickeln, die direkt auf der Hardware liefen und DOS nicht mehr benötigten. Dabei handelt es sich um die sogenannte _Windows-NT-Linie_, während man bei den DOS-basierten Versionen von der _DOS-Linie_ spricht. Das ›NT‹ steht dabei für ›new technology‹.
 
-NT war insbesondere konzeptioniert als mehrbenutzerfähiges Netzwerk-Betriebssystem. (Zwei Dinge die heute selbstverständlich sind: fast jedes Betriebssystem kann mit mehreren Benutzern, oft gleichzeitig, arbeiten, und hat Funktionen, um in ein Netzwerk eingebunden zu werden.) Es gab einige Versionen von Windows NT, angefangen mit NT 3.1, dessen Versionsnummer sich an das damals aktuelle, DOS-basierte Windows 3.1 anlehnte.
+NT war insbesondere konzeptioniert als mehrbenutzerfähiges Netzwerk-Betriebssystem. (Zwei Dinge die heute selbstverständlich sind: fast jedes Betriebssystem kann mit mehreren Benutzerinnen, oft gleichzeitig, arbeiten, und hat Funktionen, um in ein Netzwerk eingebunden zu werden.) Es gab einige Versionen von Windows NT, angefangen mit NT 3.1, dessen Versionsnummer sich an das damals aktuelle, DOS-basierte Windows 3.1 anlehnte.
 
 Nach NT 4.0 fand man bei Microsoft, dass die neue Betriebssystemlinie reif genug für den Endanwenderinnen-Einsatz war und der DOS-Zweig langsam sterben sollte. Allerdings hatte NT den Ruf, ein Serverbetriebssystem zu sein, weshalb man sich entschloss, an das damals aktuelle Namensschema der DOS-Linie anzuknüpfen und die NT-Version 5.0 unter dem Namen ›Windows 2000‹ zu vermarkten. Damit verkaufte man es quasi als Nachfolger der letzten DOS-Linien-Version, Windows 98.
 
@@ -292,9 +296,9 @@ Doch das verbreitetste Betriebssystem weltweit zu sein hat auch seine Schattense
 ![Mac OS 8](asset/mac-os-8.png "Mac OS 8")
 ***
 
-Mac OS, also das Betriebssystem für Apples Mac-Computer, gibt es in seiner momentanen, zehnten Version schon seit 13 Jahren. Mit OS X (das X ist eine römische Zehn, demzufolge spricht man es auch ›OS ten‹ oder ›OS Zehn‹ und eigentlich nicht ›OS ix‹) stellte Apple sein Betriebssystem auf eine solide, POSIX-kompatible Unix-Grundlage. Das im Screenshot gezeigte alte Mac OS 8 war noch nicht Unix-kompatibel. (Was Unix ist, lernen Sie im folgenden Abschnitt.) Dabei orientiert sich OS X eher an den BSD-artigen Unixen, weniger an beispielsweise Linux.
+Mac OS, also das Betriebssystem für Apples Mac-Computer, gibt es in seiner momentanen, zehnten Version schon seit 14 Jahren. Mit OS X (das X ist eine römische Zehn, demzufolge spricht man es auch ›OS ten‹ oder ›OS Zehn‹ und eigentlich nicht ›OS ix‹) stellte Apple sein Betriebssystem auf eine solide, POSIX-kompatible Unix-Grundlage. Das im Screenshot gezeigte alte Mac OS 8 war noch nicht Unix-kompatibel. (Was Unix ist, lernt ihr im folgenden Abschnitt.) Dabei orientiert sich OS X eher an den BSD-artigen Unixen, weniger an beispielsweise Linux.
 
-Die einzelnen Unterversionen von OS X (10.1, 10.2 etc.) werden hauptsächlich unter ihrem Codenamen vermarktet, wobei für jede neue Version eine neue Wildkatzenart verwendet wird: Jaguar, Tiger, Lion etc.
+Die einzelnen Unterversionen von OS X (10.1, 10.2 etc.) werden hauptsächlich unter ihrem Codenamen vermarktet, wobei nach dem einstigen Wildkatzenschema (Jaguar, Tiger, Lion etc.) inzwischen für jede neue Version ein Ort in Kalifornien verwendet wird: Mavericks, Yosemite etc.
 
 ###### Apple Mac OS X: Eigenheiten
 * seit 2001: Mac OS X (ab 10.8 nur noch ›OS X‹)
@@ -445,7 +449,7 @@ Seit Version 8 basiert Windows Phone nicht mehr auf dem alten Windows CE, son
 
 Die Chromebooks von Google sind kompromisslose Cloud-Rechner: Laptops mit nur minimaler Festplattenkapazität, deren Linux-basiertes Betriebssystem aus fast nichts außer dem Google-eigenen Webbrowser Chrome besteht. Ein Chromebook startet innerhalb von etwa 15 Sekunden, einloggen kann man sich mit einem beliebigen Google-Account.
 
-Fast alle Daten werden in Googles Online-Speicher _Drive_ abgelegt. Aufgaben wie Text- oder Tabellenverarbeitung, Bildbearbeitung und -organisation etc. erledigt man im Browser auf entsprechenden Websites, z.B. _Google Docs_, _Google Sheets_ oder _Google+_. Von Chromebooks muss man daher keine Sicherungskopien anlegen, wenn sie mal defekt sind kann man einfach ein neues kaufen und weiterarbeiten. Und aufgrund der relativ schwachen verbauten Hardware kosten Chromebooks auch nicht besonders viel. Und dank der bei Chrome üblichen Updates im Hintergrund bleibt das Betriebssystem auch immer auf dem neuesten Stand.
+Fast alle Daten werden in Googles Online-Speicher _Drive_ abgelegt. Aufgaben wie Text- oder Tabellenverarbeitung, Bildbearbeitung und -organisation etc. erledigt man im Browser auf entsprechenden Websites, z.B. _Google Docs_, _Google Sheets_ oder _Google Photos_. Von Chromebooks muss man daher keine Sicherungskopien anlegen, wenn sie mal defekt sind kann man einfach ein neues kaufen und weiterarbeiten. Und aufgrund der relativ schwachen verbauten Hardware kosten Chromebooks auch nicht besonders viel. Und dank der bei Chrome üblichen Updates im Hintergrund bleibt das Betriebssystem auch immer auf dem neuesten Stand.
 
 Dieses Konzept birgt jedoch auch zwei große Nachteile: Erstens ist man ohne Internetverbindung oftmals ziemlich aufgeschmissen. Einige Websites und Web-Applikationen besitzen zwar inzwischen Offline-Fähigkeiten, können also – wenn sie einmal abgerufen wurden – auch ohne Internetverbindung weiter genutzt werden. So kann man einen Google-Docs-Text auch offline weiter bearbeiten; die Änderungen werden dann bei der nächsten Gelegenheit automatisch synchronisiert. Allerdings ist diese Technologie noch relativ neu und wird noch nicht von vielen Anwendungen angeboten.
 
@@ -453,7 +457,7 @@ Das zweite Problem ist, dass man eben noch nicht alles ohne Qualitäts- oder Fea
 
 ## Multitasking und Scheduling
 
-Wie eingangs erwähnt, ist eine der wichtigen Aufgaben eines modernen Betriebssystems, _Multitasking_, also das Ausführen mehrerer Prozesse (auch _Tasks_ genannt) „gleichzeitig“, zu ermöglichen. „Gleichzeitig“ steht hier in Anführungszeichen, weil sich echte Gleichzeitigkeit nur mit mehreren Prozessoren oder Prozessorkernen realisieren lässt. Ihr Computer führt aber oftmals mehrere hundert Tasks gleichzeitig aus – bei meist nur zwei oder vier Kernen. Wie er das bewerkstelligt, das wollen wir uns in diesem Kapitel ansehen. Aber erst mal erzählt Opa ein wenig vom Krieg – wir hatten ja nix, unter DOS.
+Wie eingangs erwähnt, ist eine der wichtigen Aufgaben eines modernen Betriebssystems, _Multitasking_, also das Ausführen mehrerer Prozesse (auch _Tasks_ genannt) „gleichzeitig“, zu ermöglichen. „Gleichzeitig“ steht hier in Anführungszeichen, weil sich echte Gleichzeitigkeit nur mit mehreren Prozessoren oder Prozessorkernen realisieren lässt. Euer Computer führt aber oftmals mehrere hundert Tasks gleichzeitig aus – bei meist nur zwei oder vier Kernen. Wie er das bewerkstelligt, das wollen wir uns in diesem Kapitel ansehen. Aber erst mal erzählt Opa ein wenig vom Krieg – wir hatten ja nix, unter DOS.
 
 ### Das Leben ohne Multitasking
 
@@ -465,7 +469,7 @@ Wie eingangs erwähnt, ist eine der wichtigen Aufgaben eines modernen Betriebssy
 
 Das Betriebssystem MS-DOS kannte noch kein Multitasking. Es lief immer genau ein Programm gleichzeitig, und zwar auf genau einem Prozessor – Mehrkernsysteme gab es nicht. Wollte man ein anderes Programm starten, musste man zuerst das laufende beenden.
 
-Wenn Sie also in Ihrer Textverarbeitung einen Brief schrieben und eine Adresse aus der Kundendatenbank heraussuchen wollten, mussten Sie das Dokument speichern, die Textverarbeitung beenden, die Datenbank starten, die Adresse irgendwie rausschreiben (eine Zwischenablage gab es auch nicht, zumindest nicht programmübergreifend), die Datenbank beenden und Ihren Brief wieder öffnen.
+Wenn ihr also in eurer Textverarbeitung einen Brief schrieben und eine Adresse aus der Kundendatenbank heraussuchen wolltet, musstet ihr das Dokument speichern, die Textverarbeitung beenden, die Datenbank starten, die Adresse irgendwie rausschreiben (eine Zwischenablage gab es auch nicht, zumindest nicht programmübergreifend), die Datenbank beenden und euren Brief wieder öffnen.
 
 Das änderte sich mit Windows, das DOS nicht nur um eine grafische Oberfläche erweiterte, sondern auch Multitasking einführte – wenn auch nicht direkt in der Form, wie wir es heute kennen.
 
@@ -484,15 +488,15 @@ Bis einschließlich Windows 3.1 (bzw. OS 9 auf Macs) implementierten die Betri
 
 Was ist mit »die Kontrolle über die CPU gemeint«? Verwaltet nicht das Betriebssystem die CPU und entscheidet, wer sie wie lange benutzen darf? Nun, nicht beim kooperativen Multitasking.
 
-Wie Sie aus der Vorlesung _Rechnerstrukturen_ wissen, arbeitet die CPU ein sich im Arbeitsspeicher befindliches Programm ab, und zwar von oben nach unten. Über Sprungbefehle kann das Programm Entscheidungen treffen, bestimmte Programmteile wiederholt ausführen oder die Ausführung an einer anderen Stelle des Arbeitsspeichers fortsetzen.
+Wie ihr aus der Vorlesung _Rechnerstrukturen_ wisst, arbeitet die CPU ein sich im Arbeitsspeicher befindliches Programm ab, und zwar von oben nach unten. Über Sprungbefehle kann das Programm Entscheidungen treffen, bestimmte Programmteile wiederholt ausführen oder die Ausführung an einer anderen Stelle des Arbeitsspeichers fortsetzen.
 
-Wenn jetzt gerade DOS läuft und Sie es auffordern, Windows zu starten, dann wird DOS – vereinfacht dargestellt – Windows von der Festplatte laden, d.h. die auf der Festplatte gespeicherten Befehle, die ›Windows‹ ausmachen, in einem freien Bereich des RAM ablegen und anschließend einen Sprungbefehl an den Anfang dieses Speicherbereiches geben. Ab diesem Moment „läuft“ Windows – DOS nicht mehr.
+Wenn jetzt gerade DOS läuft und ihr es auffordert, Windows zu starten, dann wird DOS – vereinfacht dargestellt – Windows von der Festplatte laden, d.h. die auf der Festplatte gespeicherten Befehle, die ›Windows‹ ausmachen, in einem freien Bereich des RAM ablegen und anschließend einen Sprungbefehl an den Anfang dieses Speicherbereiches geben. Ab diesem Moment „läuft“ Windows – DOS nicht mehr.
 
-DOS befindet sich noch im Speicher, und sobald Sie Windows beenden, wird die Ausführung wieder in dem Speicherbereich fortgeführt, in dem DOS liegt, und zwar direkt nach dem ausgeführten Sprungbefehl. DOS „weiß“ dann, dass Sie Windows beendet haben und steht Ihnen wieder zur Verfügung. Aber während Windows läuft, ist DOS quasi eingefroren. Es kann nichts „tun“, weil sein Programmcode einfach von der CPU nicht bearbeitet wird.
+DOS befindet sich noch im Speicher, und sobald ihr Windows beendet, wird die Ausführung wieder in dem Speicherbereich fortgeführt, in dem DOS liegt, und zwar direkt nach dem ausgeführten Sprungbefehl. DOS „weiß“ dann, dass ihr Windows beendet habt und steht euch wieder zur Verfügung. Aber während Windows läuft, ist DOS quasi eingefroren. Es kann nichts „tun“, weil sein Programmcode einfach von der CPU nicht bearbeitet wird.
 
-Sobald Sie diese Tatsache verstanden haben – ein Programm kann nur etwas „tun“, wenn die CPU den im RAM abgelegten Programmcode dieser Software weiter abarbeitet – wissen Sie auch, was die eigentliche Aufgabe von Multitasking ist: Regelmäßig zwischen all diesem im RAM abgelegten Code hin und her wechseln, damit möglichst alle Programme weiter tun können, was sie eben tun sollen.
+Sobald ihr diese Tatsache verstanden habt – ein Programm kann nur etwas „tun“, wenn die CPU den im RAM abgelegten Programmcode dieser Software weiter abarbeitet – wisst ihr auch, was die eigentliche Aufgabe von Multitasking ist: Regelmäßig zwischen all diesem im RAM abgelegten Code hin und her wechseln, damit möglichst alle Programme weiter tun können, was sie eben tun sollen.
 
-Wenn Sie nun unter Windows 3.1 ein Programm starten, passiert im Prinzip genau das selbe: Windows lädt das Programm von der Festplatte in den RAM und lässt die CPU dann an den Anfang dessen Speicherbereiches springen. Aber hier kommt der Clou: Auch dieses Programm lässt seinen Code von vorne bis hinten durchlaufen, nur dass sich an sehr vielen Stellen in diesem Code – wieder etwas vereinfacht – der Befehl befindet: »springe zurück zum Betriebssystem«, auch _Yield_ genannt. Das ist gemeint, wenn ich von »dem Betriebssystem die Kontrolle über die CPU zurück geben« spreche: Das Programm selbst weist die CPU freiwillig an, wieder Code des Betriebssystems statt seinen eigenen auszuführen. Und ja, das bedeutet, dass das Programm ab diesem Punkt wieder „eingefroren“ ist.
+Wenn ihr nun unter Windows 3.1 ein Programm startet, passiert im Prinzip genau das selbe: Windows lädt das Programm von der Festplatte in den RAM und lässt die CPU dann an den Anfang dessen Speicherbereiches springen. Aber hier kommt der Clou: Auch dieses Programm lässt seinen Code von vorne bis hinten durchlaufen, nur dass sich an sehr vielen Stellen in diesem Code – wieder etwas vereinfacht – der Befehl befindet: »springe zurück zum Betriebssystem«, auch _Yield_ genannt. Das ist gemeint, wenn ich von »dem Betriebssystem die Kontrolle über die CPU zurück geben« spreche: Das Programm selbst weist die CPU freiwillig an, wieder Code des Betriebssystems statt seinen eigenen auszuführen. Und ja, das bedeutet, dass das Programm ab diesem Punkt wieder „eingefroren“ ist.
 
 Natürlich springt die CPU nicht an irgendeine Stelle von Windows, sondern an eine ganz bestimmte: an den Teil, der sich um das Multitasking kümmert, der sogenannte _Scheduler_. Er entscheidet, welches der sich im Speicher befindlichen, momentan eingefrorenen Programme als nächstes weiter laufen darf. Dann gibt auch er der CPU einen Sprungbefehl, und zwar direkt hinter die Stelle, an der das Programm zuvor die Kontrolle an Windows zurück gegeben hatte. So kann das Programm nahtlos weiterlaufen.
 
@@ -500,9 +504,9 @@ Aber was würde jetzt passieren, wenn das Programm die Kontrolle nicht wieder an
 
 Eine andere Alternative wäre eine Software, die aktiv Schaden anrichten soll. Sie könnte absichtlich so programmiert sein, dass sie einfach nie wieder die Kontrolle an das Betriebssystem zurückgibt und selbst immer weiter läuft – und dabei beispielsweise den Inhalt der Festplatte löscht.
 
-Wenn also nie ein Yield stattfindet, können keine anderen Anwendungen und auch das Betriebssystem selbst nicht mehr laufen. Und wenn das OS selbst nicht läuft, können Sie als Anwenderin auch nicht die Funktionen des Betriebssystems verwenden, mit denen Sie ein sich schädlich verhaltendes Programm erzwungenermaßen beenden können.
+Wenn also nie ein Yield stattfindet, können keine anderen Anwendungen und auch das Betriebssystem selbst nicht mehr laufen. Und wenn das OS selbst nicht läuft, können ihr als Anwenderinnen auch nicht die Funktionen des Betriebssystems verwenden, mit denen ihr ein sich schädlich verhaltendes Programm erzwungenermaßen beenden könnt.
 
-Ein Programmierfehler in nur einer der laufenden Anwendungen kann also dazu führen, dass der ganze Computer nicht reagiert. Ihnen bleibt nichts übrig, als ihn aus und wieder an zu schalten. Sämtliche nicht gespeicherten Daten in allen Programmen sind dann verloren.
+Ein Programmierfehler in nur einer der laufenden Anwendungen kann also dazu führen, dass der ganze Computer nicht reagiert. Euch bleibt nichts übrig, als ihn aus und wieder an zu schalten. Sämtliche nicht gespeicherten Daten in allen Programmen sind dann verloren.
 
 Das ist jedoch nicht das einzige Problem. Gibt ein Programm die Kontrolle zu selten zurück, können Eingaben der Benutzerin nicht zeitnah genug verarbeitet werden. Auch die Aktualisierung der Darstellung am Bildschirm ist womöglich verzögert. Das System fühlt sich langsam an und _ruckelt_.
 
@@ -515,7 +519,7 @@ Der einzige Vorteil, mit dem kooperatives Multitasking aufwartet, ist, dass ein 
 * Scheduler entscheidet: Prozess darf weiterlaufen oder wird durch anderen ersetzt
 ***
 
-Beim sogenannten _präemptiven_ Multitasking entfallen die Yields völlig. Stattdessen unterbricht das Betriebssystem die Prozesse an einer beliebigen Stelle. Wie es das kann, fragen Sie, wo es doch gar nicht läuft? Eine gute Frage! Es bekommt Unterstützung, und zwar von der CPU selbst: In regelmäßigen Abständen sorgt ein sogenannter _Timer-Interrupt_ dafür, dass die Kontrolle wieder an den Scheduler des Betriebssystems zurück geht. Dieser entscheidet dann wie üblich, mit welchem Prozess die Ausführung fortgesetzt wird.
+Beim sogenannten _präemptiven_ Multitasking entfallen die Yields völlig. Stattdessen unterbricht das Betriebssystem die Prozesse an einer beliebigen Stelle. Wie es das kann, fragt ihr, wo es doch gar nicht läuft? Eine gute Frage! Es bekommt Unterstützung, und zwar von der CPU selbst: In regelmäßigen Abständen sorgt ein sogenannter _Timer-Interrupt_ dafür, dass die Kontrolle wieder an den Scheduler des Betriebssystems zurück geht. Dieser entscheidet dann wie üblich, mit welchem Prozess die Ausführung fortgesetzt wird.
 
 Diesen Timer-Interrupt kann man sich als eine Art Wecker vorstellen. Sobald er ausgelöst wird – und zwar von der Hardware selbst, nicht von dem Betriebssystem oder einer Anwendung – springt die CPU an eine vorher definierte Speicherstelle.
 
@@ -536,7 +540,7 @@ Schauen wir uns diese Interrupts (zu Deutsch: Unterbrechungen) einmal ein wenig 
 
 Der Transfer von Daten zur oder von der Festplatte ist, wenn man eine CPU ist, eine sehr langwierige Sache. Wenn ein Prozess beispielsweise einige Byte von der Festplatte lesen möchte, dauert es möglicherweise hunderte Taktzyklen (eine Addition üblicherweise einen), bis der Befehl überhaupt bei der Festplatte angekommen ist. Bis die Festplatte ihren Schreib-/Lesekopf in Position hat und die Daten zurückgeliefert hat, vergehen einige Millisekunden – für eine heutige CPU eine wahnsinnig lange Zeit. Und in dieser Zeit kann sie schlimmstenfalls gar nichts anderes tun, weil sie mit Warten beschäftigt ist.
 
-Früher war das übrigens tatsächlich so: Die CPU war mit Warten _beschäftigt_. Sie vollführte etwas, das man _Busy Waiting_ nannte: Nach dem Absenden des Befehls an die Festplatte trat sie in eine Schleife ein und prüfte immer und immer wieder, ob die Daten inzwischen von der Festplatte geliefert worden waren. (Ein Beispiel für ein solches „Gespräch“ zwischen CPU und Festplatte finden Sie auf der Folie.)
+Früher war das übrigens tatsächlich so: Die CPU war mit Warten _beschäftigt_. Sie vollführte etwas, das man _Busy Waiting_ nannte: Nach dem Absenden des Befehls an die Festplatte trat sie in eine Schleife ein und prüfte immer und immer wieder, ob die Daten inzwischen von der Festplatte geliefert worden waren. (Ein Beispiel für ein solches „Gespräch“ zwischen CPU und Festplatte findet ihr auf der Folie.)
 
 Natürlich ist Busy Waiting furchtbar unperformant: Die CPU könnte so viel sinnvollere Dinge tun, während die Festplatte ihre Arbeit erledigt. Und selbst wenn es sonst nichts für die CPU zu tun gäbe, könnte sie zumindest ein paar Millisekunden lang in einen Stromsparmodus gehen. Umweltschutz und so.
 
@@ -587,7 +591,7 @@ Darüberhinaus lässt sich diese Priorität auch von der Anwenderin anpassen, be
 * werden wiederhergestellt, bevor er wieder aktiviert wird
 ***
 
-Bei alledem muss übrigens auch darauf geachtet werden, dass die Prozesse sich gegenseitig nicht beeinflussen. Denn trotz all den ausgefallenen Techniken, die moderne Betriebssysteme beherrschen, basieren Programme weiterhin auf den simplen Befehlen, die Sie in _Rechnerstrukturen_ kennengelernt haben. Insbesondere legen sie Daten in CPU-Registern ab oder lesen welche aus ihnen. Und CPU-Register gibt es sehr wenige, so dass nicht jeder Prozess seine eigenen haben kann.
+Bei alledem muss übrigens auch darauf geachtet werden, dass die Prozesse sich gegenseitig nicht beeinflussen. Denn trotz all den ausgefallenen Techniken, die moderne Betriebssysteme beherrschen, basieren Programme weiterhin auf den simplen Befehlen, die ihr in _Rechnerstrukturen_ kennengelernt habt. Insbesondere legen sie Daten in CPU-Registern ab oder lesen welche aus ihnen. Und CPU-Register gibt es sehr wenige, so dass nicht jeder Prozess seine eigenen haben kann.
 
 Es ist nun leicht zu erkennen, dass man nicht einfach wild zwischen den Prozessen hin und her schalten kann, da sie sich gegenseitig fröhlich die Registerinhalte überschreiben würden. Deshalb wird eine Maßnahme angewandt, die sich _Kontextwechsel_ nennt.
 
@@ -613,11 +617,11 @@ Programme bekommen …
 
 Das Zuweisen einer bestimmten Menge Arbeitsspeicher an ein Programm nennt sich _Allokation_, das passende Verb ist _allokieren_ oder _allozieren_. Es gibt im großen und ganzen zwei Gründe, warum ein Programm Speicher benötigt.
 
-Der eine ist: Das Programm selbst, also die Befehle, aus denen es besteht, müssen im Arbeitsspeicher abgelegt werden, denn von dort holt sie sich die CPU und führt sie aus. Wenn Sie ein Programm starten, lädt das Betriebssystem das Programm von der Festplatte und legt es im RAM ab. Die Menge an RAM, die das Programm in Anspruch nimmt, ist durch seine Größe auf der Festplatte vorgegeben und fest. Hierbei handelt es sich also um Speicher, den das Programm _zur Ladezeit_ bekommt. So lange das Programm läuft, belegt es diesen Speicher.
+Der eine ist: Das Programm selbst, also die Befehle, aus denen es besteht, müssen im Arbeitsspeicher abgelegt werden, denn von dort holt sie sich die CPU und führt sie aus. Wenn ihr ein Programm startet, lädt das Betriebssystem das Programm von der Festplatte und legt es im RAM ab. Die Menge an RAM, die das Programm in Anspruch nimmt, ist durch seine Größe auf der Festplatte vorgegeben und fest. Hierbei handelt es sich also um Speicher, den das Programm _zur Ladezeit_ bekommt. So lange das Programm läuft, belegt es diesen Speicher.
 
 Darüberhinaus benötigt ein Programm auch Speicher _zur Laufzeit_, also während es ausgeführt wird. Diesen Speicher kann es jederzeit in variabler Menge vom Betriebssystem beantragen (man spricht von _dynamischer Allokation_), darin Daten ablegen und ihn auch, wenn nicht mehr benötigt, wieder freigeben.
 
-Aber wie baut man nun ein System, auf dem mehrere Prozesse gleichzeitig laufen können, und verhindert dabei, dass ein Prozess den Speicher eines anderen lesen (oder gar beschreiben) kann? Denn alles, was Sie in Ihrem Computer eingeben, egal ob geheim oder nicht, landet im Arbeitsspeicher – inklusive Passwörtern. Und Sie wollen wohl eher nicht, dass ein kostenloses Spiel aus dem Internet den Speicher Ihres Browsers auslesen kann, während Sie dort Ihre Onlinebanking-PIN eingeben.
+Aber wie baut man nun ein System, auf dem mehrere Prozesse gleichzeitig laufen können, und verhindert dabei, dass ein Prozess den Speicher eines anderen lesen (oder gar beschreiben) kann? Denn alles, was ihr in euren Computer eingebt, egal ob geheim oder nicht, landet im Arbeitsspeicher – inklusive Passwörtern. Und ihr wollt wohl eher nicht, dass ein kostenloses Spiel aus dem Internet den Speicher eures Browsers auslesen kann, während ihr dort eure Onlinebanking-PIN eingebt.
 
 Doch einfach sämtliche Lese- und Schreibzugriffe auf den RAM über das Betriebssystem zu leiten ist nicht realisierbar: Erstens ist das viel zu langsam (jeder Speicherzugriff würde einen Kontextwechsel und mehr oder weniger aufwendige Sicherheitsprüfungen bedeuten), zweitens funktionieren CPUs einfach nicht so: Ihre grundlegenden Befehle gehen davon aus, dass auf beliebige Stellen im RAM zugegriffen werden kann.
 
@@ -712,7 +716,7 @@ Dieses Reservieren und Freigeben von Speicherbereichen kann dazu führen, dass i
 
 Virtueller Speicher und das Aufteilen des physischen RAM in Seiten hat aber noch einen weiteren Vorteil: Das Betriebssystem kann Anwendungen vorgaukeln, es hätte mehr verfügbaren Arbeitsspeicher, als eigentlich eingebaut ist.
 
-Die Menge des in einem Rechner verfügbaren RAM liegt üblicherweise zwei bis drei Größenordnungen unter der Menge des Massenspeichers: Ihre Festplatte fasst beispielsweise 500 GB, aber Sie haben „nur“ 4 GB RAM. (Mikrocontroller haben teils nur 1 KB(!) RAM, frühe PCs kamen mit 8 MB RAM.) Es wäre praktisch, wenn Sie die Festplatte ähnlich wie RAM benutzen könnten. Leider sind CPUs nicht dafür ausgelegt, Daten von der Festplatte direkt zu bearbeiten. Ihre Befehle können nur mit dem RAM arbeiten, und der Zugriff auf RAM ist auch wesentlich schneller und weniger komplex als mit einer Festplatte zu kommunizieren.
+Die Menge des in einem Rechner verfügbaren RAM liegt üblicherweise zwei bis drei Größenordnungen unter der Menge des Massenspeichers: Ihre Festplatte fasst beispielsweise 500 GB, aber Sie haben „nur“ 4 GB RAM. (Mikrocontroller haben teils nur 1 KB(!) RAM, frühe PCs kamen mit 8 MB RAM.) Es wäre praktisch, wenn man die Festplatte ähnlich wie RAM benutzen könnte. Leider sind CPUs nicht dafür ausgelegt, Daten von der Festplatte direkt zu bearbeiten. Ihre Befehle können nur mit dem RAM arbeiten, und der Zugriff auf RAM ist auch wesentlich schneller und weniger komplex als mit einer Festplatte zu kommunizieren.
 
 Moderne Betriebssysteme behelfen sich jedoch mit einem Trick, um trotzdem die Festplatte als Erweiterung des Arbeitsspeichers nutzen zu können: Wenn der freie RAM knapp wird, kopieren sie Seiten aus dem RAM aus die Festplatte und entfernen die Seite danach aus dem Arbeitsspeicher. Damit kann dort für einen anderen – oder auch den selben – Prozess wieder eine Seite alloziert werden.
 
@@ -736,7 +740,7 @@ Alternativ könnte man versuchen, Seiten auszulagern, die für eine gewisse Zeit
 
 Oder aber man merkt sich nicht, _wann_ eine Seite benutzt wurde, sondern wie _oft_, und lagert die am seltensten benötigten aus (least frequently used, LFU). Oder doch lieber einfach die „ältesten“ Seiten, sprich die, die am längsten im RAM sind (first in, first out, FIFO)?
 
-Wie Sie sehen, gibt es sehr viele Möglichkeiten, und die meisten davon können je nach Situation und Zugriffsmuster der Prozesse durchaus sehr gute Lösungen sein. Die perfekte Strategie für alle Anwendungsfälle ist jedoch unmöglich zu realisieren, weshalb Betriebssysteme üblicherweise eine Kompromissstrategie verwenden, die in den meisten Fällen ganz gut funktioniert. Welche genau das ist, ist von OS zu OS unterschiedlich. In manchen Betriebssystemen lässt sich die Auslagerungsstrategie sogar konfigurieren.
+Wie ihr seht, gibt es sehr viele Möglichkeiten, und die meisten davon können je nach Situation und Zugriffsmuster der Prozesse durchaus sehr gute Lösungen sein. Die perfekte Strategie für alle Anwendungsfälle ist jedoch unmöglich zu realisieren, weshalb Betriebssysteme üblicherweise eine Kompromissstrategie verwenden, die in den meisten Fällen ganz gut funktioniert. Welche genau das ist, ist von OS zu OS unterschiedlich. In manchen Betriebssystemen lässt sich die Auslagerungsstrategie sogar konfigurieren.
 
 ###### Probleme beim Auslagern
 * Wiedereinlagern ist einfach, wenn RAM frei
@@ -750,9 +754,9 @@ Wie Sie sehen, gibt es sehr viele Möglichkeiten, und die meisten davon können 
 
 Nun ist das mit dem Wiedereinlagern von Seiten natürlich nicht ganz so einfach, wie es vielleicht den Anschein hat. Denn üblicherweise wird ja nur ausgelagert, wenn der RAM voll ist. Es kommt also oft vor, dass vor dem Wiedereinlagern von Seiten erst mal andere ausgelagert werden müssen.
 
-Wenn nun die gerade ausgelagerten Seiten wieder gebraucht werden, müssen diese natürlich wieder eingelagert und daher andere ausgelagert werden. Wenn Sie viele oder speicherhungrige Programme benutzen, kann es passieren, dass das Betriebssystem nur noch mit dem Aus- und Einlagern beschäftigt ist. Die Platte rattert ununterbrochen, Programme kommen kaum noch dazu, etwas Sinnvolles zu tun, die Geschwindigkeit des Rechners ist massiv reduziert.
+Wenn nun die gerade ausgelagerten Seiten wieder gebraucht werden, müssen diese natürlich wieder eingelagert und daher andere ausgelagert werden. Wenn ihr viele oder speicherhungrige Programme benutzt, kann es passieren, dass das Betriebssystem nur noch mit dem Aus- und Einlagern beschäftigt ist. Die Platte rattert ununterbrochen, Programme kommen kaum noch dazu, etwas Sinnvolles zu tun, die Geschwindigkeit des Rechners ist massiv reduziert.
 
-Diesen Zustand nennt man Seitenflattern oder _Thrashing_, und er weist darauf hin, dass die Möglichkeiten Ihres Computers ziemlich ausgereizt sind. Wollen Sie flüssig weiterarbeiten, bleibt Ihnen nicht viel übrig, außer mehr RAM einzubauen, Programme zu schließen oder weniger ressourcenintensive Software zu benutzen. Beispielsweise müssen Sie zum Betrachten eines Fotos nicht gleich Photoshop starten, der mitgelieferte Bildbetrachter Ihres Betriebssystems reicht auch.
+Diesen Zustand nennt man Seitenflattern oder _Thrashing_, und er weist darauf hin, dass die Möglichkeiten eures Computers ziemlich ausgereizt sind. Wollt ihr flüssig weiterarbeiten, bleibt euch nicht viel übrig, außer mehr RAM einzubauen, Programme zu schließen oder weniger ressourcenintensive Software zu benutzen. Beispielsweise müsst ihr zum Betrachten eines Fotos nicht gleich Photoshop starten, der mitgelieferte Bildbetrachter eures Betriebssystems reicht auch.
 
 ## Dateien
 
